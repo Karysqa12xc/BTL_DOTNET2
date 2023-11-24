@@ -1,7 +1,10 @@
-using Microsoft.EntityFrameworkCore;
+
+
 using BTL_DOTNET2.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<ForumContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
+builder.Services.AddDbContext<TestForumContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Server=ADMIN-PC\\SQLEXPRESS; Database=TestForum; User Id = nam; Password=1234; Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True; Encrypt= True;")));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

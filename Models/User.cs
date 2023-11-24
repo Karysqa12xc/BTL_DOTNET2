@@ -1,23 +1,28 @@
-using System.Net.Mime;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace BTL_DOTNET2.Models
+namespace BTL_DOTNET2.Models;
+
+public partial class User
 {
-    public class User
-    {
-        [Key]        
-        public int UserId { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập tên tài khoản")]
-        public string UserName { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
-        [StringLength(50, MinimumLength = 8)]
-        public string Password { get; set; }
-        [DataType(DataType.EmailAddress)]
-        public string EmailAddress { get; set; }        
-        public string Avatar { get; set; }  
-    }
+    [Key]
+    public int UserId { get; set; }
+
+    public string UserName { get; set; } = null!;
+
+    [StringLength(50)]
+    public string Password { get; set; } = null!;
+
+    public string EmailAddress { get; set; } = null!;
+
+    public string Avatar { get; set; } = null!;
+
+    [InverseProperty("User")]
+    public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+
+    [InverseProperty("User")]
+    public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 }

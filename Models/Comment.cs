@@ -1,25 +1,30 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace BTL_DOTNET2.Models
+namespace BTL_DOTNET2.Models;
+
+public partial class Comment
 {
-    public class Comment
-    {
-        [Key]
-        public int CommentId { get; set; }
-        public DateTime CommentTime { get; set; } = DateTime.Now;
-        public int UserId{ get; set; }
-        public int postId{ get; set; }
-        public int ContentCommentId{ get; set; }
-        [ForeignKey("UserId")]
-        public User User { get; set; }
-        [ForeignKey("postId")]
-        public Post Post { get; set; }
-        [ForeignKey("ContentCommentId")]
-        public ContentComment ContentComment { get; set; }   
-    }
+    [Key]
+    public int CommentId { get; set; }
+
+    public DateTime CommentTime { get; set; }
+
+    public int UserId { get; set; }
+
+    [Column("postId")]
+    public int PostId { get; set; }
+
+    public int ContentCommentId { get; set; }
+
+    [ForeignKey("CommentId")]
+    [InverseProperty("Comment")]
+    public virtual ContentComment CommentNavigation { get; set; } = null!;
+
+    [ForeignKey("PostId")]
+    [InverseProperty("Comments")]
+    public virtual Post Post { get; set; } = null!;
 }

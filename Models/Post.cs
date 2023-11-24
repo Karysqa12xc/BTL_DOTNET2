@@ -1,31 +1,47 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace BTL_DOTNET2.Models
+namespace BTL_DOTNET2.Models;
+
+public partial class Post
 {
-    public class Post
-    {
-        [Key]
-        public int postId { get; set; }
-        [Required(ErrorMessage = "Bạn phải nhập tiêu đề")]
-        public string Title { get; set; }
-        public DateTime PostTime { get; set; } = DateTime.Now;
-        public int CommentTotal { get; set; } = 0;
-        public bool isSave { get; set; }
-        public int UserId { get; set; }
-        public int CateId { get; set; }
-        public int ContentPostId { get; set; }
-        [ForeignKey("UserId")]
-        public User user { get; set; }
-        [ForeignKey("CateId")]
-        public Categories categories;
-        [ForeignKey("ContentPostId")]
-        public ContentPost ContentPost { get; set; }
-        public List<Comment> Comments { get; set; }
-        public List<Notifications> Notifications { get; set; }
-    }
+    [Key]
+    [Column("postId")]
+    public int PostId { get; set; }
+
+    public string Title { get; set; } = null!;
+
+    public DateTime PostTime { get; set; }
+
+    public int CommentTotal { get; set; }
+
+    [Column("isSave")]
+    public bool IsSave { get; set; }
+
+    public int UserId { get; set; }
+
+    public int CateId { get; set; }
+
+    public int ContentPostId { get; set; }
+
+    [ForeignKey("CateId")]
+    [InverseProperty("Posts")]
+    public virtual Category Cate { get; set; } = null!;
+
+    [InverseProperty("Post")]
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
+    [ForeignKey("ContentPostId")]
+    [InverseProperty("Posts")]
+    public virtual ContentPost ContentPost { get; set; } = null!;
+
+    [InverseProperty("Post")]
+    public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+
+    [ForeignKey("UserId")]
+    [InverseProperty("Posts")]
+    public virtual User User { get; set; } = null!;
 }
