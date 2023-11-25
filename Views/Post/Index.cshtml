@@ -53,13 +53,13 @@
                 @Html.DisplayFor(modelItem => item.IsSave)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cate.CateId)
+                @Html.DisplayFor(modelItem => item.Cate.CateName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ContentPost.ContentPostId)
+                @Html.DisplayFor(modelItem => item.ContentPost.Paragram)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UserId)
+                @Html.DisplayFor(modelItem => item.User.UserName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
