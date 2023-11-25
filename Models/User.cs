@@ -21,6 +21,9 @@ public partial class User
     public string Avatar { get; set; } = null!;
 
     [InverseProperty("User")]
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
+    [InverseProperty("User")]
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 
     [InverseProperty("User")]

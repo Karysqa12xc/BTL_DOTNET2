@@ -15,6 +15,6 @@ public partial class ContentComment
 
     public string Image { get; set; } = null!;
 
-    [InverseProperty("CommentNavigation")]
-    public virtual Comment? Comment { get; set; }
+    [InverseProperty("ContentComment")]
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }

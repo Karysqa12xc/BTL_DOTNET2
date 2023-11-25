@@ -17,16 +17,13 @@
                 @Html.DisplayNameFor(model => model.CommentTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContentCommentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CommentNavigation)
+                @Html.DisplayNameFor(model => model.ContentComment)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Post)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
             </th>
             <th></th>
         </tr>
@@ -38,16 +35,13 @@
                 @Html.DisplayFor(modelItem => item.CommentTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContentCommentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CommentNavigation.ContentCommentId)
+                @Html.DisplayFor(modelItem => item.ContentComment.ContentCommentId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Post.PostId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CommentId">Edit</a> |

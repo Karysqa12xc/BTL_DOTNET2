@@ -22,7 +22,7 @@ namespace BTL_DOTNET2.Controllers
         // GET: Commnet
         public async Task<IActionResult> Index()
         {
-            var testForumContext = _context.Comments.Include(c => c.CommentNavigation).Include(c => c.Post);
+            var testForumContext = _context.Comments.Include(c => c.ContentComment).Include(c => c.Post).Include(c => c.User);
             return View(await testForumContext.ToListAsync());
         }
 
@@ -35,8 +35,9 @@ namespace BTL_DOTNET2.Controllers
             }
 
             var comment = await _context.Comments
-                .Include(c => c.CommentNavigation)
+                .Include(c => c.ContentComment)
                 .Include(c => c.Post)
+                .Include(c => c.User)
                 .FirstOrDefaultAsync(m => m.CommentId == id);
             if (comment == null)
             {
@@ -49,8 +50,9 @@ namespace BTL_DOTNET2.Controllers
         // GET: Commnet/Create
         public IActionResult Create()
         {
-            ViewData["CommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId");
+            ViewData["ContentCommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId");
             ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
             return View();
         }
 
@@ -67,8 +69,9 @@ namespace BTL_DOTNET2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.CommentId);
+            ViewData["ContentCommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.ContentCommentId);
             ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", comment.UserId);
             return View(comment);
         }
 
@@ -85,8 +88,9 @@ namespace BTL_DOTNET2.Controllers
             {
                 return NotFound();
             }
-            ViewData["CommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.CommentId);
+            ViewData["ContentCommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.ContentCommentId);
             ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", comment.UserId);
             return View(comment);
         }
 
@@ -122,8 +126,9 @@ namespace BTL_DOTNET2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.CommentId);
+            ViewData["ContentCommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.ContentCommentId);
             ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", comment.UserId);
             return View(comment);
         }
 
@@ -136,8 +141,9 @@ namespace BTL_DOTNET2.Controllers
             }
 
             var comment = await _context.Comments
-                .Include(c => c.CommentNavigation)
+                .Include(c => c.ContentComment)
                 .Include(c => c.Post)
+                .Include(c => c.User)
                 .FirstOrDefaultAsync(m => m.CommentId == id);
             if (comment == null)
             {

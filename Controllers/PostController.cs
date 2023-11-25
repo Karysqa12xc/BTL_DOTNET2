@@ -50,9 +50,9 @@ namespace BTL_DOTNET2.Controllers
         // GET: Post/Create
         public IActionResult Create()
         {
-            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateName");
+            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId");
             ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserName");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
             return View();
         }
 
@@ -63,16 +63,15 @@ namespace BTL_DOTNET2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PostId,Title,PostTime,CommentTotal,IsSave,UserId,CateId,ContentPostId")] Post post)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            // var c = from cate in _context.Categories where (cate.CateId == post.CateId) select cate.CateName;
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserName", post.UserId);
-            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateName", post.CateId);
+            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId", post.CateId);
             ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId", post.ContentPostId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", post.UserId);
             return View(post);
         }
 
@@ -89,7 +88,6 @@ namespace BTL_DOTNET2.Controllers
             {
                 return NotFound();
             }
-            
             ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId", post.CateId);
             ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId", post.ContentPostId);
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", post.UserId);
@@ -108,7 +106,7 @@ namespace BTL_DOTNET2.Controllers
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {

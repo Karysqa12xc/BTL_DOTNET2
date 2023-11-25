@@ -20,11 +20,15 @@ public partial class Comment
 
     public int ContentCommentId { get; set; }
 
-    [ForeignKey("CommentId")]
-    [InverseProperty("Comment")]
-    public virtual ContentComment CommentNavigation { get; set; } = null!;
+    [ForeignKey("ContentCommentId")]
+    [InverseProperty("Comments")]
+    public virtual ContentComment ContentComment { get; set; } = null!;
 
     [ForeignKey("PostId")]
     [InverseProperty("Comments")]
     public virtual Post Post { get; set; } = null!;
+
+    [ForeignKey("UserId")]
+    [InverseProperty("Comments")]
+    public virtual User User { get; set; } = null!;
 }

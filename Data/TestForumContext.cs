@@ -38,15 +38,17 @@ public partial class TestForumContext : DbContext
     {
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.Property(e => e.CommentId).ValueGeneratedOnAdd();
-
-            entity.HasOne(d => d.CommentNavigation).WithOne(p => p.Comment)
+            entity.HasOne(d => d.ContentComment).WithMany(p => p.Comments)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Comments_ContentComments");
 
             entity.HasOne(d => d.Post).WithMany(p => p.Comments)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Comments_Posts");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Comments)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Comments_Users");
         });
 
         modelBuilder.Entity<Notification>(entity =>
