@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/_MyLayout.cshtml";
+    @* Layout = "_Layout"; *@
 }
 
 <h1>Create</h1>
@@ -18,11 +19,11 @@
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="PostTime" class="control-label"></label>
-                <input asp-for="PostTime" class="form-control" />
+                <input asp-for="PostTime" class="form-control"/>
                 <span asp-validation-for="PostTime" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="CommentTotal" class="control-label"></label>
                 <input asp-for="CommentTotal" class="form-control" />
@@ -35,15 +36,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                <input asp-for="UserId" class="form-control" value="@ViewBag.UserId">
+                <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CateId" class="control-label"></label>
-                <select asp-for="CateId" class ="form-control" asp-items="ViewBag.CateId"></select>
+                <select asp-for="CateId" class ="form-control" asp-items= "ViewBag.CateId"></select>
+                @* <input asp-for="CateId" class="form-control" value="@ViewBag.CateId"> *@
             </div>
             <div class="form-group">
                 <label asp-for="ContentPostId" class="control-label"></label>
-                <select asp-for="ContentPostId" class ="form-control" asp-items="ViewBag.ContentPostId"></select>
+                <input asp-for="ContentPostId" class="form-control" value="@ViewBag.ContentPostId">
+                <span asp-validation-for="ContentPostId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -55,7 +59,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +18,7 @@ namespace BTL_DOTNET2.Controllers
         // GET: Post
         public async Task<IActionResult> Index()
         {
+            TempData["UserId"] = 4;
             var testForumContext = _context.Posts.Include(p => p.Cate).Include(p => p.ContentPost).Include(p => p.User);
             return View(await testForumContext.ToListAsync());
         }
@@ -51,8 +48,12 @@ namespace BTL_DOTNET2.Controllers
         public IActionResult Create()
         {
             ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId");
-            ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            // ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId");
+            // ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            ViewBag.UserId = 4;
+            // ViewBag.CateId = 4;
+            ViewBag.ContentPostId = 2;
+            ViewBag.PostTime = DateTime.Now;
             return View();
         }
 
@@ -63,16 +64,30 @@ namespace BTL_DOTNET2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PostId,Title,PostTime,CommentTotal,IsSave,UserId,CateId,ContentPostId")] Post post)
         {
-            if (ModelState.IsValid)
+            ModelState.Remove("PostTime");
+            if (!ModelState.IsValid)
             {
-                _context.Add(post);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                post.PostTime = DateTime.Now;
+                if (post.Title != null && post.CommentTotal >= 0)
+                {
+                    
+                    _context.Add(post);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            foreach (var modelState in ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
             }
             ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId", post.CateId);
             ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId", post.ContentPostId);
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", post.UserId);
             return View(post);
+
         }
 
         // GET: Post/Edit/5
@@ -91,6 +106,7 @@ namespace BTL_DOTNET2.Controllers
             ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId", post.CateId);
             ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId", post.ContentPostId);
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", post.UserId);
+
             return View(post);
         }
 
@@ -167,14 +183,14 @@ namespace BTL_DOTNET2.Controllers
             {
                 _context.Posts.Remove(post);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PostExists(int id)
         {
-          return (_context.Posts?.Any(e => e.PostId == id)).GetValueOrDefault();
+            return (_context.Posts?.Any(e => e.PostId == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BTL_DOTNET2.Models;
 
@@ -20,11 +18,9 @@ public partial class Post
 
     [Column("isSave")]
     public bool IsSave { get; set; }
-
     public int UserId { get; set; }
-
     public int CateId { get; set; }
-
+    
     public int ContentPostId { get; set; }
 
     [ForeignKey("CateId")]
