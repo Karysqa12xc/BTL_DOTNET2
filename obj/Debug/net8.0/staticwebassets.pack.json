@@ -1,7 +1,7 @@
 {
   "Files": [
     {
-      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\BTL_DOTNET2.bundle.scp.css",
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BTL_DOTNET2.bundle.scp.css",
       "PackagePath": "staticwebassets\\BTL_DOTNET2.bundle.scp.css"
     },
     {
@@ -249,19 +249,19 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.BTL_DOTNET2.Microsoft.AspNetCore.StaticWebAssets.props",
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BTL_DOTNET2.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
     {
-      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.BTL_DOTNET2.props",
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.BTL_DOTNET2.props",
       "PackagePath": "build\\BTL_DOTNET2.props"
     },
     {
-      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.BTL_DOTNET2.props",
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.BTL_DOTNET2.props",
       "PackagePath": "buildMultiTargeting\\BTL_DOTNET2.props"
     },
     {
-      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.BTL_DOTNET2.props",
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.BTL_DOTNET2.props",
       "PackagePath": "buildTransitive\\BTL_DOTNET2.props"
     }
   ],
