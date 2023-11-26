@@ -10,6 +10,10 @@ namespace BTL_DOTNET2.Models
     public class User : IdentityUser
     {
         [Required]
-        public string UserId = "Anonymous";
+        public string UserId{ get; set; }
+        public User()
+        {
+            UserId = Guid.NewGuid().ToString();
+        }
     }
 }
