@@ -1,28 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace BTL_DOTNET2.Models;
-
-public partial class Notification
+namespace BTL_DOTNET2.Models
 {
-    [Key]
-    public int NotiId { get; set; }
+    public class Notification
+    {
+        [Key]
+        public int NotiId { get; set; }
 
-    public int UserId { get; set; }
+        [Column("postId")]
+        public int PostId { get; set; }
 
-    [Column("postId")]
-    public int PostId { get; set; }
+        public DateTime Time { get; set; }
 
-    public DateTime Time { get; set; }
-
-    [ForeignKey("PostId")]
-    [InverseProperty("Notifications")]
-    public virtual Post Post { get; set; } = null!;
-
-    [ForeignKey("UserId")]
-    [InverseProperty("Notifications")]
-    public virtual User User { get; set; } = null!;
+        [ForeignKey("PostId")]
+        [InverseProperty("Notifications")]
+        public virtual Post Post { get; set; } = null!;
+        public User User { get; set; }
+    }
 }

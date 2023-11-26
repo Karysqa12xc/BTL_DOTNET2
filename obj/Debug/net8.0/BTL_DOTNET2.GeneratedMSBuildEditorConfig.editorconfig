@@ -1,19 +1,11 @@
 is_global = true
 build_property.TargetFramework = net8.0
-build_property.TargetFramework = net8.0
-build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
-build_property.UsingMicrosoftNETSdkWeb = true
-build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
-build_property.InvariantGlobalization = 
-build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
-build_property.EnforceExtendedAnalyzerRules = 
-build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BTL_DOTNET2
 build_property.RootNamespace = BTL_DOTNET2
@@ -26,84 +18,8 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Category/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Category/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Category/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Category/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Category/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Commnet/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbW5ldFxDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Commnet/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbW5ldFxEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Commnet/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbW5ldFxEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Commnet/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbW5ldFxFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Commnet/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbW5ldFxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/ContentComment/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVudENvbW1lbnRcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/ContentComment/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVudENvbW1lbnRcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/ContentComment/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVudENvbW1lbnRcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/ContentComment/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVudENvbW1lbnRcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/ContentComment/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVudENvbW1lbnRcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/ContentPost/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVudFBvc3RcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/ContentPost/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVudFBvc3RcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/ContentPost/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVudFBvc3RcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/ContentPost/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVudFBvc3RcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/ContentPost/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVudFBvc3RcSW5kZXguY3NodG1s
+[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Home/Index.cshtml]
@@ -114,76 +30,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Notification/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXENyZWF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Notification/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXERlbGV0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Notification/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXERldGFpbHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Notification/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXEVkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Notification/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXEluZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Post/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Post/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Post/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Post/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Post/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/User/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/User/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/User/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/User/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/User/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/_MyLayout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX015TGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Workspace/C\#_All-Foder/C\#_ASP_NET/ASPOnClass/BTL_DOTNET2/Views/_ViewImports.cshtml]
