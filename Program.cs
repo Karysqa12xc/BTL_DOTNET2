@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<TestForumContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Server=ADMIN-PC\\SQLEXPRESS; Database=TestForum; User Id = nam; Password=1234; Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True; Encrypt= True;")));
+builder.Services.
+AddDbContext<ApplicationDbContext>(options => options.UseSqlServer
+(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

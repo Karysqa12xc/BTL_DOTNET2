@@ -226,11 +226,6 @@ D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\run
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\alpine-arm\native\libe_sqlite3.so
-D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\alpine-arm64\native\libe_sqlite3.so
-D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\alpine-x64\native\libe_sqlite3.so
-D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net7.0\e_sqlite3.a
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\linux-arm\native\libe_sqlite3.so
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\linux-arm64\native\libe_sqlite3.so
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\linux-armel\native\libe_sqlite3.so
@@ -250,11 +245,7 @@ D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\run
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
-D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
-D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\obj\Debug\net8.0\BTL_DOTNET2.csproj.AssemblyReference.cache
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\obj\Debug\net8.0\BTL_DOTNET2.GeneratedMSBuildEditorConfig.editorconfig
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\obj\Debug\net8.0\BTL_DOTNET2.AssemblyInfoInputs.cache
@@ -280,3 +271,9 @@ D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\obj\Debug\net8.0\ref
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\obj\Debug\net8.0\BTL_DOTNET2.pdb
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\obj\Debug\net8.0\BTL_DOTNET2.genruntimeconfig.cache
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\obj\Debug\net8.0\ref\BTL_DOTNET2.dll
+D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
+D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a
+D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
+D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
+D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll

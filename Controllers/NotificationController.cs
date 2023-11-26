@@ -12,9 +12,9 @@ namespace BTL_DOTNET2.Controllers
 {
     public class NotificationController : Controller
     {
-        private readonly TestForumContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public NotificationController(TestForumContext context)
+        public NotificationController(ApplicationDbContext context)
         {
             _context = context;
         }

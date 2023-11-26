@@ -12,9 +12,9 @@ namespace BTL_DOTNET2.Controllers
 {
     public class UserController : Controller
     {
-        private readonly TestForumContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public UserController(TestForumContext context)
+        public UserController(ApplicationDbContext context)
         {
             _context = context;
         }

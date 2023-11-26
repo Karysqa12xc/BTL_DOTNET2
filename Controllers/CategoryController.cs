@@ -12,9 +12,9 @@ namespace BTL_DOTNET2.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly TestForumContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CategoryController(TestForumContext context)
+        public CategoryController(ApplicationDbContext context)
         {
             _context = context;
         }

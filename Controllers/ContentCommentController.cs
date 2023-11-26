@@ -12,9 +12,9 @@ namespace BTL_DOTNET2.Controllers
 {
     public class ContentCommentController : Controller
     {
-        private readonly TestForumContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ContentCommentController(TestForumContext context)
+        public ContentCommentController(ApplicationDbContext context)
         {
             _context = context;
         }

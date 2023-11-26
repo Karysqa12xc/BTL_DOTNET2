@@ -8,9 +8,9 @@ namespace BTL_DOTNET2.Controllers
 {
     public class PostController : Controller
     {
-        private readonly TestForumContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public PostController(TestForumContext context)
+        public PostController(ApplicationDbContext context)
         {
             _context = context;
         }

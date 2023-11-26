@@ -12,9 +12,9 @@ namespace BTL_DOTNET2.Controllers
 {
     public class CommnetController : Controller
     {
-        private readonly TestForumContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CommnetController(TestForumContext context)
+        public CommnetController(ApplicationDbContext context)
         {
             _context = context;
         }
