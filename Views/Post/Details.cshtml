@@ -8,47 +8,44 @@
 
 <div>
     <h4>Post</h4>
+    <div>
+        <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@Model?.ContentPostId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PostTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PostTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CommentTotal)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CommentTotal)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            Tiêu đề |
             @Html.DisplayNameFor(model => model.IsSave)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsSave)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title) | @Html.DisplayFor(model => model.IsSave)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cate)
+        <dt class="col-sm-8">
+            @Html.DisplayNameFor(model => model.Cate.CateName)
+            @Html.DisplayFor(model => model.Cate.CateName)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cate.CateId)
+        <dd class="col-sm-4">
+            @Html.DisplayFor(model => model.Cate.CateName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ContentPost)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContentPost.ContentPostId)
+        <dd class="col-sm-12">
+            @Html.DisplayFor(model => model.ContentPost.Paragram)
         </dd>
     </dl>
+    
+    <button onclick="showCommentPopup()">Add Comment</button>
+    
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.PostId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div id="commentPopup" style="display: none;">
+    <!-- Partial view để tạo mới Comment -->
+    @await Html.PartialAsync("_CreateComment", new BTL_DOTNET2.Models.PostContentViewModel { Post = Model! })
 </div>
+
+<script>
+    function showCommentPopup() {
+        var popup = document.getElementById("commentPopup");
+        popup.style.display = "block";
+    }
+</script>
+
+

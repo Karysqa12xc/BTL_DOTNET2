@@ -15,11 +15,11 @@ namespace BTL_DOTNET2.Models
         [Column("postId")]
         public int PostId { get; set; }
 
-        public DateTime Time { get; set; }
+        public DateTime? Time { get; set; } = DateTime.Now;
 
         [ForeignKey("PostId")]
         [InverseProperty("Notifications")]
         public virtual Post Post { get; set; } = null!;
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }

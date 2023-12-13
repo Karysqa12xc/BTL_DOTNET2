@@ -15,12 +15,14 @@ namespace BTL_DOTNET2.Models
 
         public string Title { get; set; } = null!;
 
-        public DateTime PostTime { get; set; }
+        public DateTime? PostTime { get; set; } = DateTime.Now;
 
-        public int CommentTotal { get; set; }
+        public int? CommentTotal { get; set; } = 0;
 
         [Column("isSave")]
         public bool IsSave { get; set; }
+        [Column("isChecked")]
+        public bool IsChecked { get; set; } = false;
         public int CateId { get; set; }
 
         public int ContentPostId { get; set; }
@@ -38,7 +40,7 @@ namespace BTL_DOTNET2.Models
 
         [InverseProperty("Post")]
         public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 
 

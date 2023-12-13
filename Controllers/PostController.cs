@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BTL_DOTNET2.Data;
 using BTL_DOTNET2.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BTL_DOTNET2.Controllers
 {
@@ -42,10 +43,12 @@ namespace BTL_DOTNET2.Controllers
                 .Include(p => p.ContentPost)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.PostId == id);
+
             if (post == null)
             {
                 return NotFound();
             }
+
 
             return View(post);
         }
@@ -53,8 +56,8 @@ namespace BTL_DOTNET2.Controllers
         // GET: Post/Create
         public IActionResult Create()
         {
-            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId");
-            ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId");
+            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateName");
+            // ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "Paragram");
             return View();
         }
 
@@ -63,18 +66,79 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,Title,PostTime,CommentTotal,IsSave,CateId,ContentPostId")] Post post)
+        // [Bind("PostId,Title,PostTime,CommentTotal,IsSave,CateId,ContentPostId")] Post post
+        public async Task<IActionResult> Create(PostContentViewModel postContentViewModel)
         {
+            // ModelState.Remove("PostTime");
+            // if (!ModelState.IsValid)
+            // {
+            //     post.PostTime = DateTime.Now;
+            //     post.CommentTotal = 0;
+            //     if (post.Title != null)
+            //     {
+            //         post.User = await _userManager.GetUserAsync(HttpContext.User);
+
+            //         _context.Add(post);
+            //         await _context.SaveChangesAsync();
+            //         return RedirectToAction(nameof(Index));
+            //     }
+            // }
+
+            // ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateName", post.CateId);
+            // return View(post);
             if (!ModelState.IsValid)
             {
-                post.User = await _userManager.GetUserAsync(HttpContext.User);
-                _context.Add(post);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                postContentViewModel.Post!.PostTime = DateTime.Now;
+                postContentViewModel.Post.CommentTotal = 0;
+                if (postContentViewModel.Post.Title != null)
+                {
+
+                    postContentViewModel.Post.User = await _userManager.GetUserAsync(HttpContext.User);
+
+                    _context.Add(postContentViewModel.ContentPost);
+                    _context.SaveChanges();
+
+                    postContentViewModel.Post.ContentPostId = postContentViewModel.ContentPost!.ContentPostId;
+
+                    _context.Add(postContentViewModel.Post);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
             }
-            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId", post.CateId);
-            ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId", post.ContentPostId);
-            return View(post);
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateComment(PostContentViewModel postContentViewModel)
+        {
+            // if (!ModelState.IsValid)
+            // {
+            //     comment.CommentTime = DateTime.Now;
+            //     _context.Add(comment);
+            //     await _context.SaveChangesAsync();
+            //     return RedirectToAction(nameof(Index));
+            // }
+            if (ModelState.IsValid)
+            {
+                postContentViewModel.Comment.CommentTime = DateTime.Now;
+                if (postContentViewModel.Comment.ContentComment != null)
+                {
+
+                    postContentViewModel.Comment.User = await _userManager.GetUserAsync(HttpContext.User);
+
+                    _context.Add(postContentViewModel.ContentComment);
+                    _context.SaveChanges();
+
+                    postContentViewModel.Comment.ContentCommentId = postContentViewModel.ContentComment.ContentCommentId;
+
+                    _context.Add(postContentViewModel.Comment);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+            }
+            return View();
         }
 
         // GET: Post/Edit/5
@@ -86,12 +150,13 @@ namespace BTL_DOTNET2.Controllers
             }
 
             var post = await _context.Posts.FindAsync(id);
+
             if (post == null)
             {
                 return NotFound();
             }
-            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId", post.CateId);
-            ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId", post.ContentPostId);
+            var contentPost = await _context.ContentPosts.FindAsync(post.ContentPostId);
+            ViewBag.ContentPost = contentPost!.Paragram;
             return View(post);
         }
 
@@ -107,8 +172,9 @@ namespace BTL_DOTNET2.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+
                 try
                 {
                     _context.Update(post);
@@ -127,8 +193,7 @@ namespace BTL_DOTNET2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId", post.CateId);
-            ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "ContentPostId", post.ContentPostId);
+
             return View(post);
         }
 

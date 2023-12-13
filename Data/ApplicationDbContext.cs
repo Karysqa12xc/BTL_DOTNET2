@@ -9,9 +9,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Comment> Comments { get; set; }
-    public DbSet<User> users { get; set; }
     public virtual DbSet<ContentComment> ContentComments { get; set; }
-
     public virtual DbSet<ContentPost> ContentPosts { get; set; }
 
     public virtual DbSet<Notification> Notifications { get; set; }
@@ -29,6 +27,31 @@ public class ApplicationDbContext : IdentityDbContext<User>
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<User>()
-            .HasIndex(b=> b.UserId).IsUnique();
+            .HasIndex(b => b.UserId).IsUnique();
+
+        modelBuilder.
+        Entity<ContentComment>()
+        .Property(e => e.Image)
+        .IsRequired(false);
+
+        modelBuilder.Entity<ContentPost>()
+        .Property(e=> e.Image)
+        .IsRequired(false);
+
+        modelBuilder.Entity<Post>()
+        .Property(e => e.PostTime)
+        .IsRequired(false);
+
+        modelBuilder.Entity<Post>()
+        .Property(e => e.CommentTotal)
+        .IsRequired(false);
+
+        modelBuilder.Entity<Comment>()
+        .Property(c => c.CommentTime)
+        .IsRequired(false);
+
+        modelBuilder.Entity<Notification>()
+        .Property(n => n.Time)
+        .IsRequired(false);
     }
 }

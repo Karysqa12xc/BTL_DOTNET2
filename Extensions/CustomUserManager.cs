@@ -17,7 +17,7 @@ namespace BTL_DOTNET2.Extensions
         public async Task<string> GetUserIdAsync(ClaimsPrincipal principal)
         {
             var user = await GetUserAsync(principal);
-            return user.UserId;
+            return user!.UserId;
         }
     }
 }

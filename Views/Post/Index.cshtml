@@ -19,16 +19,10 @@
                 @Html.DisplayNameFor(model => model.PostTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CommentTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsSave)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Cate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ContentPost)
+                @Html.DisplayNameFor(model => model.CommentTotal)
             </th>
             <th></th>
         </tr>
@@ -43,19 +37,13 @@
                 @Html.DisplayFor(modelItem => item.PostTime)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Cate.CateName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.CommentTotal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsSave)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cate.CateId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContentPost.ContentPostId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
+                <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@item.ContentPost.ContentPostId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
             </td>

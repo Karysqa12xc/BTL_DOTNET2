@@ -14,7 +14,7 @@ namespace BTL_DOTNET2.Models
 
         public string Paragraph { get; set; } = null!;
 
-        public string Image { get; set; } = null!;
+        public string? Image { get; set; }
 
         [InverseProperty("ContentComment")]
         public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();

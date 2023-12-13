@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BTL_DOTNET2.Data;
 using BTL_DOTNET2.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BTL_DOTNET2.Controllers
 {
     public class CommnentController : Controller
     {
         private readonly ApplicationDbContext _context;
+        protected UserManager<User> _userManager;
 
-        public CommnentController(ApplicationDbContext context)
+        public CommnentController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Commnent
@@ -49,30 +52,44 @@ namespace BTL_DOTNET2.Controllers
             return View(comment);
         }
 
-        // GET: Commnent/Create
-        public IActionResult Create()
-        {
-            ViewData["ContentCommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId");
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId");
-            return View();
-        }
-
         // POST: Commnent/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CommentId,CommentTime,PostId,ContentCommentId")] Comment comment)
+        public async Task<IActionResult> Create(PostContentViewModel postContentViewModel)
         {
-            if (ModelState.IsValid)
+            // if (!ModelState.IsValid)
+            // {
+            //     comment.CommentTime = DateTime.Now;
+            //     _context.Add(comment);
+            //     await _context.SaveChangesAsync();
+            //     return RedirectToAction(nameof(Index));
+            // }
+            // ViewData["ContentCommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.ContentCommentId);
+            // ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
+            // return View(comment);
+            if (!ModelState.IsValid)
             {
-                _context.Add(comment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                postContentViewModel.Comment.CommentTime = DateTime.Now;
+
+                if (postContentViewModel.ContentComment.Paragraph != null)
+                {
+                    // Giả sử ContentComment có một thuộc tính User tương tự như Post
+                    postContentViewModel.Comment.User = await _userManager.GetUserAsync(HttpContext.User);
+
+                    _context.Add(postContentViewModel.ContentComment);
+                    _context.SaveChanges();
+
+                    postContentViewModel.Comment.ContentCommentId = postContentViewModel.ContentComment.ContentCommentId;
+                    _context.Add(postContentViewModel.Comment);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
+                }
             }
-            ViewData["ContentCommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.ContentCommentId);
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
-            return View(comment);
+
+            return View();
         }
 
         // GET: Commnent/Edit/5

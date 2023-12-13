@@ -12,7 +12,7 @@ namespace BTL_DOTNET2.Models
         [Key]
         public int CommentId { get; set; }
 
-        public DateTime CommentTime { get; set; }
+        public DateTime? CommentTime { get; set; } = DateTime.Now;
 
         [Column("postId")]
         public int PostId { get; set; }
@@ -26,6 +26,6 @@ namespace BTL_DOTNET2.Models
         [ForeignKey("PostId")]
         [InverseProperty("Comments")]
         public virtual Post Post { get; set; } = null!;
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }

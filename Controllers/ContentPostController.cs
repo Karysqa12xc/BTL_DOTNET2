@@ -58,9 +58,9 @@ namespace BTL_DOTNET2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(contentPost);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    _context.Add(contentPost);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index)); 
             }
             return View(contentPost);
         }
@@ -111,7 +111,7 @@ namespace BTL_DOTNET2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Post");
             }
             return View(contentPost);
         }

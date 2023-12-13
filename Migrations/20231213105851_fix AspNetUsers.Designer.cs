@@ -4,6 +4,7 @@ using BTL_DOTNET2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BTL_DOTNET2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231213105851_fix AspNetUsers")]
+    partial class fixAspNetUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace BTL_DOTNET2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
 
-                    b.Property<DateTime?>("CommentTime")
+                    b.Property<DateTime>("CommentTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ContentCommentId")
@@ -80,6 +83,7 @@ namespace BTL_DOTNET2.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContentCommentId"));
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Paragraph")
@@ -100,6 +104,7 @@ namespace BTL_DOTNET2.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContentPostId"));
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Paragram")
@@ -123,7 +128,7 @@ namespace BTL_DOTNET2.Migrations
                         .HasColumnType("int")
                         .HasColumnName("postId");
 
-                    b.Property<DateTime?>("Time")
+                    b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
@@ -150,21 +155,17 @@ namespace BTL_DOTNET2.Migrations
                     b.Property<int>("CateId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CommentTotal")
+                    b.Property<int>("CommentTotal")
                         .HasColumnType("int");
 
                     b.Property<int>("ContentPostId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsChecked")
-                        .HasColumnType("bit")
-                        .HasColumnName("isChecked");
-
                     b.Property<bool>("IsSave")
                         .HasColumnType("bit")
                         .HasColumnName("isSave");
 
-                    b.Property<DateTime?>("PostTime")
+                    b.Property<DateTime>("PostTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
