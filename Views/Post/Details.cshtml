@@ -1,51 +1,97 @@
-@model BTL_DOTNET2.Models.Post
+@model BTL_DOTNET2.Models.PostContentViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Thông tin post</h1>
 
 <div>
-    <h4>Post</h4>
     <div>
-        <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@Model?.ContentPostId">Edit</a> |
+        <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@Model?.Post.ContentPostId">Edit</a> |
         <a asp-action="Index">Back to List</a>
     </div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            Tiêu đề |
-            @Html.DisplayNameFor(model => model.IsSave)
+            Người đăng:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title) | @Html.DisplayFor(model => model.IsSave)
+            @Html.DisplayFor(model => model.Post.User!.Email)
         </dd>
-        <dt class="col-sm-8">
-            @Html.DisplayNameFor(model => model.Cate.CateName)
-            @Html.DisplayFor(model => model.Cate.CateName)
+        <dt class="col-sm-2">
+            Tiêu đề |
+
         </dt>
-        <dd class="col-sm-4">
-            @Html.DisplayFor(model => model.Cate.CateName)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.Title) | @Html.DisplayFor(model => model.Post.IsSave)
+        </dd>
+
+        <dt class="col-sm-2">
+            Chủ đề:
+
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.Cate.CateName)
         </dd>
         <dd class="col-sm-12">
-            @Html.DisplayFor(model => model.ContentPost.Paragram)
+            <b>Nội dung:</b>
+            <br>
+            @Html.DisplayFor(model => model.Post.ContentPost.Paragram)
+        </dd>
+        <dd class="col-sm-12">
+            <b>Hình ảnh:</b>
+            <br>
+            <img src="@ViewBag.ImgPostUrl" style="max-width: 100%; max-height: 100%;">
         </dd>
     </dl>
-    
-    <button onclick="showCommentPopup()">Add Comment</button>
-    
+
+    <button onclick="showCommentPopup()" id="valueButton">Add Comment</button>
+
 </div>
 <div id="commentPopup" style="display: none;">
-    <!-- Partial view để tạo mới Comment -->
-    @await Html.PartialAsync("_CreateComment", new BTL_DOTNET2.Models.PostContentViewModel { Post = Model! })
+    @await Html.PartialAsync("_CreateComment", new BTL_DOTNET2.Models.PostContentViewModel { Post = Model!.Post })
 </div>
+<h3>Commnets</h3>
+<table>
+
+
+    @foreach (var comment in Model.Comments)
+    {
+
+
+        <tr>
+            <td><b>@comment.User!.UserName</b></td>
+        </tr>
+        <tr>
+            <td>@comment.ContentComment.Paragraph</td>
+        </tr>
+        <tr>
+            <td>@comment.CommentTime</td>
+        </tr>
+
+
+    }
+
+
+</table>
+
 
 <script>
+    var doubleTap = 0;
     function showCommentPopup() {
         var popup = document.getElementById("commentPopup");
-        popup.style.display = "block";
+        var button = document.getElementById("valueButton")
+        if (doubleTap % 2 == 0) {
+            popup.style.display = "block";
+            button.innerText = "Hide Comment";
+
+        }
+        else {
+            popup.style.display = "none";
+            button.innerText = "Add Comment";
+        }
+        doubleTap++;
     }
+
 </script>
-
-

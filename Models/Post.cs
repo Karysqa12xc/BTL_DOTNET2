@@ -40,7 +40,7 @@ namespace BTL_DOTNET2.Models
 
         [InverseProperty("Post")]
         public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
-        public User? User { get; set; }
+        public User? User { get; set; }  
     }
 
 

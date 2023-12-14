@@ -27,8 +27,8 @@ namespace BTL_DOTNET2.Controllers
         {
             var applicationDbContext = _context.Comments
                 .Include(c => c.ContentComment)
-                .Include(c => c.Post).
-                Include(c => c.User);
+                .Include(c => c.Post)
+                .Include(c => c.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -51,7 +51,6 @@ namespace BTL_DOTNET2.Controllers
 
             return View(comment);
         }
-
         // POST: Commnent/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -69,24 +68,22 @@ namespace BTL_DOTNET2.Controllers
             // ViewData["ContentCommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.ContentCommentId);
             // ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
             // return View(comment);
-            if (!ModelState.IsValid)
+            if (!string.IsNullOrEmpty(postContentViewModel.ContentComment.Paragraph))
             {
                 postContentViewModel.Comment.CommentTime = DateTime.Now;
 
-                if (postContentViewModel.ContentComment.Paragraph != null)
-                {
-                    // Giả sử ContentComment có một thuộc tính User tương tự như Post
-                    postContentViewModel.Comment.User = await _userManager.GetUserAsync(HttpContext.User);
+                // Giả sử ContentComment có một thuộc tính User tương tự như Post
+                postContentViewModel.Comment.User = await _userManager.GetUserAsync(HttpContext.User);
 
-                    _context.Add(postContentViewModel.ContentComment);
-                    _context.SaveChanges();
+                _context.Add(postContentViewModel.ContentComment);
+                _context.SaveChanges();
 
-                    postContentViewModel.Comment.ContentCommentId = postContentViewModel.ContentComment.ContentCommentId;
-                    _context.Add(postContentViewModel.Comment);
-                    await _context.SaveChangesAsync();
+                postContentViewModel.Comment.ContentCommentId = postContentViewModel.ContentComment.ContentCommentId;
+                _context.Add(postContentViewModel.Comment);
+                await _context.SaveChangesAsync();
 
-                    return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
-                }
+                // return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
+                return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
             }
 
             return View();

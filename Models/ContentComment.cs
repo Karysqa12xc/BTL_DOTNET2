@@ -11,8 +11,8 @@ namespace BTL_DOTNET2.Models
     {
         [Key]
         public int ContentCommentId { get; set; }
-
-        public string Paragraph { get; set; } = null!;
+        [Required]
+        public string? Paragraph { get; set; }
 
         public string? Image { get; set; }
 
