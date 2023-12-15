@@ -1,0 +1,50 @@
+@model BTL_DOTNET2.Models.Post
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Post</h4>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PostId" />
+            <div class="form-group">
+                <label hidden asp-for="Title" class="control-label"></label>
+                <input hidden asp-for="Title" class="form-control">
+                <span hidden asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label hidden asp-for="CateId" class="control-label"></label>
+                <input hidden asp-for="CateId" class="form-control">
+                <span hidden asp-validation-for="CateId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label hidden asp-for="ContentPostId" class="control-label"></label>
+                <input type="hidden" asp-for="ContentPostId" class="form-control">
+                <span hidden asp-validation-for="ContentPostId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContentPost.Paragram" class="control-label"></label>
+                <input asp-for="ContentPost.Paragram" class="form-control" value="@ViewBag.ContentPost">
+                <span asp-validation-for="ContentPost.Paragram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

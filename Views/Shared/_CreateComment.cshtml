@@ -1,0 +1,65 @@
+@model BTL_DOTNET2.Models.PostContentViewModel
+
+@{
+    ViewData["Title"] = "Create Commnet";
+}
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <form asp-controller="Commnent" asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div hidden class="form-group">
+                <label  asp-for="Comment.CommentTime" hidden class="control-label"></label>
+                <input asp-for="Comment.CommentTime" class="form-control" />
+                <span  asp-validation-for="Comment.CommentTime" class="text-danger"></span>
+            </div>
+            <div hidden class="form-group">
+                <label asp-for="Comment.PostId" class="control-label"></label>
+                <input asp-for="Comment.PostId" type="text" value="@Model.Post.PostId" class="form-control"/>
+            </div>
+            <div class="form-group  mb-3">
+                <label asp-for="ContentComment.Paragraph" class="control-label">Nội dung</label>
+                <textarea required  asp-for="ContentComment.Paragraph" cols="10" rows="3" class ="form-control"></textarea>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ImgUrl" class="form-label">Chọn ảnh</label>
+                <input asp-for="ImgUrl" class="form-control" type="file">
+            </div>
+            <div class="form-group mt-4">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+
+<script>
+  $(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        // Lấy postId từ response hoặc lấy từ form (tùy vào cách bạn xử lý ở phía server)
+                        var postId = response.postId || $('input[name="Comment.PostId"]').val();
+                        // Reload trang Post/Details
+                        window.location.replace('/Post/Details/' + postId);
+                    } else {
+                        console.error('Error:', response);
+                    }
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>

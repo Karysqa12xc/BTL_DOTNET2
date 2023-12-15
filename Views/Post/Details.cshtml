@@ -1,0 +1,107 @@
+@model BTL_DOTNET2.Models.PostContentViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Thông tin post</h1>
+
+<div>
+    <div>
+        <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@Model?.Post.ContentPostId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Người đăng:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.User!.Email)
+        </dd>
+        <dt class="col-sm-2">
+            Tiêu đề:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.Title)
+        </dd>
+        @if (@Model?.Post.IsSave == false)
+        {
+            <form>
+                <div class="list-group">
+                    <label class="list-group-item">
+                        <input asp-for="Post.IsSave" class="form-check-input me-1" type="checkbox" value="">
+                        Lưu bài viết
+                    </label>
+            </form>
+        }
+
+        <dt class="col-sm-2">
+            Chủ đề:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.Cate.CateName)
+        </dd>
+        <dd class="col-sm-12">
+            <b>Nội dung:</b>
+            <br>
+            @Html.DisplayFor(model => model.Post.ContentPost.Paragram)
+        </dd>
+        <dd class="col-sm-12">
+            <b>Hình ảnh:</b>
+            <br>
+            <img class="rounded mx-auto d-block" src="@ViewBag.ImgPostUrl" style="max-width: 100%; max-height: 100%;">
+        </dd>
+    </dl>
+
+    <button onclick="showCommentPopup()" id="valueButton">Add Comment</button>
+
+</div>
+<div id="commentPopup" style="display: none;">
+    @await Html.PartialAsync("_CreateComment", new BTL_DOTNET2.Models.PostContentViewModel { Post = Model!.Post })
+</div>
+<h3>Commnets</h3>
+<table>
+    @foreach (var comment in Model.Comments)
+    {
+
+        <tr>
+            <td><b>@comment.User!.UserName</b></td>
+        </tr>
+        <tr>
+            <td>@comment.ContentComment.Paragraph</td>
+
+        </tr>
+        <tr>
+            <td>@comment.CommentTime</td>
+        </tr>
+        <tr>
+            <td>
+                <img class="rounded float-start" src="@comment.ContentComment.Image" alt=""
+                    style="max-width: 50%; max-height: 50%;">
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<script>
+    var doubleTap = 0;
+    function showCommentPopup() {
+        var popup = document.getElementById("commentPopup");
+        var button = document.getElementById("valueButton")
+        if (doubleTap % 2 == 0) {
+            popup.style.display = "block";
+            button.innerText = "Hide Comment";
+
+        }
+        else {
+            popup.style.display = "none";
+            button.innerText = "Add Comment";
+        }
+        doubleTap++;
+    }
+
+</script>
