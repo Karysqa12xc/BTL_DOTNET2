@@ -1,0 +1,40 @@
+@using Microsoft.AspNetCore.Identity
+@model BTL_DOTNET2.Models.UserAndRoles
+@{
+    ViewData["Title"] = "Application Roles";
+}
+<h1>View Roles</h1>
+<p>
+    <a asp-action="Create">
+        Create Role
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Users)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          @foreach(var item in Model.Users){
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+            </tr>
+          }
+          @foreach(var item in Model.Roles){
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            </tr>
+          }
+        </tr>
+    </tbody>
+</table>

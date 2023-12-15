@@ -1,0 +1,16 @@
+@model BTL_DOTNET2.Models.UserAndRoles
+
+<form asp-action="AddRole" method="post">
+    <div>
+        <label asp-for="UserId">Chọn người dùng:</label>
+        <select asp-for="UserId" class="form-control" asp-items="ViewBag.Users"></select>
+    </div>
+    <div>
+        <label for="RoleName">Chọn vai trò:</label>
+       <select asp-for="RoleName" class="form-control" asp-items="ViewBag.Roles"></select>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary mt-3">Thêm vai trò</button>
+    </div>
+</form>
+

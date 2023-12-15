@@ -19,8 +19,6 @@ namespace BTL_DOTNET2.Models
 
         public int? CommentTotal { get; set; } = 0;
 
-        [Column("isSave")]
-        public bool IsSave { get; set; }
         [Column("isChecked")]
         public bool IsChecked { get; set; } = false;
         public int CateId { get; set; }

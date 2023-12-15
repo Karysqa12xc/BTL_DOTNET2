@@ -1,19 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BTL_DOTNET2.Data;
 using BTL_DOTNET2.Models;
+using BTL_DOTNET2.Models.Process;
 
 namespace BTL_DOTNET2.Controllers
 {
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        private ExcelProcess _excelProcess = new ExcelProcess();
         public CategoryController(ApplicationDbContext context)
         {
             _context = context;
@@ -56,7 +52,7 @@ namespace BTL_DOTNET2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CateId,CateName")] Category category)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(category);
                 await _context.SaveChangesAsync();
@@ -64,7 +60,51 @@ namespace BTL_DOTNET2.Controllers
             }
             return View(category);
         }
-
+        public IActionResult UploadExcel()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadExcel(IFormFile file)
+        {
+            if (file != null)
+            {
+                string fileExtension = Path.GetExtension(file.FileName);
+                if (fileExtension != ".xls" && fileExtension != ".xlsx")
+                {
+                    ModelState.AddModelError("", "Chọn đúng định dạng Excel");
+                }
+                else
+                {
+                    try
+                    {
+                        var fileName = DateTime.Now.ToShortTimeString() + fileExtension;
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads/Excels", fileName);
+                        var fileLocation = new FileInfo(filePath).ToString();
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                            var dt = _excelProcess.ExcelToDataTable(fileLocation);
+                            for (int i = 0; i < dt.Rows.Count; i++)
+                            {
+                                var Cate = new Category();
+                                Cate.CateName = dt.Rows[i][0].ToString()!;
+                                _context.Categories.Add(Cate);
+                            }
+                            await _context.SaveChangesAsync();
+                            return RedirectToAction(nameof(Index));
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError("", "Có lỗi xảy ra khi xử lý tệp Excel.");
+                        throw;
+                    }
+                }
+            }
+            return View();
+        }
         // GET: Category/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

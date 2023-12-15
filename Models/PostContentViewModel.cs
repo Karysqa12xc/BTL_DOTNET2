@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BTL_DOTNET2.Models
 {
@@ -13,7 +14,9 @@ namespace BTL_DOTNET2.Models
         public Comment Comment { get; set; } = null!;
         public List<Comment> Comments { get; set; } = null!;
         public ContentComment ContentComment { get; set; } = null!;
+        public SelectList Category { get; set; } = null!;
         public IFormFile? ImgUrl { get; set; }
+        
         
         
     }

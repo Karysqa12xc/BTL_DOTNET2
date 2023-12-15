@@ -283,3 +283,7 @@ D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\run
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\JetBrains.Annotations.dll
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\X.PagedList.dll
 D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\X.PagedList.Mvc.Core.dll
+D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\EPPlus.dll
+D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\EPPlus.Interfaces.dll
+D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\EPPlus.System.Drawing.dll
+D:\Workspace\C#_All-Foder\C#_ASP_NET\ASPOnClass\BTL_DOTNET2\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll

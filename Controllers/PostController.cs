@@ -19,25 +19,25 @@ namespace BTL_DOTNET2.Controllers
             _context = context;
             _userManager = userManager;
         }
-
         // GET: Post
-        public async Task<IActionResult> Index(int? page, int? PageSize)
+        public async Task<IActionResult> Index(int? page, int? PageSize, string searching, string catesearch)
         {
             ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
-            
-             ViewBag.PageSize = new List<SelectListItem>(){
-                
+
+            ViewBag.PageSize = new List<SelectListItem>(){
+
                 new SelectListItem(){Value = "5", Text = "5"},
                 new SelectListItem(){Value = "10", Text = "10"},
                 new SelectListItem(){Value = "15", Text = "15"},
             };
-            int pagesize = (PageSize ?? 3);
+            int pagesize = (PageSize ?? 5);
             ViewBag.psize = pagesize;
-            var applicationDbContext = _context.Posts
+            
+            var posts = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
-            .Include(p => p.User).ToList().ToPagedList(page ?? 1, pagesize);
-            return View(applicationDbContext);
+            .Include(p => p.User).Where(x => x.Title.Contains(searching) || searching == null).ToList().ToPagedList(page ?? 1, pagesize);
+            return View(posts);
         }
 
         // GET: Post/Details/5
@@ -144,11 +144,11 @@ namespace BTL_DOTNET2.Controllers
         public async Task<IActionResult> PostOfUser()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            var applicationDbContext = _context.Posts
+            var post = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
             .Include(p => p.User).Where(p => p.User == currentUser);
-            return View(await applicationDbContext.ToArrayAsync());
+            return View(await post.ToArrayAsync());
         }
         // GET: Post/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -168,27 +168,29 @@ namespace BTL_DOTNET2.Controllers
             ViewBag.ContentPost = contentPost!.Paragram;
             return View(post);
         }
-        
-        public IActionResult SavePost(int id)
-        {
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SavePost(int id, bool isSave)
-        {
-            if(ModelState.IsValid){
-                var existingPost  = await _context.Posts.FindAsync(id);
-                if(existingPost == null){
-                    return NotFound();
-                }else{
-                    existingPost.IsSave = isSave;
-                }
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Details", "Post", new { id = id });
-            }
-            return RedirectToAction("Details", "Post", new { id = id });
-        }
+
+        // public IActionResult SavePost()
+        // {
+        //     return View();
+        // }
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> SavePost(int id, bool IsSave)
+        // {
+        //     var existingPost = await _context.Posts.FindAsync(id);
+
+        //     if (existingPost == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     existingPost.IsSave = IsSave;
+        //     await _context.SaveChangesAsync();
+
+        //     return RedirectToAction(nameof(Index));
+        // }
+
+
         // POST: Post/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

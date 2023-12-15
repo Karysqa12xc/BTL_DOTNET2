@@ -80,6 +80,38 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_055dbaee-0fb0-4c09-9969-d8f710db99ae_292221113_1282128228861787_3462487112372602083_n.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_0cb5f065-3e53-4d22-9f30-e09af418fc19ky-nang-dat-cau-hoi.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>BTL_DOTNET2</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BTL_DOTNET2</BasePath>
+      <RelativePath>images/comment/Comment_0cb5f065-3e53-4d22-9f30-e09af418fc19ky-nang-dat-cau-hoi.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_0cb5f065-3e53-4d22-9f30-e09af418fc19ky-nang-dat-cau-hoi.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_71610de9-c8b6-42f8-bfbb-4c2f7eb14f32BigO of Search Algorthim.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>BTL_DOTNET2</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BTL_DOTNET2</BasePath>
+      <RelativePath>images/comment/Comment_71610de9-c8b6-42f8-bfbb-4c2f7eb14f32BigO of Search Algorthim.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_71610de9-c8b6-42f8-bfbb-4c2f7eb14f32BigO of Search Algorthim.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_8615dc9f-a899-4c5d-ac34-1efb7ec9a655_IMG_20190706_124312 (2).jpg))">
       <SourceType>Package</SourceType>
       <SourceId>BTL_DOTNET2</SourceId>
@@ -128,12 +160,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_f8a92921-ab9b-414f-8ced-7c8a9a096c77_FB_IMG_1625630296614.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\post\Post_6a24ab38-49f5-4915-8f2f-418b2dbb4f76_IMG_20181222_224752.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\post\Post_be30a9f3-cdd9-4e98-aaf8-517fc3e3b526_BigO of Search Algorthim.png))">
       <SourceType>Package</SourceType>
       <SourceId>BTL_DOTNET2</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/BTL_DOTNET2</BasePath>
-      <RelativePath>images/post/Post_6a24ab38-49f5-4915-8f2f-418b2dbb4f76_IMG_20181222_224752.jpg</RelativePath>
+      <RelativePath>images/post/Post_be30a9f3-cdd9-4e98-aaf8-517fc3e3b526_BigO of Search Algorthim.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -142,14 +174,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\post\Post_6a24ab38-49f5-4915-8f2f-418b2dbb4f76_IMG_20181222_224752.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\post\Post_be30a9f3-cdd9-4e98-aaf8-517fc3e3b526_BigO of Search Algorthim.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\post\Post_b9bb5d13-9466-4cd7-9437-d25347a22141_4d5bafe74898afb603cea273ee585d05.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\post\Post_d250a3d7-2b9e-41e3-bb70-0d3ecd5ec02a_gia huy hoảng hốt.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>BTL_DOTNET2</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/BTL_DOTNET2</BasePath>
-      <RelativePath>images/post/Post_b9bb5d13-9466-4cd7-9437-d25347a22141_4d5bafe74898afb603cea273ee585d05.jpg</RelativePath>
+      <RelativePath>images/post/Post_d250a3d7-2b9e-41e3-bb70-0d3ecd5ec02a_gia huy hoảng hốt.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -158,7 +190,7 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\post\Post_b9bb5d13-9466-4cd7-9437-d25347a22141_4d5bafe74898afb603cea273ee585d05.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\post\Post_d250a3d7-2b9e-41e3-bb70-0d3ecd5ec02a_gia huy hoảng hốt.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\site.js))">
       <SourceType>Package</SourceType>
