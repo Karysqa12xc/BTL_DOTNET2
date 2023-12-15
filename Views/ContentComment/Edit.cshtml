@@ -1,4 +1,4 @@
-@model BTL_DOTNET2.Models.ContentComment
+@model BTL_DOTNET2.Models.PostContentViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,18 +10,22 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ContentCommentId" />
+            <input type="hidden" asp-for="ContentComment.ContentCommentId" />
             <div class="form-group">
-                <label asp-for="Paragraph" class="control-label"></label>
-                <input asp-for="Paragraph" class="form-control" />
-                <span asp-validation-for="Paragraph" class="text-danger"></span>
+                <label asp-for="ContentComment.Paragraph" class="control-label"></label>
+                <input asp-for="ContentComment.Paragraph" class="form-control" />
+                <span asp-validation-for="ContentComment.Paragraph" class="text-danger"></span>
+            </div>
+            <div hidden class="form-group">
+                <label asp-for="ContentComment.Image" class="control-label"></label>
+                <input asp-for="ContentComment.Image" class="form-control" />
+                <span asp-validation-for="ContentComment.Image" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <label asp-for="ImgUrl" class="control-label">Chọn hình ảnh mà bạn muốn thay đổi: </label>
+                <input asp-for="ImgUrl" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

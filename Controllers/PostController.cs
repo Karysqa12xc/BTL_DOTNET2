@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BTL_DOTNET2.Data;
 using BTL_DOTNET2.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
-using Microsoft.Extensions.Hosting;
+using X.PagedList;
 
 namespace BTL_DOTNET2.Controllers
 {
@@ -26,18 +21,29 @@ namespace BTL_DOTNET2.Controllers
         }
 
         // GET: Post
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, int? PageSize)
         {
+            ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
+            
+             ViewBag.PageSize = new List<SelectListItem>(){
+                
+                new SelectListItem(){Value = "5", Text = "5"},
+                new SelectListItem(){Value = "10", Text = "10"},
+                new SelectListItem(){Value = "15", Text = "15"},
+            };
+            int pagesize = (PageSize ?? 3);
+            ViewBag.psize = pagesize;
             var applicationDbContext = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
-            .Include(p => p.User);
-            return View(await applicationDbContext.ToListAsync());
+            .Include(p => p.User).ToList().ToPagedList(page ?? 1, pagesize);
+            return View(applicationDbContext);
         }
 
         // GET: Post/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
             if (id == null)
             {
                 return NotFound();
@@ -135,6 +141,15 @@ namespace BTL_DOTNET2.Controllers
             // Trả về đường dẫn của hình ảnh để lưu vào cơ sở dữ liệu
             return "/images/post/" + uniqueFileName;
         }
+        public async Task<IActionResult> PostOfUser()
+        {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var applicationDbContext = _context.Posts
+            .Include(p => p.Cate)
+            .Include(p => p.ContentPost)
+            .Include(p => p.User).Where(p => p.User == currentUser);
+            return View(await applicationDbContext.ToArrayAsync());
+        }
         // GET: Post/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -153,7 +168,27 @@ namespace BTL_DOTNET2.Controllers
             ViewBag.ContentPost = contentPost!.Paragram;
             return View(post);
         }
-
+        
+        public IActionResult SavePost(int id)
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SavePost(int id, bool isSave)
+        {
+            if(ModelState.IsValid){
+                var existingPost  = await _context.Posts.FindAsync(id);
+                if(existingPost == null){
+                    return NotFound();
+                }else{
+                    existingPost.IsSave = isSave;
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", "Post", new { id = id });
+            }
+            return RedirectToAction("Details", "Post", new { id = id });
+        }
         // POST: Post/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

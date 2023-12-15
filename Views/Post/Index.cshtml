@@ -1,5 +1,6 @@
 @model IEnumerable<BTL_DOTNET2.Models.Post>
-
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
 @{
     ViewData["Title"] = "Index";
 }
@@ -16,6 +17,9 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PostTime)
             </th>
             <th>
@@ -24,30 +28,83 @@
             <th>
                 @Html.DisplayNameFor(model => model.CommentTotal)
             </th>
-            <th></th>
+            <th>Options</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Reverse()) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cate.CateName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CommentTotal)
-            </td>
-            <td>
-                <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@item.ContentPost.ContentPostId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Reverse())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User!.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cate.CateName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommentTotal)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.PostId">Watch</a> |
+                    @if (item.User == null)
+                    {
+                        <a asp-controller="ContentPost" asp-action="Delete"
+                            asp-route-id="@item.ContentPost.ContentPostId">Delete</a>
+                    }
+                    else
+                    {
+                        if (@ViewBag.CurrentUser == @item.User)
+                        {
+                            <a asp-controller="ContentPost" asp-action="Delete"
+                                asp-route-id="@item.ContentPost.ContentPostId">Delete</a>
+                        }
+
+
+
+                    }
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@using (Html.BeginForm("Index", "Post", FormMethod.Get, new { id = "form1" }))
+{
+    <div class="row">
+        <div class="col-md-11">
+            @Html.PagedListPager((IPagedList)Model, page =>
+                     Url.Action("Index", new { page = page, pagesize = ViewBag.psize }),
+                     new X.PagedList.Web.Common.PagedListRenderOptions
+        {
+            LiElementClasses = new string[] { "page-item" },
+            PageClasses = new string[] { "page-link" }
+        })
+        </div>
+        <div class="col-md-1">
+            @Html.DropDownList("pageSize", null, new { @class = "form-select" })
+        </div>
+    </div>
+}
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#pageSize").change(function () {
+            $("#form1").submit();
+        });
+    });
+</script>
+
+
+@* @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+new X.PagedList.Web.Common.PagedListRenderOptions
+{
+LiElementClasses = new string[] { "page-item" },
+PageClasses = new string[] { "page-link" }
+}) *@

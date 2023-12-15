@@ -1,4 +1,4 @@
-@model BTL_DOTNET2.Models.ContentPost
+@model BTL_DOTNET2.Models.PostContentViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,18 +10,26 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ContentPostId" />
+            <input type="hidden" asp-for="ContentPost.ContentPostId" />
             <div class="form-group">
-                <label asp-for="Paragram" class="control-label"></label>
-                <input asp-for="Paragram" class="form-control" />
-                <span asp-validation-for="Paragram" class="text-danger"></span>
+                <label asp-for="ContentPost.Paragram" class="control-label"></label>
+                <input asp-for="ContentPost.Paragram" class="form-control" />
+                <span asp-validation-for="ContentPost.Paragram" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="ContentPost.Image" class="control-label"></label>
+                <input asp-for="ContentPost.Image" class="form-control" />
+                <span asp-validation-for="ContentPost.Image" class="text-danger"></span> 
             </div>
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <label asp-for="ImgUrl" class="control-label">Chọn hình ảnh bạn muốn sửa đổi:</label>
+                <input asp-for="ImgUrl" type="file" class="form-control" />
+                <span asp-validation-for="ContentPost.Image" class="text-danger"></span>
+            </div>
+            <div class="container">
+                <img class="rounded" src="@Model?.ContentPost.Image" alt="" style="max-height: 100%; max-width: 100%;object-fit: cover;">
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

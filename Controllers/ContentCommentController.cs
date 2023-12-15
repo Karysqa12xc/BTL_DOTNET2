@@ -78,7 +78,11 @@ namespace BTL_DOTNET2.Controllers
             {
                 return NotFound();
             }
-            return View(contentComment);
+            PostContentViewModel contentViewModel = new PostContentViewModel
+            {
+                ContentComment = contentComment,
+            };
+            return View(contentViewModel);
         }
 
         // POST: ContentComment/Edit/5
@@ -86,23 +90,39 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ContentCommentId,Paragraph,Image")] ContentComment contentComment)
+        public async Task<IActionResult> Edit(int id, PostContentViewModel contentCommentViewModel, IFormFile file)
         {
-            if (id != contentComment.ContentCommentId)
+            if (id != contentCommentViewModel.ContentComment.ContentCommentId)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(contentComment);
+                    string? oldImage = contentCommentViewModel.ContentComment.Image;
+                    if (contentCommentViewModel.ImgUrl != null && contentCommentViewModel.ImgUrl.Length > 0)
+                    {
+                        file = contentCommentViewModel.ImgUrl;
+                        string? strImgReplace = await UploadImage(file);
+                        contentCommentViewModel.ContentComment.Image = strImgReplace;
+                    }
+                    _context.Update(contentCommentViewModel.ContentComment);
                     await _context.SaveChangesAsync();
+
+                    if (!string.IsNullOrEmpty(oldImage))
+                    {
+                        string oldImageUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImage.TrimStart('/'));
+                        if (System.IO.File.Exists(oldImageUrl))
+                        {
+                            System.IO.File.Delete(oldImageUrl);
+                        }
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContentCommentExists(contentComment.ContentCommentId))
+                    if (!ContentCommentExists(contentCommentViewModel.ContentComment.ContentCommentId))
                     {
                         return NotFound();
                     }
@@ -111,11 +131,31 @@ namespace BTL_DOTNET2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(contentComment);
-        }
+                
+                int postId = _context.Comments.Where(cc => cc.ContentCommentId == id).Select(cc => cc.PostId).FirstOrDefault();
 
+                return RedirectToAction("Details", "Post", new { id = postId });
+            }
+            return View(contentCommentViewModel);
+        }
+        private async Task<string?> UploadImage(IFormFile file)
+        {
+            // Tạo folder nếu chưa tồn tại
+            string PathImgPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "comment");
+            string strKey = Guid.NewGuid().ToString();
+            // Tạo tên file duy nhất
+            string uniqueFileName = "Comment" + $"_{strKey}" + "_" + file.FileName;
+
+            // Lưu hình ảnh vào folder
+            string filePath = Path.Combine(PathImgPost, uniqueFileName);
+            using (var fileStream = System.IO.File.Create(filePath))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+
+            // Trả về đường dẫn của hình ảnh để lưu vào cơ sở dữ liệu
+            return "/images/comment/" + uniqueFileName;
+        }
         // GET: ContentComment/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -140,13 +180,24 @@ namespace BTL_DOTNET2.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var contentComment = await _context.ContentComments.FindAsync(id);
+            string? oldImageComment = contentComment!.Image;
+            int postId = _context.Comments.Where(cc => cc.ContentCommentId == id).Select(cc => cc.PostId).FirstOrDefault();
             if (contentComment != null)
             {
                 _context.ContentComments.Remove(contentComment);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (!string.IsNullOrEmpty(oldImageComment))
+            {
+                string imagePathComment = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImageComment.TrimStart('/'));
+                if (System.IO.File.Exists(imagePathComment))
+                {
+                    System.IO.File.Delete(imagePathComment);
+                }
+            }
+            
+            return RedirectToAction("Details", "Post", new { id = postId });
         }
 
         private bool ContentCommentExists(int id)

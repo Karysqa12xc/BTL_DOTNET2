@@ -1,0 +1,14 @@
+@model BTL_DOTNET2.Models.Post
+@{
+    ViewData["Title"] = "Save Post";
+}
+
+<form asp-action="SavePost">
+    <div class="list-group">
+        <label class="list-group-item">
+            <input id="chkIsSave" asp-for="IsSave" class="form-check-input me-1" type="checkbox" value="">
+            Lưu bài viết
+        </label>
+    </div>
+</form>
+

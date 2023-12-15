@@ -58,9 +58,10 @@ namespace BTL_DOTNET2.Controllers
         {
             if (ModelState.IsValid)
             {
-                    _context.Add(contentPost);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index)); 
+
+                _context.Add(contentPost);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
             return View(contentPost);
         }
@@ -73,12 +74,18 @@ namespace BTL_DOTNET2.Controllers
                 return NotFound();
             }
 
+
             var contentPost = await _context.ContentPosts.FindAsync(id);
+
             if (contentPost == null)
             {
                 return NotFound();
             }
-            return View(contentPost);
+            PostContentViewModel contentViewModel = new PostContentViewModel
+            {
+                ContentPost = contentPost,
+            };
+            return View(contentViewModel);
         }
 
         // POST: ContentPost/Edit/5
@@ -86,23 +93,41 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ContentPostId,Paragram,Image")] ContentPost contentPost)
+        public async Task<IActionResult> Edit(int id, PostContentViewModel contentViewModel, IFormFile file)
         {
-            if (id != contentPost.ContentPostId)
+            if (id != contentViewModel.ContentPost.ContentPostId)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(contentPost);
+                    
+                    
+                    string? oldImage = contentViewModel.ContentPost.Image;
+                    
+
+                    if (contentViewModel.ImgUrl != null && contentViewModel.ImgUrl.Length > 0)
+                    {
+                        file = contentViewModel.ImgUrl;
+                        string? strImgReplace = await UploadImage(file);
+                        contentViewModel.ContentPost.Image = strImgReplace;
+                    }
+                    _context.Update(contentViewModel.ContentPost);
                     await _context.SaveChangesAsync();
+
+                    if(!string.IsNullOrEmpty(oldImage)){
+                        string oldImageUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImage.TrimStart('/'));
+                        if(System.IO.File.Exists(oldImageUrl)){
+                            System.IO.File.Delete(oldImageUrl);
+                        }
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContentPostExists(contentPost.ContentPostId))
+                    if (!ContentPostExists(contentViewModel.ContentPost.ContentPostId))
                     {
                         return NotFound();
                     }
@@ -113,9 +138,26 @@ namespace BTL_DOTNET2.Controllers
                 }
                 return RedirectToAction("Index", "Post");
             }
-            return View(contentPost);
+            return View(contentViewModel);
         }
+        private async Task<string?> UploadImage(IFormFile file)
+        {
+            // Tạo folder nếu chưa tồn tại
+            string PathImgPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "post");
+            string strKey = Guid.NewGuid().ToString();
+            // Tạo tên file duy nhất
+            string uniqueFileName = "Post" + $"_{strKey}" + "_" + file.FileName;
 
+            // Lưu hình ảnh vào folder
+            string filePath = Path.Combine(PathImgPost, uniqueFileName);
+            using (var fileStream = System.IO.File.Create(filePath))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+
+            // Trả về đường dẫn của hình ảnh để lưu vào cơ sở dữ liệu
+            return "/images/post/" + uniqueFileName;
+        }
         // GET: ContentPost/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -140,13 +182,20 @@ namespace BTL_DOTNET2.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var contentPost = await _context.ContentPosts.FindAsync(id);
+            string? oldImageContentPost = contentPost!.Image;
             if (contentPost != null)
             {
                 _context.ContentPosts.Remove(contentPost);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if(!string.IsNullOrEmpty(oldImageContentPost)){
+                string imagePathContentPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImageContentPost.TrimStart('/'));
+                if(System.IO.File.Exists(imagePathContentPost)){
+                    System.IO.File.Delete(imagePathContentPost);
+                }
+            }
+            return RedirectToAction("Index", "Post");
         }
 
         private bool ContentPostExists(int id)

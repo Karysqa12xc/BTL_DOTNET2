@@ -1,0 +1,48 @@
+@model IEnumerable<BTL_DOTNET2.Models.Post>
+<table class="table">
+    <thead>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommentTotal)
+        </th>
+        <th>Options</th>
+    <tbody>
+            @foreach (var item in Model.Reverse())
+            {
+            <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.User!.Email)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.PostTime)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Cate.CateName)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.CommentTotal)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.PostId">Watch</a> |
+                    <a asp-controller="ContentPost" asp-action="Delete"
+                            asp-route-id="@item.ContentPost.ContentPostId">Delete</a>
+                </td>
+            </tr>
+            }
+    </tbody>
+    </thead>
+</table>
