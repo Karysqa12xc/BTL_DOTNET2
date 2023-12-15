@@ -56,7 +56,7 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PostContentViewModel postContentViewModel)
+        public async Task<IActionResult> Create(PostContentViewModel postContentViewModel, IFormFile fileImage)
         {
             // if (!ModelState.IsValid)
             // {
@@ -71,9 +71,14 @@ namespace BTL_DOTNET2.Controllers
             if (!string.IsNullOrEmpty(postContentViewModel.ContentComment.Paragraph))
             {
                 postContentViewModel.Comment.CommentTime = DateTime.Now;
-
-                // Giả sử ContentComment có một thuộc tính User tương tự như Post
                 postContentViewModel.Comment.User = await _userManager.GetUserAsync(HttpContext.User);
+                if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
+                {
+                    fileImage = postContentViewModel.ImgUrl;
+                    var imageCommentPath = await UploadImage(fileImage);
+                    postContentViewModel.ContentComment.Image = imageCommentPath;
+                    ViewBag.ImgCommentUrl = imageCommentPath;
+                }
 
                 _context.Add(postContentViewModel.ContentComment);
                 _context.SaveChanges();
@@ -88,7 +93,19 @@ namespace BTL_DOTNET2.Controllers
 
             return View();
         }
+        public async Task<string> UploadImage(IFormFile imgFile)
+        {
+            string pathImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "comment");
 
+            string keyStr = Guid.NewGuid().ToString();
+            string uniqueFileName = "Comment_" + keyStr + imgFile.FileName;
+            string filePath = Path.Combine(pathImage, uniqueFileName);
+            using (var stream = System.IO.File.Create(filePath))
+            {
+                await imgFile.CopyToAsync(stream);
+            }
+            return "/images/comment/" + uniqueFileName;
+        }
         // GET: Commnent/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

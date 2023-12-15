@@ -95,12 +95,14 @@ namespace BTL_DOTNET2.Controllers
                 postContentViewModel.Post.CommentTotal = 0;
                 if (postContentViewModel.Post.Title != null)
                 {
-                    imagePath = postContentViewModel.ImgUrlPost;
-                    if (imagePath != null && imagePath.Length > 0)
+                    if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
                     {
+                        imagePath = postContentViewModel.ImgUrl;
                         var imagePathStr = await UploadImage(imagePath);
                         postContentViewModel.ContentPost.Image = imagePathStr;
                     }
+
+
                     postContentViewModel.Post.User = await _userManager.GetUserAsync(HttpContext.User);
                     _context.Add(postContentViewModel.ContentPost);
                     _context.SaveChanges();
@@ -119,7 +121,7 @@ namespace BTL_DOTNET2.Controllers
         {
             // Tạo folder nếu chưa tồn tại
             string PathImgPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "post");
-            string strKey =  Guid.NewGuid().ToString();
+            string strKey = Guid.NewGuid().ToString();
             // Tạo tên file duy nhất
             string uniqueFileName = "Post" + $"_{strKey}" + "_" + file.FileName;
 

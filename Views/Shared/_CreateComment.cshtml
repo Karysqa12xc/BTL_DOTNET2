@@ -6,7 +6,7 @@
 
 <div class="row mt-3">
     <div class="col-md-12">
-        <form asp-controller="Commnent" asp-action="Create">
+        <form asp-controller="Commnent" asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div hidden class="form-group">
                 <label  asp-for="Comment.CommentTime" hidden class="control-label"></label>
@@ -17,9 +17,13 @@
                 <label asp-for="Comment.PostId" class="control-label"></label>
                 <input asp-for="Comment.PostId" type="text" value="@Model.Post.PostId" class="form-control"/>
             </div>
-            <div class="form-group">
+            <div class="form-group  mb-3">
                 <label asp-for="ContentComment.Paragraph" class="control-label">Nội dung</label>
                 <textarea required  asp-for="ContentComment.Paragraph" cols="10" rows="3" class ="form-control"></textarea>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ImgUrl" class="form-label">Chọn ảnh</label>
+                <input asp-for="ImgUrl" class="form-control" type="file">
             </div>
             <div class="form-group mt-4">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Y913UqyaA9v5Mg7ZonCcZdlrs+ggw1PFG1YnUGsQnrg=",
+  "Hash": "BHUASdiaXZ8CISWTnpzsBL5Hze367drBZYBZcQd/968=",
   "Source": "BTL_DOTNET2",
   "BasePath": "_content/BTL_DOTNET2",
   "Mode": "Default",
@@ -1233,12 +1233,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_0_AnhKhiMuThuaChealsea.png",
+      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_710517c5-96ae-4e0c-a767-0036f786d9c5pepecover.png",
       "SourceId": "BTL_DOTNET2",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
       "BasePath": "_content/BTL_DOTNET2",
-      "RelativePath": "images/post/Post_0_AnhKhiMuThuaChealsea.png",
+      "RelativePath": "images/comment/Comment_710517c5-96ae-4e0c-a767-0036f786d9c5pepecover.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1249,15 +1249,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\post\\Post_0_AnhKhiMuThuaChealsea.png"
+      "OriginalItemSpec": "wwwroot\\images\\comment\\Comment_710517c5-96ae-4e0c-a767-0036f786d9c5pepecover.png"
     },
     {
-      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_63201eb2-a000-4321-b685-32ff97da13c3_Screenshot (1).png",
+      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_9601c2a6-e6b2-453c-82dd-749cd8344db0congtyvantaiads.jpg",
       "SourceId": "BTL_DOTNET2",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
       "BasePath": "_content/BTL_DOTNET2",
-      "RelativePath": "images/post/Post_63201eb2-a000-4321-b685-32ff97da13c3_Screenshot (1).png",
+      "RelativePath": "images/comment/Comment_9601c2a6-e6b2-453c-82dd-749cd8344db0congtyvantaiads.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1268,7 +1268,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\post\\Post_63201eb2-a000-4321-b685-32ff97da13c3_Screenshot (1).png"
+      "OriginalItemSpec": "wwwroot\\images\\comment\\Comment_9601c2a6-e6b2-453c-82dd-749cd8344db0congtyvantaiads.jpg"
+    },
+    {
+      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_a75b386a-8f2b-4f59-9c71-dad72e19668f_Screenshot (2).png",
+      "SourceId": "BTL_DOTNET2",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
+      "BasePath": "_content/BTL_DOTNET2",
+      "RelativePath": "images/post/Post_a75b386a-8f2b-4f59-9c71-dad72e19668f_Screenshot (2).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\post\\Post_a75b386a-8f2b-4f59-9c71-dad72e19668f_Screenshot (2).png"
     },
     {
       "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\site.js",

@@ -13,7 +13,7 @@ namespace BTL_DOTNET2.Models
         public Comment Comment { get; set; } = null!;
         public List<Comment> Comments { get; set; } = null!;
         public ContentComment ContentComment { get; set; } = null!;
-        public IFormFile? ImgUrlPost { get; set; }
+        public IFormFile? ImgUrl { get; set; }
         
         
     }

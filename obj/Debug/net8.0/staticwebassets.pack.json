@@ -13,12 +13,16 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_0_AnhKhiMuThuaChealsea.png",
-      "PackagePath": "staticwebassets\\images\\post\\Post_0_AnhKhiMuThuaChealsea.png"
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_710517c5-96ae-4e0c-a767-0036f786d9c5pepecover.png",
+      "PackagePath": "staticwebassets\\images\\comment\\Comment_710517c5-96ae-4e0c-a767-0036f786d9c5pepecover.png"
     },
     {
-      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_63201eb2-a000-4321-b685-32ff97da13c3_Screenshot (1).png",
-      "PackagePath": "staticwebassets\\images\\post\\Post_63201eb2-a000-4321-b685-32ff97da13c3_Screenshot (1).png"
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_9601c2a6-e6b2-453c-82dd-749cd8344db0congtyvantaiads.jpg",
+      "PackagePath": "staticwebassets\\images\\comment\\Comment_9601c2a6-e6b2-453c-82dd-749cd8344db0congtyvantaiads.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_a75b386a-8f2b-4f59-9c71-dad72e19668f_Screenshot (2).png",
+      "PackagePath": "staticwebassets\\images\\post\\Post_a75b386a-8f2b-4f59-9c71-dad72e19668f_Screenshot (2).png"
     },
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\site.js",
