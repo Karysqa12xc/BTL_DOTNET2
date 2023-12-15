@@ -1,14 +1,13 @@
 using BTL_DOTNET2.Extensions;
 using BTL_DOTNET2.Models;
-using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace BTL_DOTNET2.Controllers
 {
-
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class RolesController : Controller
     {
         private CustomUserManager _userManager;
@@ -38,9 +37,9 @@ namespace BTL_DOTNET2.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(IdentityRole model)
         {
-            if (!_role.RoleExistsAsync(model.Name).GetAwaiter().GetResult())
+            if (!_role.RoleExistsAsync(model.Name!).GetAwaiter().GetResult())
             {
-                _role.CreateAsync(new IdentityRole(model.Name)).GetAwaiter().GetResult();
+                _role.CreateAsync(new IdentityRole(model.Name!)).GetAwaiter().GetResult();
             }
             return View(nameof(Index));
         }
@@ -63,7 +62,6 @@ namespace BTL_DOTNET2.Controllers
             }
             else
             {
-                // Xử lý trường hợp danh sách rỗng hoặc null
                 return View("Error");
             }
         }

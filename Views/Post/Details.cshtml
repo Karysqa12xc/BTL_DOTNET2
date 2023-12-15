@@ -15,6 +15,19 @@
 
         <a asp-action="Index">Back to List</a>
     </div>
+    @if (Model!.Post.IsChecked == false)
+    {
+        <h4>Chưa được duyệt</h4>
+        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+        {
+            <form asp-action="CheckedPost" method="post">
+                <input hidden asp-for="@Model.Post.PostId" name="id">
+                <input hidden type="checkbox" asp-for="@Model.Post.IsChecked" name="IsChecked">
+                <button type="submit" class="btn btn-primary">Duyệt</button>
+            </form>
+        }
+
+    }
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -47,14 +60,17 @@
             <img class="rounded" src="@ViewBag.ImgPostUrl" style="max-width: 70%; max-height: 70%; object-fit: cover;">
         </dd>
     </dl>
-
-    <button onclick="showCommentPopup()" id="valueButton">Add Comment</button>
+    @if(@Model.Post.IsChecked != false){
+        <button onclick="showCommentPopup()" id="valueButton">Add Comment</button>
+    }
+    
 
 </div>
 <div id="commentPopup" style="display: none;">
     @await Html.PartialAsync("_CreateComment", new BTL_DOTNET2.Models.PostContentViewModel { Post = Model!.Post })
 </div>
-@if(@Model.Comments.Count() > 0){
+@if (@Model.Comments.Count() > 0)
+{
     <h3>Commnets</h3>
 }
 
@@ -64,32 +80,30 @@
 
         <tr>
             <td><b>@comment.User!.UserName
-                    <button class="fa-solid fa-ellipsis" onclick="showOptions('optionsMenu_@comment.CommentId')">
-                        <div id="optionsMenu_@comment.CommentId" class="options-menu position-absolute end-30">
-                            <ul class="list-group">
-                                <li class="list-group-item"><a style="text-decoration: none; color: black;"
-                                        asp-controller="ContentComment" asp-action="Edit"
-                                        asp-route-id="@comment.ContentCommentId">Edit</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a style="text-decoration: none; color: black;" asp-controller="ContentComment"
-                                        asp-action="Delete" asp-route-id="@comment.ContentCommentId">Delete</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </button>
+                    @if (comment!.User == @ViewBag.CurrentUser || User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                    {
+                        <button class="fa-solid fa-ellipsis" onclick="showOptions('optionsMenu_@comment.CommentId')">
+                            <div id="optionsMenu_@comment.CommentId" class="options-menu position-absolute end-30">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a style="text-decoration: none; color: black;"
+                                            asp-controller="ContentComment" asp-action="Edit"
+                                            asp-route-id="@comment.ContentCommentId">Edit</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a style="text-decoration: none; color: black;" asp-controller="ContentComment"
+                                            asp-action="Delete" asp-route-id="@comment.ContentCommentId">Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </button>
+                    }
+
                 </b>
 
             </td>
         </tr>
         <tr>
             <td>
-                @* <div id="optionsMenu_@comment.CommentId" class="options-menu position-absolute end-30">
-            <ul class="list-group">
-            <li class="list-group-item"><a style="text-decoration: none; color: black;" href="">Edit</a></li>
-            <li class="list-group-item"><a style="text-decoration: none; color: black;" href="">Delete</a></li>
-            </ul>
-            </div> *@
             </td>
         </tr>
         <tr>
@@ -102,7 +116,6 @@
             <td>
                 <img class="rounded float-start" src="@comment.ContentComment.Image" alt=""
                     style="max-width: 50%; max-height: 50%;">
-
             </td>
         </tr>
     }

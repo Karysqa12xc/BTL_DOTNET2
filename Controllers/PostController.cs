@@ -6,9 +6,12 @@ using BTL_DOTNET2.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
 using X.PagedList;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BTL_DOTNET2.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,7 +23,7 @@ namespace BTL_DOTNET2.Controllers
             _userManager = userManager;
         }
         // GET: Post
-        public async Task<IActionResult> Index(int? page, int? PageSize, string searching, string catesearch)
+        public async Task<IActionResult> Index(int? page, int? PageSize, string searching)
         {
             ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -32,7 +35,7 @@ namespace BTL_DOTNET2.Controllers
             };
             int pagesize = (PageSize ?? 5);
             ViewBag.psize = pagesize;
-            
+
             var posts = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
@@ -144,6 +147,7 @@ namespace BTL_DOTNET2.Controllers
         public async Task<IActionResult> PostOfUser()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
             var post = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
@@ -169,26 +173,43 @@ namespace BTL_DOTNET2.Controllers
             return View(post);
         }
 
-        // public IActionResult SavePost()
-        // {
-        //     return View();
-        // }
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> SavePost(int id, bool IsSave)
-        // {
-        //     var existingPost = await _context.Posts.FindAsync(id);
+        public IActionResult CheckedPost(int? page, int? PageSize)
+        {
+            ViewBag.PageSize = new List<SelectListItem>(){
 
-        //     if (existingPost == null)
-        //     {
-        //         return NotFound();
-        //     }
+                new SelectListItem(){Value = "5", Text = "5"},
+                new SelectListItem(){Value = "10", Text = "10"},
+                new SelectListItem(){Value = "15", Text = "15"},
+            };
+            int pagesize = (PageSize ?? 5);
+            ViewBag.psize = pagesize;
+            var posts = _context.Posts
+            .Include(p => p.Cate)
+            .Include(p => p.ContentPost)
+            .Include(p => p.User).Where(p=> p.IsChecked != true).ToList().ToPagedList(page ?? 1, pagesize);
+            return View(posts);
 
-        //     existingPost.IsSave = IsSave;
-        //     await _context.SaveChangesAsync();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CheckedPost(int id, bool IsChecked)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingPost = await _context.Posts.FindAsync(id);
 
-        //     return RedirectToAction(nameof(Index));
-        // }
+                if (existingPost == null)
+                {
+                    return NotFound();
+                }
+
+                existingPost.IsChecked = !IsChecked;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+
+        }
 
 
         // POST: Post/Edit/5

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BTL_DOTNET2.Data;
 using BTL_DOTNET2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BTL_DOTNET2.Controllers
 {
+    [Authorize]
     public class ContentCommentController : Controller
     {
         private readonly ApplicationDbContext _context;

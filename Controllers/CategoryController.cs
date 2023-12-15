@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using BTL_DOTNET2.Data;
 using BTL_DOTNET2.Models;
 using BTL_DOTNET2.Models.Process;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BTL_DOTNET2.Controllers
 {
+    [Authorize(Roles = "Admin, SuperAdmin")]
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -14,13 +16,13 @@ namespace BTL_DOTNET2.Controllers
         {
             _context = context;
         }
-
+        
         // GET: Category
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());
         }
-
+        [Authorize]
         // GET: Category/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -38,7 +40,7 @@ namespace BTL_DOTNET2.Controllers
 
             return View(category);
         }
-
+        [Authorize]
         // GET: Category/Create
         public IActionResult Create()
         {
@@ -48,6 +50,7 @@ namespace BTL_DOTNET2.Controllers
         // POST: Category/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CateId,CateName")] Category category)

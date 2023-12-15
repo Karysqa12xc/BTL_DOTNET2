@@ -7,24 +7,7 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-@* @using (Html.BeginForm("Index", "Post", FormMethod.Get))
-{
-<div class="d-flex">
-@Html.TextBox("searching")
-<input type="submit" class="btn btn-primary" value="search">
-</div>
 
-
-} *@
-<form class="row" asp-controller="Post" asp-action="Index" method="get">
-    <p>
-        <input class="col-md-2" type="text" name="searching" />
-        <input class="col-md-1" type="submit" value="Tìm kiếm" />
-    </p>
-</form>
 <table class="table">
     <thead>
         <tr>
@@ -47,13 +30,9 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.Count() == 0)
-        {
-            <h1>Không có dữ liệu</h1>
-        }
         @foreach (var item in Model.Reverse())
         {
-            @if (item.IsChecked == true)
+            @if (item.IsChecked != true)
             {
                 <tr>
                     <td>
@@ -73,20 +52,8 @@
                     </td>
                     <td>
                         <a asp-action="Details" asp-route-id="@item.PostId">Watch</a> |
-                        @if (item.User == null)
-                        {
-                            <a asp-controller="ContentPost" asp-action="Delete"
-                                asp-route-id="@item.ContentPost.ContentPostId">Delete</a>
-                        }
-                        else
-                        {
-                            if (@ViewBag.CurrentUser == @item.User || User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
-                            {
-                                <a asp-controller="ContentPost" asp-action="Delete"
-                                    asp-route-id="@item.ContentPost.ContentPostId">Delete</a>
-                            }
-                        }
-
+                        <a asp-controller="ContentPost" asp-action="Delete"
+                            asp-route-id="@item.ContentPost.ContentPostId">Delete</a>
                     </td>
                 </tr>
             }
@@ -97,7 +64,7 @@
 
 @using (Html.BeginForm("Index", "Post", FormMethod.Get, new { id = "form1" }))
 {
-    @if (Model.Count() > 0 &&  Model.Any(p => p.IsChecked))
+    @if (Model.Count() > 0 && Model.Any(p => !p.IsChecked))
     {
         <div class="row">
             <div class="col-md-11">
