@@ -26,7 +26,6 @@
                 <button type="submit" class="btn btn-primary">Duyệt</button>
             </form>
         }
-
     }
     <hr />
     <dl class="row">
@@ -52,18 +51,25 @@
         <dd class="col-sm-12">
             <b>Nội dung:</b>
             <br>
-            @Html.DisplayFor(model => model.Post.ContentPost.Paragram)
+            @Html.Raw(Model.Post.ContentPost.Paragram)
         </dd>
-        <dd class="col-sm-12">
-            <b>Hình ảnh:</b>
-            <br>
-            <img class="rounded" src="@ViewBag.ImgPostUrl" style="max-width: 70%; max-height: 70%; object-fit: cover;">
-        </dd>
+        @if (@ViewBag.ImgPostUrl != null)
+        {
+            <dd class="col-sm-12">
+                <b>Hình ảnh:</b>
+                <br>
+                <img class="rounded" src="@ViewBag.ImgPostUrl" style="max-width: 70%; max-height: 70%; object-fit: cover;">
+            </dd>
+        }
+
+
+
     </dl>
-    @if(@Model.Post.IsChecked != false){
+    @if (@Model.Post.IsChecked != false)
+    {
         <button onclick="showCommentPopup()" id="valueButton">Add Comment</button>
     }
-    
+
 
 </div>
 <div id="commentPopup" style="display: none;">
@@ -107,16 +113,16 @@
             </td>
         </tr>
         <tr>
-            <td>@comment.ContentComment.Paragraph</td>
-        </tr>
-        <tr>
-            <td>@comment.CommentTime</td>
+            <td>@Html.Raw(@comment.ContentComment.Paragraph)</td>
         </tr>
         <tr>
             <td>
                 <img class="rounded float-start" src="@comment.ContentComment.Image" alt=""
                     style="max-width: 50%; max-height: 50%;">
             </td>
+        </tr>
+        <tr>
+            <td>@comment.CommentTime</td>
         </tr>
     }
 

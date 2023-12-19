@@ -29,11 +29,11 @@ namespace BTL_DOTNET2.Controllers
 
             ViewBag.PageSize = new List<SelectListItem>(){
 
-                new SelectListItem(){Value = "5", Text = "5"},
                 new SelectListItem(){Value = "10", Text = "10"},
                 new SelectListItem(){Value = "15", Text = "15"},
+                new SelectListItem(){Value = "20", Text = "20"},
             };
-            int pagesize = (PageSize ?? 5);
+            int pagesize = (PageSize ?? 10);
             ViewBag.psize = pagesize;
 
             var posts = _context.Posts

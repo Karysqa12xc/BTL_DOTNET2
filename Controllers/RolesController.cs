@@ -35,7 +35,7 @@ namespace BTL_DOTNET2.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(IdentityRole model)
+        public IActionResult Create(IdentityRole model)
         {
             if (!_role.RoleExistsAsync(model.Name!).GetAwaiter().GetResult())
             {

@@ -70,30 +70,33 @@ namespace BTL_DOTNET2.Controllers
             // ViewData["ContentCommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.ContentCommentId);
             // ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
             // return View(comment);
-            if (!string.IsNullOrEmpty(postContentViewModel.ContentComment.Paragraph))
+            if (!ModelState.IsValid)
             {
-                postContentViewModel.Comment.CommentTime = DateTime.Now;
-                postContentViewModel.Comment.User = await _userManager.GetUserAsync(HttpContext.User);
-                if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
+                if (!string.IsNullOrEmpty(postContentViewModel.ContentComment.Paragraph))
                 {
-                    fileImage = postContentViewModel.ImgUrl;
-                    var imageCommentPath = await UploadImage(fileImage);
-                    postContentViewModel.ContentComment.Image = imageCommentPath;
-                    ViewBag.ImgCommentUrl = imageCommentPath;
+                    postContentViewModel.Comment.CommentTime = DateTime.Now;
+                    postContentViewModel.Comment.User = await _userManager.GetUserAsync(HttpContext.User);
+                    if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
+                    {
+                        fileImage = postContentViewModel.ImgUrl;
+                        var imageCommentPath = await UploadImage(fileImage);
+                        postContentViewModel.ContentComment.Image = imageCommentPath;
+                        ViewBag.ImgCommentUrl = imageCommentPath;
+
+                    }
+
+                    _context.Add(postContentViewModel.ContentComment);
+                    _context.SaveChanges();
+
+                    postContentViewModel.Comment.ContentCommentId = postContentViewModel.ContentComment.ContentCommentId;
+                    _context.Add(postContentViewModel.Comment);
+                    await _context.SaveChangesAsync();
+
+                    // return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
+                    return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
                 }
-
-                _context.Add(postContentViewModel.ContentComment);
-                _context.SaveChanges();
-
-                postContentViewModel.Comment.ContentCommentId = postContentViewModel.ContentComment.ContentCommentId;
-                _context.Add(postContentViewModel.Comment);
-                await _context.SaveChangesAsync();
-
-                // return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
-                return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
             }
-
-            return View();
+            return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
         }
         public async Task<string> UploadImage(IFormFile imgFile)
         {

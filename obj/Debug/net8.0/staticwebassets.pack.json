@@ -21,12 +21,20 @@
       "PackagePath": "staticwebassets\\images\\comment\\Comment_055dbaee-0fb0-4c09-9969-d8f710db99ae_292221113_1282128228861787_3462487112372602083_n.jpg"
     },
     {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_39e1bb31-ca78-4222-8f8e-51449868b0f2IMG_20210406_000642.jpg",
+      "PackagePath": "staticwebassets\\images\\comment\\Comment_39e1bb31-ca78-4222-8f8e-51449868b0f2IMG_20210406_000642.jpg"
+    },
+    {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_71610de9-c8b6-42f8-bfbb-4c2f7eb14f32BigO of Search Algorthim.png",
       "PackagePath": "staticwebassets\\images\\comment\\Comment_71610de9-c8b6-42f8-bfbb-4c2f7eb14f32BigO of Search Algorthim.png"
     },
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_8615dc9f-a899-4c5d-ac34-1efb7ec9a655_IMG_20190706_124312 (2).jpg",
       "PackagePath": "staticwebassets\\images\\comment\\Comment_8615dc9f-a899-4c5d-ac34-1efb7ec9a655_IMG_20190706_124312 (2).jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_9667b6ab-bf5c-412d-aed2-64474776350achongday2.png",
+      "PackagePath": "staticwebassets\\images\\comment\\Comment_9667b6ab-bf5c-412d-aed2-64474776350achongday2.png"
     },
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_c781624e-635e-4d9d-8f32-2d1dcca0872d_IMG_20190706_124312 (2).jpg",
@@ -43,6 +51,10 @@
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_8f0ee99a-1bb6-4544-b38d-f91a829fd9cc_leafcocoranitchio-r225x225.jpg",
       "PackagePath": "staticwebassets\\images\\post\\Post_8f0ee99a-1bb6-4544-b38d-f91a829fd9cc_leafcocoranitchio-r225x225.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_90f06121-7a6d-4c91-8dc4-8a303a81ed88_Ông Tố Hữu.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_90f06121-7a6d-4c91-8dc4-8a303a81ed88_Ông Tố Hữu.jpg"
     },
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_be30a9f3-cdd9-4e98-aaf8-517fc3e3b526_BigO of Search Algorthim.png",
@@ -63,6 +75,10 @@
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_fc217e62-ac67-47ad-818a-e3ac6622376f_HJEJE.png",
       "PackagePath": "staticwebassets\\images\\post\\Post_fc217e62-ac67-47ad-818a-e3ac6622376f_HJEJE.png"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_fecf45d7-6d8a-4bd7-935b-828bb33ca15c_cs_BackGround.png",
+      "PackagePath": "staticwebassets\\images\\post\\Post_fecf45d7-6d8a-4bd7-935b-828bb33ca15c_cs_BackGround.png"
     },
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\site.js",

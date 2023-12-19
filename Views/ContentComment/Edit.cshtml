@@ -27,7 +27,7 @@
                 <label asp-for="ImgUrl" class="control-label">Chọn hình ảnh mà bạn muốn thay đổi: </label>
                 <input asp-for="ImgUrl" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -35,9 +35,14 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="javascript:void(0)" onclick="goBack()">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
