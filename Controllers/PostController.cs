@@ -39,7 +39,7 @@ namespace BTL_DOTNET2.Controllers
             var posts = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
-            .Include(p => p.User).Where(x => x.Title.Contains(searching) || searching == null).ToList().ToPagedList(page ?? 1, pagesize);
+            .Include(p => p.User).Where(p => (p.Title.Contains(searching) || searching == null) && p.IsChecked).ToList().ToPagedList(page ?? 1, pagesize);
             return View(posts);
         }
 

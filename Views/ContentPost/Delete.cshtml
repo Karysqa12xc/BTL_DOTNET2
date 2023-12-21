@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Paragram)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Paragram)
+            @Html.Raw(Model.Paragram)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Image)
@@ -28,6 +28,11 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="ContentPostId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a href="javascript:void(0)" onclick="goBack()">Quay lại</a>
     </form>
 </div>
+<script>
+    function goBack(){
+        window.history.back();
+    }
+</script>

@@ -9,13 +9,13 @@
 <h4>ContentComment</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ContentComment.ContentCommentId" />
             <div class="form-group">
                 <label asp-for="ContentComment.Paragraph" class="control-label"></label>
-                <input asp-for="ContentComment.Paragraph" class="form-control" />
+                <textarea id="tiny" asp-for="ContentComment.Paragraph" class="form-control"></textarea>
                 <span asp-validation-for="ContentComment.Paragraph" class="text-danger"></span>
             </div>
             <div hidden class="form-group">
@@ -35,7 +35,7 @@
 </div>
 
 <div>
-    <a href="javascript:void(0)" onclick="goBack()">Back to List</a>
+    <a href="javascript:void(0)" onclick="goBack()">Quay lại</a>
 </div>
 
 @section Scripts {

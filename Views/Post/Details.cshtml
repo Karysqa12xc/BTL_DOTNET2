@@ -11,9 +11,12 @@
         @if (@ViewBag.CurrentUser == @Model.Post.User)
         {
             <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@Model?.Post.ContentPostId">Edit</a>
+            <span> | </span>
         }
-
-        <a asp-action="Index">Back to List</a>
+        @if (!User.IsInRole("SuperAdmin") && !User.IsInRole("Admin"))
+        {
+            <a asp-action="Index">Back to List</a>
+        }
     </div>
     @if (Model!.Post.IsChecked == false)
     {
@@ -25,7 +28,9 @@
                 <input hidden type="checkbox" asp-for="@Model.Post.IsChecked" name="IsChecked">
                 <button type="submit" class="btn btn-primary">Duyệt</button>
             </form>
+            <a asp-action="CheckedPost">Back to List</a>
         }
+
     }
     <hr />
     <dl class="row">
@@ -150,5 +155,4 @@
         var menu = document.getElementById(menuId);
         menu.classList.toggle("show");
     }
-
 </script>

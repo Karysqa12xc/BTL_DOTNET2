@@ -70,7 +70,7 @@ namespace BTL_DOTNET2.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var user = await _userManager.FindByIdAsync(model.UserId);
+                var user = await _userManager.FindByIdAsync(model.UserId!);
 
                 if (user != null && !string.IsNullOrEmpty(model.RoleName))
                 {

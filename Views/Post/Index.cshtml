@@ -10,7 +10,8 @@
 <p>
     <a asp-action="Create">Tạo bài mới</a>
 </p>
-<div>
+<div class="container">
+<div class="row">
     <form class="row" asp-controller="Post" asp-action="Index" method="get">
         <p>
             <input class="col-md-2" type="text" name="searching" />
@@ -43,10 +44,9 @@
             {
                 <h1>Không có dữ liệu</h1>
             }
-            @foreach (var item in Model.Reverse().Where(p => p.IsChecked))
+            @foreach (var item in Model.Reverse())
             {
-                @if (item.IsChecked == true)
-                {
+                
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Title)
@@ -81,7 +81,7 @@
 
                         </td>
                     </tr>
-                }
+                
 
             }
         </tbody>
@@ -116,6 +116,8 @@
         }
 
     }
+</div>
+
 
 
 

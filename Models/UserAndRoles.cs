@@ -8,9 +8,9 @@ namespace BTL_DOTNET2.Models
 {
     public class UserAndRoles
     {
-        public List<User> Users { get; set; }
-        public List<IdentityRole> Roles { get; set; }
-        public string UserId { get; set; }
-        public string RoleName { get; set; }
+        public List<User>? Users { get; set; }
+        public List<IdentityRole>? Roles { get; set; }
+        public string? UserId { get; set; }
+        public string? RoleName { get; set; }
     }
 }
