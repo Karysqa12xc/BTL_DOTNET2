@@ -3,6 +3,7 @@ using BTL_DOTNET2.Data;
 using BTL_DOTNET2.Models;
 using BTL_DOTNET2.Extensions;
 using Microsoft.AspNetCore.Identity;
+using BTL_DOTNET2.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
