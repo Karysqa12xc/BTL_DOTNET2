@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -28,88 +30,102 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                @if (User.IsInRole("Admin"))
-                {
-                    <a class="navbar-brand" asp-area="" asp-controller="Post" asp-action="Index">ADMIN</a>
-                }
-                else if (User.IsInRole("SuperAdmin"))
-                {
-                    <a class="navbar-brand" asp-area="" asp-controller="Post" asp-action="Index">SUPERADMIN</a>
-
-                }
-                else if (!User.IsInRole("Admin") && !User.IsInRole("SuperAdmin"))
-                {
-                    <a class="navbar-brand" asp-area="" asp-controller="Post" asp-action="Index">FORUM WEBSITE</a>
-                }
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-
-                    @if (User.IsInRole("SuperAdmin"))
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    @if (User.IsInRole("Admin"))
                     {
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Roles"
-                                    asp-action="AddRole">Role</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Post"
-                                    asp-action="CheckedPost">Checked Post</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index">Trang
-                                    chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="PostOfUser">Your
-                                    Posts</a>
-                            </li>
-                        </ul>
+                        <a class="navbar-brand" asp-area="" asp-controller="Post" asp-action="Index">ADMIN</a>
                     }
-                    else if (User.IsInRole("Admin"))
+                    else if (User.IsInRole("SuperAdmin"))
                     {
-                        <ul class="navbar-nav flex-grow-1">
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index">Trang
-                                    chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Post"
-                                    asp-action="CheckedPost">Checked Post</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Category"
-                                    asp-action="Index">Category</a>
-                            </li>
-                        </ul>
+                        <a class="navbar-brand" asp-area="" asp-controller="Post" asp-action="Index">SUPERADMIN</a>
 
                     }
-                    else
+                    else if (!User.IsInRole("Admin") && !User.IsInRole("SuperAdmin"))
                     {
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index">Trang
-                                    chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="PostOfUser">Your
-                                    Posts</a>
-                            </li>
-                        </ul>
+                        <a class="navbar-brand" asp-area="" asp-controller="Post" asp-action="Index">FORUM WEBSITE</a>
                     }
 
-                    <partial name="_LoginPartial" />
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="AddRole">Phân
+                                        role</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Post"
+                                        asp-action="CheckedPost">Kiểm duyệt</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index">Trang
+                                        chủ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="PostOfUser">Bài
+                                        viết của bạn</a>
+                                </li>
+                            </ul>
+                        }
+                        else if (User.IsInRole("Admin"))
+                        {
+                            <ul class="navbar-nav flex-grow-1">
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index">Trang
+                                        chủ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Post"
+                                        asp-action="CheckedPost">Kiểm duyệt</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Thể
+                                        loại</a>
+                                </li>
+                            </ul>
+
+                        }
+                        else
+                        {
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index">Trang
+                                        chủ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="PostOfUser">Bài
+                                        viết của bạn</a>
+                                </li>
+                            </ul>
+                        }
+
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
+    }
+    else
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Post" asp-action="Index">FORUM WEBSITE</a>
+                </div>
+            </nav>
+        </header>
+    }
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
