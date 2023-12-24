@@ -6,37 +6,36 @@
 }
 
 <h1>Index</h1>
+<div class="mt-3 mb-3">
+<a asp-action="Create">
+    <button type="button"class="btn btn-success">Tạo bài viết mới</button>
+</a>
+</div>
 
-<p>
-    <a asp-action="Create">Tạo bài mới</a>
-</p>
-<div class="container">
-<div class="row">
-    <form class="row" asp-controller="Post" asp-action="Index" method="get">
+  <form class="row" asp-controller="Post" asp-action="Index" method="get">
         <p>
-            <input class="col-md-2" type="text" name="searching" />
+            <input placeholder="Nhập từ khoá..." class="col-md-2" type="text" name="searching" />
             <input class="col-md-1" type="submit" value="Tìm kiếm" />
         </p>
     </form>
+
+<div class="row">
     <table class="table col-md-12">
-        <thead>
+        <thead class="bg-primary text-light">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Title)
+                    Chủ đề
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.User)
+                    Người đăng
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PostTime)
+                    Replies
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Cate)
+                    Thời gian
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CommentTotal)
-                </th>
-                <th>Options</th>
+                <th>Lựa chọn</th>
             </tr>
         </thead>
         <tbody>
@@ -46,38 +45,51 @@
             }
             @foreach (var item in Model.Reverse())
             {
-                
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
+                        <td class="d-flex flex-column">
+                            <p>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </p>
+                            <p>
+                                <span class="badge @item.Cate.BgColor rounded-pill d-inline">
+                                    @Html.DisplayFor(modelItem => item.Cate.CateName) 
+                                </span>
+                            </p>
+                            
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.User!.Email)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PostTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cate.CateName)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.CommentTotal)
                         </td>
                         <td>
-                            <a asp-action="Details" asp-route-id="@item.PostId">Watch</a> |
+                            @Html.DisplayFor(modelItem => item.PostTime)
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="Details" asp-route-id="@item.PostId">
+                                    <button type="button" class="btn btn-dark me-3">Xem</button>
+                                </a> 
                             @if (item.User == null)
                             {
                                 <a asp-controller="ContentPost" asp-action="Delete"
-                                    asp-route-id="@item.ContentPost.ContentPostId">Delete</a>
+                                    asp-route-id="@item.ContentPost.ContentPostId">
+                                        <button type="button" class="btn btn-danger">Xoá</button>
+                                </a>    
                             }
                             else
                             {
                                 if (@ViewBag.CurrentUser == @item.User || User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
                                 {
-                                    <a asp-controller="ContentPost" asp-action="Delete"
-                                        asp-route-id="@item.ContentPost.ContentPostId">Delete</a>
+                                        <a asp-controller="ContentPost" asp-action="Delete"
+                                            asp-route-id="@item.ContentPost.ContentPostId">
+                                                <button type="button" class="btn btn-danger">Xoá</button>
+                                        </a>     
                                 }
                             }
+                            </div>
+                            
 
                         </td>
                     </tr>

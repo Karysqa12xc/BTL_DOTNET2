@@ -13,6 +13,9 @@ namespace BTL_DOTNET2.Models
         public int CateId { get; set; }
 
         public string CateName { get; set; } = null!;
+        public string? BgColor { get; set; }
+        
+        
 
         [InverseProperty("Cate")]
         public virtual ICollection<Post> Posts { get; set; } = new List<Post>();

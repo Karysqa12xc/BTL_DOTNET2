@@ -144,15 +144,24 @@ namespace BTL_DOTNET2.Controllers
             // Trả về đường dẫn của hình ảnh để lưu vào cơ sở dữ liệu
             return "/images/post/" + uniqueFileName;
         }
-        public async Task<IActionResult> PostOfUser()
+        public async Task<IActionResult> PostOfUser(int? page, int? PageSize)
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
 
+            ViewBag.PageSize = new List<SelectListItem>(){
+
+                new SelectListItem(){Value = "10", Text = "10"},
+                new SelectListItem(){Value = "15", Text = "15"},
+                new SelectListItem(){Value = "20", Text = "20"},
+            };
+            int pagesize = (PageSize ?? 10);
+            ViewBag.psize = pagesize;
             var post = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
-            .Include(p => p.User).Where(p => p.User == currentUser);
-            return View(await post.ToArrayAsync());
+            .Include(p => p.User).Where(p => p.User == currentUser).ToList().ToPagedList(page ?? 1, pagesize);
+            return View(post);
         }
         // GET: Post/Edit/5
         public async Task<IActionResult> Edit(int? id)

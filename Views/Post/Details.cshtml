@@ -4,18 +4,18 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Thông tin các bài đăng</h1>
+<h1>Thông tin bài đăng</h1>
 
 <div>
     <div>
         @if (@ViewBag.CurrentUser == @Model.Post.User)
         {
-            <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@Model?.Post.ContentPostId">Edit</a>
+            <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@Model?.Post.ContentPostId">Chỉnh sửa</a>
             <span> | </span>
         }
         @if (!User.IsInRole("SuperAdmin") && !User.IsInRole("Admin"))
         {
-            <a asp-action="Index">Back to List</a>
+            <a href="javascript:void(0)" onclick="goBack()">Quay lại</a>
         }
     </div>
     @if (Model!.Post.IsChecked == false)
@@ -28,7 +28,7 @@
                 <input hidden type="checkbox" asp-for="@Model.Post.IsChecked" name="IsChecked">
                 <button type="submit" class="btn btn-primary">Duyệt</button>
             </form>
-            <a asp-action="CheckedPost">Back to List</a>
+            <a asp-action="CheckedPost">Quay lại</a>
         }
 
     }
@@ -66,9 +66,6 @@
                 <img class="rounded" src="@ViewBag.ImgPostUrl" style="max-width: 70%; max-height: 70%; object-fit: cover;">
             </dd>
         }
-
-
-
     </dl>
     @if (@Model.Post.IsChecked != false)
     {
@@ -154,5 +151,8 @@
     function showOptions(menuId) {
         var menu = document.getElementById(menuId);
         menu.classList.toggle("show");
+    }
+    function goBack(){
+        window.history.back();
     }
 </script>
