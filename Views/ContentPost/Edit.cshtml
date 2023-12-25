@@ -1,14 +1,17 @@
 @model BTL_DOTNET2.Models.PostContentViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa bài viết";
 }
 
-<h1>Edit</h1>
+<h1 class="text-center">@ViewData["Title"]</h1>
 
-<h4>ContentPost</h4>
 <div>
-    <a href="javascript:void(0)" onclick="goBack()">Quay lại</a>
+    <a href="javascript:void(0)" onclick="goBack()">
+        <button type="button" class="btn btn-outline-danger me-3">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+    </a>
 </div>
 <hr />
 <div class="row">
@@ -17,31 +20,40 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ContentPost.ContentPostId" />
             <div class="form-group">
-                <label asp-for="ContentPost.Paragram" class="control-label"></label>
+                <label asp-for="ContentPost.Paragram" class="control-label">
+                    <h2>Nội dung:</h2>
+                </label>
                 <textarea id="tiny" asp-for="ContentPost.Paragram" class="form-control"></textarea>
                 <span asp-validation-for="ContentPost.Paragram" class="text-danger"></span>
             </div>
             <div>
                 <label hidden asp-for="ContentPost.Image" class="control-label"></label>
                 <input hidden asp-for="ContentPost.Image" class="form-control" />
-                <span asp-validation-for="ContentPost.Image" class="text-danger"></span> 
+                <span asp-validation-for="ContentPost.Image" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImgUrl" class="control-label">Chọn hình ảnh bạn muốn sửa đổi:</label>
+                <label asp-for="ImgUrl" class="control-label">
+                    <h2>Chọn hình ảnh bạn muốn sửa đổi:</h2>
+                </label>
                 <input asp-for="ImgUrl" type="file" class="form-control" />
                 <span asp-validation-for="ContentPost.Image" class="text-danger"></span>
             </div>
             <div class="container">
-                <img class="rounded" src="@Model?.ContentPost.Image" alt="" style="max-height: 100%; max-width: 100%;object-fit: cover;">
+                <img class="rounded" src="@Model?.ContentPost.Image" alt=""
+                    style="max-height: 100%; max-width: 100%;object-fit: cover;">
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <button type="submit" class="w-100 btn btn-primary">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                </button>
             </div>
         </form>
     </div>
 </div>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 <script>
     function goBack() {

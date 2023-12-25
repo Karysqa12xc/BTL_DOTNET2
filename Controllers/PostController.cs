@@ -8,6 +8,7 @@ using System.Data;
 using X.PagedList;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Authorization;
+using Humanizer;
 
 namespace BTL_DOTNET2.Controllers
 {
@@ -28,18 +29,24 @@ namespace BTL_DOTNET2.Controllers
             ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
 
             ViewBag.PageSize = new List<SelectListItem>(){
-
+                new SelectListItem(){Value = "5", Text = "5"},
                 new SelectListItem(){Value = "10", Text = "10"},
                 new SelectListItem(){Value = "15", Text = "15"},
                 new SelectListItem(){Value = "20", Text = "20"},
             };
-            int pagesize = (PageSize ?? 10);
+            int pagesize = (PageSize ?? 5);
             ViewBag.psize = pagesize;
-
             var posts = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
-            .Include(p => p.User).Where(p => (p.Title.Contains(searching) || searching == null) && p.IsChecked).ToList().ToPagedList(page ?? 1, pagesize);
+            .Include(p => p.User)
+            .Where(p =>
+            (p.Title.Contains(searching)
+            || searching == null)
+            && p.IsChecked)
+            .OrderByDescending(p => p.PostTime)
+            .ToList()
+            .ToPagedList(page ?? 1, pagesize);
             return View(posts);
         }
 
@@ -144,23 +151,27 @@ namespace BTL_DOTNET2.Controllers
             // Trả về đường dẫn của hình ảnh để lưu vào cơ sở dữ liệu
             return "/images/post/" + uniqueFileName;
         }
-        public async Task<IActionResult> PostOfUser(int? page, int? PageSize)
+        public async Task<IActionResult> PostOfUser(int? page, int? PageSize, string searching)
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
 
             ViewBag.PageSize = new List<SelectListItem>(){
-
+                new SelectListItem(){Value = "5", Text = "5"},
                 new SelectListItem(){Value = "10", Text = "10"},
                 new SelectListItem(){Value = "15", Text = "15"},
                 new SelectListItem(){Value = "20", Text = "20"},
             };
-            int pagesize = (PageSize ?? 10);
+            int pagesize = (PageSize ?? 5);
             ViewBag.psize = pagesize;
             var post = _context.Posts
-            .Include(p => p.Cate)
-            .Include(p => p.ContentPost)
-            .Include(p => p.User).Where(p => p.User == currentUser).ToList().ToPagedList(page ?? 1, pagesize);
+            .Include(pu => pu.Cate)
+            .Include(pu => pu.ContentPost)
+            .Include(pu => pu.User)
+            .Where(pu => (pu.Title.Contains(searching)
+            || searching == null) && pu.User == currentUser)
+            .OrderByDescending(pu => pu.PostTime)
+            .ToList().ToPagedList(page ?? 1, pagesize);
             return View(post);
         }
         // GET: Post/Edit/5
@@ -182,7 +193,7 @@ namespace BTL_DOTNET2.Controllers
             return View(post);
         }
 
-        public IActionResult CheckedPost(int? page, int? PageSize)
+        public IActionResult CheckedPost(int? page, int? PageSize, string searching)
         {
             ViewBag.PageSize = new List<SelectListItem>(){
 
@@ -195,7 +206,10 @@ namespace BTL_DOTNET2.Controllers
             var posts = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
-            .Include(p => p.User).Where(p=> p.IsChecked != true).ToList().ToPagedList(page ?? 1, pagesize);
+            .Include(p => p.User).Where(p => p.IsChecked != true && (p.Title.Contains(searching) || searching == null))
+            .OrderByDescending(p => p.PostTime)
+            .ToList()
+            .ToPagedList(page ?? 1, pagesize);
             return View(posts);
 
         }

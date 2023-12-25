@@ -9,17 +9,20 @@
         <form asp-controller="Commnent" asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div hidden class="form-group">
-                <label  asp-for="Comment.CommentTime" hidden class="control-label"></label>
+                <label asp-for="Comment.CommentTime" hidden class="control-label"></label>
                 <input asp-for="Comment.CommentTime" class="form-control" />
-                <span  asp-validation-for="Comment.CommentTime" class="text-danger"></span>
+                <span asp-validation-for="Comment.CommentTime" class="text-danger"></span>
             </div>
             <div hidden class="form-group">
                 <label asp-for="Comment.PostId" class="control-label"></label>
-                <input asp-for="Comment.PostId" type="text" value="@Model.Post.PostId" class="form-control"/>
+                <input asp-for="Comment.PostId" type="text" value="@Model.Post.PostId" class="form-control" />
             </div>
             <div class="form-group  mb-3">
-                <label asp-for="ContentComment.Paragraph" class="control-label">Nội dung</label>
-                <textarea id="tiny" asp-for="ContentComment.Paragraph" cols="10" rows="3" class ="form-control"></textarea>
+                <label asp-for="ContentComment.Paragraph" class="control-label">
+                    <h2>Nội dung</h2>
+                </label>
+                <textarea id="tiny" asp-for="ContentComment.Paragraph" cols="10" rows="3"
+                    class="form-control"></textarea>
             </div>
             <div class="form-group mb-3">
                 <label asp-for="ImgUrl" class="form-label">Chọn ảnh</label>
@@ -33,33 +36,35 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 <script>
 
-<script>
-  $(function () {
-        $('form').submit(function (e) {
-            e.preventDefault();
+    <script>
+        $(function () {
+            $('form').submit(function (e) {
+                e.preventDefault();
 
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function (response) {
-                    if (response.success) {
-                        // Lấy postId từ response hoặc lấy từ form (tùy vào cách bạn xử lý ở phía server)
-                        var postId = response.postId || $('input[name="Comment.PostId"]').val();
-                        // Reload trang Post/Details
-                        window.location.replace('/Post/Details/' + postId);
-                    } else {
-                        console.error('Error:', response);
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            // Lấy postId từ response hoặc lấy từ form (tùy vào cách bạn xử lý ở phía server)
+                            var postId = response.postId || $('input[name="Comment.PostId"]').val();
+                            // Reload trang Post/Details
+                            window.location.replace('/Post/Details/' + postId);
+                        } else {
+                            console.error('Error:', response);
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Error:', error);
                     }
-                },
-                error: function (error) {
-                    console.error('Error:', error);
-                }
+                });
             });
-        });
     });
 </script>

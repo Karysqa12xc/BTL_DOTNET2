@@ -5,62 +5,85 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CommentTotal)
-            </th>
-            <th>Options</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Reverse())
-        {
-            @if (item.IsChecked != true)
-            {
+<h1 class="text-center">Các bài viết chưa kiểm duyệt</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="float-end mb-3">
+            <form class="input-group" asp-controller="Post" asp-action="CheckedPost" method="get">
+                <input placeholder="Nhập từ khoá..." class="form-control" type="text" name="searching" />
+                <button class="btn btn-outline-secondary" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+        <table class="table">
+            <thead class="bg-primary text-light">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.User!.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cate.CateName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CommentTotal)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.PostId">Watch</a> |
-                        <a asp-controller="ContentPost" asp-action="Delete"
-                            asp-route-id="@item.ContentPost.ContentPostId">Delete</a>
-                    </td>
+                    <th>
+                        Chủ đề
+                    </th>
+                    <th>
+                        Người đăng
+                    </th>
+                    <th>
+                        Replies
+                    </th>
+                    <th>
+                        Thời gian
+                    </th>
+                    <th>Lựa chọn</th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @if (item.IsChecked != true)
+                    {
+                        <tr>
+                            <td class="d-flex flex-column">
+                                <p>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </p>
+                                <p>
+                                    <span class="badge @item.Cate.BgColor rounded-pill d-inline">
+                                        @Html.DisplayFor(modelItem => item.Cate.CateName)
+                                    </span>
+                                </p>
 
-        }
-    </tbody>
-</table>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User!.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CommentTotal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PostTime)
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a asp-action="Details" asp-route-id="@item.PostId">
+                                        <button type="button" class="btn btn-outline-dark me-1">
+                                            <i class="fa-brands fa-watchman-monitoring"></i>
+                                        </button>
+                                    </a>
+                                    <a asp-controller="ContentPost" asp-action="Delete"
+                                        asp-route-id="@item.ContentPost.ContentPostId">
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
 @using (Html.BeginForm("Index", "Post", FormMethod.Get, new { id = "form1" }))
 {

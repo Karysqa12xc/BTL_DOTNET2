@@ -4,34 +4,51 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Thông tin bài đăng</h1>
+<h1 class="text-center">Thông tin bài đăng</h1>
 
 <div>
-    <div>
+    <div class="d-flex"> 
+        <div class="btn-group">
+        <a href="javascript:void(0)" onclick="goBack()">
+            <button type="button" class="btn btn-outline-danger me-3">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+        </a>
         @if (@ViewBag.CurrentUser == @Model.Post.User)
         {
-            <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@Model?.Post.ContentPostId">Chỉnh sửa</a>
-            <span> | </span>
-        }
-        @if (!User.IsInRole("SuperAdmin") && !User.IsInRole("Admin"))
-        {
-            <a href="javascript:void(0)" onclick="goBack()">Quay lại</a>
+            <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@Model?.Post.ContentPostId">
+                <button type="button" class="btn btn-outline-primary">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+            </a>
         }
     </div>
     @if (Model!.Post.IsChecked == false)
     {
-        <h4>Chưa được duyệt</h4>
+        <div class="d-flex justify-content-between">
+           
         @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
         {
-            <form asp-action="CheckedPost" method="post">
-                <input hidden asp-for="@Model.Post.PostId" name="id">
-                <input hidden type="checkbox" asp-for="@Model.Post.IsChecked" name="IsChecked">
-                <button type="submit" class="btn btn-primary">Duyệt</button>
-            </form>
-            <a asp-action="CheckedPost">Quay lại</a>
+           
+                <form asp-action="CheckedPost" method="post">
+                    <input hidden asp-for="@Model.Post.PostId" name="id">
+                    <input hidden type="checkbox" asp-for="@Model.Post.IsChecked" name="IsChecked">
+                    <button type="submit" class="ms-1 btn btn-primary">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+                </form>
+               
+            
         }
-
+        <div class="ms-2 mt-1">
+            <h4 >Chưa được duyệt</h4>
+        </div>
+        </div>
+        
+         
     }
+    </div>
+    
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -69,7 +86,9 @@
     </dl>
     @if (@Model.Post.IsChecked != false)
     {
-        <button onclick="showCommentPopup()" id="valueButton">Add Comment</button>
+        <button class="btn btn-primary" onclick="showCommentPopup()" id="valueButton">
+            <i id="commentIcon" class="fa-solid fa-comment"></i>
+        </button>
     }
 
 
@@ -90,7 +109,8 @@
             <td><b>@comment.User!.UserName
                     @if (comment!.User == @ViewBag.CurrentUser || User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
                     {
-                        <button class="fa-solid fa-ellipsis" onclick="showOptions('optionsMenu_@comment.CommentId')">
+                        <button class="btn btn-primary fa-solid fa-ellipsis"
+                            onclick="showOptions('optionsMenu_@comment.CommentId')">
                             <div id="optionsMenu_@comment.CommentId" class="options-menu position-absolute end-30">
                                 <ul class="list-group">
                                     <li class="list-group-item"><a style="text-decoration: none; color: black;"
@@ -136,15 +156,19 @@
     var doubleTap = 0;
     function showCommentPopup() {
         var popup = document.getElementById("commentPopup");
-        var button = document.getElementById("valueButton")
+        var button = document.getElementById("valueButton");
+        var commentIcon = document.getElementById("commentIcon");
         if (doubleTap % 2 == 0) {
             popup.style.display = "block";
-            button.innerText = "Hide Comment";
-
+    @* button.innerText = "Hide Comment"; *@
+                commentIcon.classList.remove("fa-comment")
+            commentIcon.classList.add("fa-comment-alt")
         }
         else {
             popup.style.display = "none";
-            button.innerText = "Add Comment";
+    @* button.innerText = "Add Comment"; *@
+                commentIcon.classList.remove('fa-comment-alt');
+            commentIcon.classList.add('fa-comment');
         }
         doubleTap++;
     }
@@ -152,7 +176,7 @@
         var menu = document.getElementById(menuId);
         menu.classList.toggle("show");
     }
-    function goBack(){
+    function goBack() {
         window.history.back();
     }
 </script>
