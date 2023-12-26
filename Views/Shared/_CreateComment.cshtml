@@ -19,19 +19,22 @@
             </div>
             <div class="form-group  mb-3">
                 <label asp-for="ContentComment.Paragraph" class="control-label">
-                    <h2>Nội dung</h2>
+                    <h2>Nội dung: </h2>
                 </label>
-                <textarea id="tiny" asp-for="ContentComment.Paragraph" cols="10" rows="3"
+                <textarea id="tiny" asp-for="ContentComment.Paragraph" cols="5" rows="1"
                     class="form-control"></textarea>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="ImgUrl" class="form-label">Chọn ảnh</label>
-                <input asp-for="ImgUrl" class="form-control" type="file">
+                <label asp-for="ImgUrl" class="form-label">
+                    <h2>Chọn ảnh trong thư mục:</h2>
+                </label>
+                <input asp-for="ImgUrl"  id="fileInput" class="form-control" type="file">
             </div>
             <div class="form-group mt-4">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+
     </div>
 </div>
 
@@ -41,9 +44,7 @@
     }
 }
 <script>
-
-    <script>
-        $(function () {
+        (function () {
             $('form').submit(function (e) {
                 e.preventDefault();
 

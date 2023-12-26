@@ -80,12 +80,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_055dbaee-0fb0-4c09-9969-d8f710db99ae_292221113_1282128228861787_3462487112372602083_n.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_39e1bb31-ca78-4222-8f8e-51449868b0f2IMG_20210406_000642.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_0f4cb5cf-81c1-42bc-83f1-50334b43403a_Ông Tố Hữu.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>BTL_DOTNET2</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/BTL_DOTNET2</BasePath>
-      <RelativePath>images/comment/Comment_39e1bb31-ca78-4222-8f8e-51449868b0f2IMG_20210406_000642.jpg</RelativePath>
+      <RelativePath>images/comment/Comment_0f4cb5cf-81c1-42bc-83f1-50334b43403a_Ông Tố Hữu.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -94,7 +94,7 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_39e1bb31-ca78-4222-8f8e-51449868b0f2IMG_20210406_000642.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_0f4cb5cf-81c1-42bc-83f1-50334b43403a_Ông Tố Hữu.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\comment\Comment_71610de9-c8b6-42f8-bfbb-4c2f7eb14f32BigO of Search Algorthim.png))">
       <SourceType>Package</SourceType>

@@ -9,7 +9,7 @@
 <div>
     <div class="d-flex"> 
         <div class="btn-group">
-        <a href="javascript:void(0)" onclick="goBack()">
+        <a asp-asp-controller="Post" asp-action="Index">
             <button type="button" class="btn btn-outline-danger me-3">
                 <i class="fa-solid fa-arrow-left"></i>
             </button>
@@ -96,22 +96,28 @@
 <div id="commentPopup" style="display: none;">
     @await Html.PartialAsync("_CreateComment", new BTL_DOTNET2.Models.PostContentViewModel { Post = Model!.Post })
 </div>
+<hr/>
 @if (@Model.Comments.Count() > 0)
 {
-    <h3>Commnets</h3>
+    <h1 class="text-center">Bình luận</h1>
 }
 
-<table>
+<div class="container box-area">
     @foreach (var comment in Model.Comments)
-    {
-
-        <tr>
-            <td><b>@comment.User!.UserName
+    {   
+        <div class="card mb-3">
+            <div class="card-body">
+                <h3 class="card-header bg-danger text-light">
+                    <div class="d-flex justify-content-between">
+                        @comment.User!.UserName
                     @if (comment!.User == @ViewBag.CurrentUser || User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
                     {
-                        <button class="btn btn-primary fa-solid fa-ellipsis"
+                        <div class="dropdown ms-2">
+                            <button class="btn btn-primary dropdown-toggle"
                             onclick="showOptions('optionsMenu_@comment.CommentId')">
-                            <div id="optionsMenu_@comment.CommentId" class="options-menu position-absolute end-30">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+                             <div id="optionsMenu_@comment.CommentId" class="options-menu position-absolute end-30">
                                 <ul class="list-group">
                                     <li class="list-group-item"><a style="text-decoration: none; color: black;"
                                             asp-controller="ContentComment" asp-action="Edit"
@@ -123,16 +129,59 @@
                                     </li>
                                 </ul>
                             </div>
-                        </button>
+                        </div>
+                    }
+                    </div>
+                </h3>
+                <p class="card-text">
+                    <div>
+                        <div class="" id="commentContent" style="display: block;">                            
+                            @Html.Raw(@comment.ContentComment.Paragraph)
+                        </div>
+                        @if(!string.IsNullOrEmpty(@comment.ContentComment.Image)){
+                            <div>
+                                <img class="img-fluid rounded" src="@comment.ContentComment.Image" alt="" height="450" width="450">
+                            </div>
+                        }
+                    </div>
+                </p>
+                <p class="card-footer"><small class="text-muted">@comment.CommentTime</small></p>
+            </div>
+        </div>
+        
+
+        @* <tr>
+            <td>
+                <div class="d-flex algin-items-center">
+                <div class="h2">@comment.User!.UserName</div> 
+                    @if (comment!.User == @ViewBag.CurrentUser || User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle"
+                            onclick="showOptions('optionsMenu_@comment.CommentId')">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+                             <div id="optionsMenu_@comment.CommentId" class="options-menu position-absolute end-30">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a style="text-decoration: none; color: black;"
+                                            asp-controller="ContentComment" asp-action="Edit"
+                                            asp-route-id="@comment.ContentCommentId">Edit</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a style="text-decoration: none; color: black;" asp-controller="ContentComment"
+                                            asp-action="Delete" asp-route-id="@comment.ContentCommentId">Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     }
 
-                </b>
+                </div>
 
             </td>
         </tr>
         <tr>
-            <td>
-            </td>
+            
         </tr>
         <tr>
             <td>@Html.Raw(@comment.ContentComment.Paragraph)</td>
@@ -145,10 +194,10 @@
         </tr>
         <tr>
             <td>@comment.CommentTime</td>
-        </tr>
+        </tr> *@
     }
 
-</table>
+</div>
 <script>
 
 </script>
@@ -176,7 +225,23 @@
         var menu = document.getElementById(menuId);
         menu.classList.toggle("show");
     }
-    function goBack() {
-        window.history.back();
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        var commentContentElement = document.getElementById("commentContent");
+        var commentImageElement = document.getElementById("commentImage");
+
+        // Kiểm tra xem nội dung HTML có tồn tại không và ẩn nó nếu có
+        if (commentContentElement) {
+            var commentContent = commentContentElement.innerHTML;
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(commentContent, 'text/html');
+            var images = doc.getElementsByTagName('img');
+
+            // Kiểm tra xem có hình ảnh trong nội dung HTML không và hiển thị nếu có
+            if (images.length > 0) {
+                var imageUrl = images[0].src;
+                commentImageElement.src = imageUrl;
+                commentImageElement.style.display = "block";
+            }
+        }
+    });
 </script>
