@@ -26,13 +26,19 @@
                         </label>
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password"
-                            aria-required="true" placeholder="password" />
-                        <label asp-for="Input.Password" class="form-label">
-                            <span>Password</span>
-                            <span class="fas fa-lock"></span>
-                        </label>
+                    <div class="input-group d-flex mb-3">
+                        <div class="form-floating password-input flex-fill">
+                            <input id="password" asp-for="Input.Password" class="form-control" autocomplete="current-password"
+                                aria-required="true" placeholder="password">
+                            <label asp-for="Input.Password" class="form-label">
+                                <span>Password</span>
+                                <span class="fas fa-lock"></span>
+                            </label>
+                            <div id="toggle" onclick="showHidePass()">
+                                <i class="fa-solid fa-eye-slash"></i>
+                            </div>
+                        </div>
+
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
                     <div class="checkbox mb-3">

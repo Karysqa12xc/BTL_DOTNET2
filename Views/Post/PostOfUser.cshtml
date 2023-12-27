@@ -1,83 +1,90 @@
 @model IEnumerable<BTL_DOTNET2.Models.Post>
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
-<h1 class="text-center">Bài viết của bạn</h1>
+@{
+    ViewData["Title"] = "Bài viết của bạn".ToUpper();
+}
+<h1 class="text-center">@ViewData["Title"]</h1>
 
 <div class="row mt-3">
     <div class="col-md-12">
-         <div class="float-end mb-3">
+        <div class="float-end mb-3">
             <form class="input-group" asp-controller="Post" asp-action="PostOfUser" method="get">
                 <input placeholder="Nhập từ khoá..." class="form-control" type="text" name="searching" />
+                @Html.DropDownList("cateId", (SelectList)ViewBag.Categories, "All Categories", new
+                    {
+                        @class = "form-select"
+                    })
                 <button class="btn btn-outline-secondary" type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
         </div>
         <table class="table">
-        <thead class="bg-primary text-light">
+            <thead class="bg-primary text-light">
 
-            <tr>
-                <th>
-                    Chủ đề
-                </th>
-                <th>
-                    Thời gian
-                </th>
-                <th>
-                    Replies
-                </th>
-                <th>Lựa chọn</th>
-            </tr>
-
-        <tbody>
-                @foreach (var item in Model)
-                {
                 <tr>
-                    <td class="d-flex flex-column">
-                        <p>
-                                @Html.DisplayFor(modelItem => item.Title)
-                        </p>
-                        <p>
-                            <span class="badge @item.Cate.BgColor rounded-pill d-inline">
-                                    @Html.DisplayFor(modelItem => item.Cate.CateName)
-                            </span>
-                        </p>
-
-                    </td>
-                    <td>
-                            @Html.DisplayFor(modelItem => item.PostTime)
-                    </td>
-                    <td>
-                            @Html.DisplayFor(modelItem => item.CommentTotal)
-                    </td>
-                    <td>
-                        <div class="btn-group" role="group">
-                            <a asp-action="Details" asp-route-id="@item.PostId">
-                                <button type="button" class="btn btn-outline-dark me-3">
-                                    <i class="fa-brands fa-watchman-monitoring"></i>
-                                </button>
-                            </a>
-                            <a asp-controller="ContentPost" asp-action="Delete"
-                                asp-route-id="@item.ContentPost.ContentPostId">
-                                <button type="button" class="btn btn-outline-danger">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </a>
-                        </div>
-                    </td>
+                    <th>
+                        Chủ đề
+                    </th>
+                    <th>
+                        Thời gian
+                    </th>
+                    <th>
+                        Replies
+                    </th>
+                    <th>Lựa chọn</th>
                 </tr>
-                }
-        </tbody>
-        </thead>
-    </table>
+
+            <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td class="d-flex flex-column">
+                            <p>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                            </p>
+                            <p>
+                                <span class="badge @item.Cate.BgColor rounded-pill d-inline">
+                                        @Html.DisplayFor(modelItem => item.Cate.CateName)
+                                </span>
+                            </p>
+
+                        </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.PostTime)
+                        </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.CommentTotal)
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="Details" asp-route-id="@item.PostId">
+                                    <button type="button" class="btn btn-outline-dark me-3">
+                                        <i class="fa-brands fa-watchman-monitoring"></i>
+                                    </button>
+                                </a>
+                                <a asp-controller="ContentPost" asp-action="Delete"
+                                    asp-route-id="@item.ContentPost.ContentPostId">
+                                    <button type="button" class="btn btn-outline-danger">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+            </tbody>
+            </thead>
+        </table>
     </div>
-    
+
     @using (Html.BeginForm("PostOfUser", "Post", FormMethod.Get, new { id = "form1" }))
     {
         <div class="row">
             <div class="col-md-11">
                 @Html.PagedListPager((IPagedList)Model, page =>
-                         Url.Action("PostOfUser", new { page = page, pagesize = ViewBag.psize }),
+                         Url.Action("PostOfUser", new { page = page, pagesize = ViewBag.psize, ViewBag.CurrentCategoryId, searching = ViewBag.SearchResult}),
                          new X.PagedList.Web.Common.PagedListRenderOptions
             {
                 LiElementClasses = new string[] { "page-item" },

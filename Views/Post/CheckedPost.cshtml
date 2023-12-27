@@ -2,15 +2,19 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Các bài viết chưa kiểm duyệt".ToUpper();
 }
 
-<h1 class="text-center">Các bài viết chưa kiểm duyệt</h1>
+<h1 class="text-center mb-5">@ViewData["Title"]</h1>
 <div class="row">
     <div class="col-md-12">
         <div class="float-end mb-3">
             <form class="input-group" asp-controller="Post" asp-action="CheckedPost" method="get">
                 <input placeholder="Nhập từ khoá..." class="form-control" type="text" name="searching" />
+                @Html.DropDownList("cateId", (SelectList)ViewBag.Categories, "All Categories", new
+                    {
+                        @class = "form-select"
+                    })
                 <button class="btn btn-outline-secondary" type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
@@ -92,7 +96,7 @@
         <div class="row">
             <div class="col-md-11">
                 @Html.PagedListPager((IPagedList)Model, page =>
-                         Url.Action("Index", new { page = page, pagesize = ViewBag.psize }),
+                         Url.Action("Index", new { page = page, pagesize = ViewBag.psize, ViewBag.CurrentCategoryId, searching = ViewBag.SearchResult}),
                          new X.PagedList.Web.Common.PagedListRenderOptions
         {
             LiElementClasses = new string[] { "page-item" },

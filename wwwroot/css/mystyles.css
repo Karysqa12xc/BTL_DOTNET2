@@ -25,6 +25,27 @@
 .bg-purple{
     background-color: purple;
 }
+.password-input {
+    width: calc(100% - 30px);
+}
+#toggle{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-35%) translateX(50%);
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+#toggleconfirm{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-35%) translateX(50%);
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
 @media only screen and (max-width: 768px){
     .box-area{
        margin: 0 10px;

@@ -1,10 +1,10 @@
 @model IEnumerable<BTL_DOTNET2.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tạo Category".ToUpper();
 }
 
-<h1 class="text-center">Tạo Category</h1>
+<h1 class="text-center">@ViewData["Title"]</h1>
 
 <p>
     <a asp-action="Create">

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "RCYbbzpEy+pinUSo0znMJjghK9p6VWnMBQhYqcIsq8Q=",
+  "Hash": "FJN8GuBk8JWyRJFwD+/3o0aTCYvr/Ws9Y9zKneZwEXI=",
   "Source": "BTL_DOTNET2",
   "BasePath": "_content/BTL_DOTNET2",
   "Mode": "Default",
@@ -1573,6 +1573,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\post\\Post_e7aba4bd-1ead-4812-b590-05201502406b_chongday1.png"
+    },
+    {
+      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\app.js",
+      "SourceId": "BTL_DOTNET2",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
+      "BasePath": "_content/BTL_DOTNET2",
+      "RelativePath": "js/app.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\app.js"
     },
     {
       "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\site.js",

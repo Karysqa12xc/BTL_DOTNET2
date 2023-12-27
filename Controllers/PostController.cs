@@ -24,7 +24,7 @@ namespace BTL_DOTNET2.Controllers
             _userManager = userManager;
         }
         // GET: Post
-        public async Task<IActionResult> Index(int? page, int? PageSize, string searching)
+        public async Task<IActionResult> Index(int? page, int? PageSize, string searching, int? cateID)
         {
             ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -34,6 +34,9 @@ namespace BTL_DOTNET2.Controllers
                 new SelectListItem(){Value = "15", Text = "15"},
                 new SelectListItem(){Value = "20", Text = "20"},
             };
+            ViewBag.Categories = new SelectList(_context.Categories, "CateId", "CateName");
+            ViewBag.CurrentCategoryId = cateID;
+            ViewBag.SearchResult = searching;
             int pagesize = (PageSize ?? 5);
             ViewBag.psize = pagesize;
             var posts = _context.Posts
@@ -42,7 +45,7 @@ namespace BTL_DOTNET2.Controllers
             .Include(p => p.User)
             .Where(p =>
             (p.Title.Contains(searching)
-            || searching == null)
+            || searching == null) && (cateID == null || p.CateId == cateID)
             && p.IsChecked)
             .OrderByDescending(p => p.PostTime)
             .ToList()
@@ -151,7 +154,7 @@ namespace BTL_DOTNET2.Controllers
             // Trả về đường dẫn của hình ảnh để lưu vào cơ sở dữ liệu
             return "/images/post/" + uniqueFileName;
         }
-        public async Task<IActionResult> PostOfUser(int? page, int? PageSize, string searching)
+        public async Task<IActionResult> PostOfUser(int? page, int? PageSize, string searching, int? cateId)
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
@@ -162,6 +165,9 @@ namespace BTL_DOTNET2.Controllers
                 new SelectListItem(){Value = "15", Text = "15"},
                 new SelectListItem(){Value = "20", Text = "20"},
             };
+            ViewBag.Categories = new SelectList(_context.Categories, "CateId", "CateName");
+            ViewBag.CurrentCategoryId = cateId;
+            ViewBag.SearchResult = searching;
             int pagesize = (PageSize ?? 5);
             ViewBag.psize = pagesize;
             var post = _context.Posts
@@ -169,7 +175,7 @@ namespace BTL_DOTNET2.Controllers
             .Include(pu => pu.ContentPost)
             .Include(pu => pu.User)
             .Where(pu => (pu.Title.Contains(searching)
-            || searching == null) && pu.User == currentUser)
+            || searching == null) && (cateId == null || pu.CateId == cateId) && pu.User == currentUser)
             .OrderByDescending(pu => pu.PostTime)
             .ToList().ToPagedList(page ?? 1, pagesize);
             return View(post);
@@ -193,7 +199,7 @@ namespace BTL_DOTNET2.Controllers
             return View(post);
         }
 
-        public IActionResult CheckedPost(int? page, int? PageSize, string searching)
+        public IActionResult CheckedPost(int? page, int? PageSize, string searching, int? cateId)
         {
             ViewBag.PageSize = new List<SelectListItem>(){
 
@@ -201,12 +207,17 @@ namespace BTL_DOTNET2.Controllers
                 new SelectListItem(){Value = "10", Text = "10"},
                 new SelectListItem(){Value = "15", Text = "15"},
             };
+            ViewBag.Categories = new SelectList(_context.Categories, "CateId", "CateName");
+            ViewBag.CurrentCategoryId = cateId;
+            ViewBag.SearchResult = searching;
             int pagesize = (PageSize ?? 5);
             ViewBag.psize = pagesize;
             var posts = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
-            .Include(p => p.User).Where(p => p.IsChecked != true && (p.Title.Contains(searching) || searching == null))
+            .Include(p => p.User).Where(p => (p.IsChecked != true) 
+            && (cateId == null || p.CateId == cateId)
+            && (p.Title.Contains(searching) || searching == null))
             .OrderByDescending(p => p.PostTime)
             .ToList()
             .ToPagedList(page ?? 1, pagesize);
