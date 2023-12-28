@@ -31,6 +31,11 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public string Username { get; set; }
+        [BindProperty]
+        public string NickName { get; set; }
+
+        [BindProperty]
+        public string PhotoUrl { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -65,12 +70,15 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
+            var nickName = user.Nickname;
+            var avatar = user.PhotoUrl;
             Username = userName;
-
+            NickName = nickName;
+            PhotoUrl = avatar;
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                
             };
         }
 
@@ -99,12 +107,14 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
-
+            user.Nickname = NickName;
+            user.PhotoUrl = PhotoUrl;
+            var nickNameAndPhotoUrl = await _userManager.UpdateAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
+                if (!setPhoneResult.Succeeded && !nickNameAndPhotoUrl.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();

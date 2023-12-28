@@ -138,7 +138,8 @@ namespace BTL_DOTNET2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Post");
+                var postId = _context.Posts.Where(cp => cp.ContentPostId == id).Select(p => p.PostId).FirstOrDefault();
+                return RedirectToAction("Details", "Post", new { id = postId });
             }
             return View(contentViewModel);
         }

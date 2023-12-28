@@ -104,23 +104,26 @@ namespace BTL_DOTNET2.Controllers
                 try
                 {
                     string? oldImage = contentCommentViewModel.ContentComment.Image;
+                    string? strImgReplace;
                     if (contentCommentViewModel.ImgUrl != null && contentCommentViewModel.ImgUrl.Length > 0)
                     {
                         file = contentCommentViewModel.ImgUrl;
-                        string? strImgReplace = await UploadImage(file);
+                        strImgReplace = await UploadImage(file);
                         contentCommentViewModel.ContentComment.Image = strImgReplace;
-                    }
-                    _context.Update(contentCommentViewModel.ContentComment);
-                    await _context.SaveChangesAsync();
-
-                    if (!string.IsNullOrEmpty(oldImage))
-                    {
-                        string oldImageUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImage.TrimStart('/'));
-                        if (System.IO.File.Exists(oldImageUrl))
+                        if (!string.IsNullOrEmpty(oldImage))
                         {
-                            System.IO.File.Delete(oldImageUrl);
+                            string oldImageUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImage.TrimStart('/'));
+                            if (System.IO.File.Exists(oldImageUrl))
+                            {
+                                System.IO.File.Delete(oldImageUrl);
+                            }
                         }
                     }
+
+
+
+                    _context.Update(contentCommentViewModel.ContentComment);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -133,7 +136,7 @@ namespace BTL_DOTNET2.Controllers
                         throw;
                     }
                 }
-                
+
                 int postId = _context.Comments.Where(cc => cc.ContentCommentId == id).Select(cc => cc.PostId).FirstOrDefault();
 
                 return RedirectToAction("Details", "Post", new { id = postId });
@@ -198,7 +201,7 @@ namespace BTL_DOTNET2.Controllers
                     System.IO.File.Delete(imagePathComment);
                 }
             }
-            
+
             return RedirectToAction("Details", "Post", new { id = postId });
         }
 

@@ -98,6 +98,11 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name = "Nickname")]
+            public string Nickname { get; set; }
+            [Display(Name = "Your picture")]
+            public string PhotoUrl { get; set; } 
         }
 
 
@@ -114,6 +119,9 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
+                user.Nickname = string.IsNullOrEmpty(Input.Nickname) ? GetNickNameFromEmail(Input.Email) : Input.Nickname;
+                user.PhotoUrl = string.IsNullOrEmpty(Input.PhotoUrl) ? user.PhotoUrl : Input.PhotoUrl;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -177,5 +185,15 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account
             }
             return (IUserEmailStore<User>)_userStore;
         }
+        private string GetNickNameFromEmail(string email)
+        {
+            int atIndex = email.IndexOf("@");
+            if(atIndex != -1){
+                return email.Substring(0, atIndex);
+            }
+            return email;
+        }
+        
+        
     }
 }

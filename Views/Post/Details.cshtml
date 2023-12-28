@@ -52,8 +52,15 @@
     <hr />
     <div class="container box-area">
         <div class="card rounded-4">
-            <div class="card-header text-center h3 bg-success text-light">
-                @Html.DisplayFor(model => model.Post.User!.UserName)
+            <div class="card-header h3 bg-success text-light">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <img src="/@Model.Post.User!.PhotoUrl" alt="" class="rounded-avatar me-2">
+                    </div>
+                    <div>
+                        @Html.DisplayFor(model => model.Post.User!.Nickname)
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="card-title h4 d-flex justify-content-between">
@@ -65,7 +72,8 @@
                     @Html.Raw(Model.Post.ContentPost.Paragram)
                 </div>
                 <hr/>
-                <img class="rounded card-img-top" src="@ViewBag.ImgPostUrl" style="max-width: 70%; max-height: 70%; object-fit: cover;">
+                @* @ViewBag.ImgPostUrl *@
+                <img class="rounded card-img-top" src="@Model.Post.ContentPost.Image" style="max-width: 70%; max-height: 70%; object-fit: cover;">
                 <div class="card-footer bg-success text-light">@Model.Post.PostTime</div>
             </div>
         @* <dt class="col-sm-2">
@@ -128,7 +136,14 @@
             <div class="card-body">
                 <h3 class="card-header bg-danger text-light">
                     <div class="d-flex justify-content-between">
-                        @comment.User!.UserName
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <img src="\@comment.User!.PhotoUrl" alt="">
+                            </div>
+                            <div>
+                                @comment.User!.Nickname
+                            </div>
+                        </div>
                     @if (comment!.User == @ViewBag.CurrentUser || User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
                     {
                         <div class="dropdown ms-2">

@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\avatar\\avatar.png",
+      "PackagePath": "staticwebassets\\images\\avatar\\avatar.png"
+    },
+    {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_055dbaee-0fb0-4c09-9969-d8f710db99ae_292221113_1282128228861787_3462487112372602083_n.jpg",
       "PackagePath": "staticwebassets\\images\\comment\\Comment_055dbaee-0fb0-4c09-9969-d8f710db99ae_292221113_1282128228861787_3462487112372602083_n.jpg"
     },
@@ -75,14 +79,6 @@
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_d250a3d7-2b9e-41e3-bb70-0d3ecd5ec02a_gia huy hoảng hốt.jpg",
       "PackagePath": "staticwebassets\\images\\post\\Post_d250a3d7-2b9e-41e3-bb70-0d3ecd5ec02a_gia huy hoảng hốt.jpg"
-    },
-    {
-      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_d6626de1-18fd-4bf7-b7e8-f2f5e5445620_congtyvantaiads.jpg",
-      "PackagePath": "staticwebassets\\images\\post\\Post_d6626de1-18fd-4bf7-b7e8-f2f5e5445620_congtyvantaiads.jpg"
-    },
-    {
-      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_e7aba4bd-1ead-4812-b590-05201502406b_chongday1.png",
-      "PackagePath": "staticwebassets\\images\\post\\Post_e7aba4bd-1ead-4812-b590-05201502406b_chongday1.png"
     },
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\app.js",
