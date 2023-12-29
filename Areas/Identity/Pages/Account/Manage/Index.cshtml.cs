@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using BTL_DOTNET2.Models;
+using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -37,6 +38,10 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public string PhotoUrl { get; set; }
 
+        
+
+
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -64,6 +69,7 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            public IFormFile AvatarImg { get; set; }
         }
 
         private async Task LoadAsync(User user)
@@ -78,7 +84,7 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account.Manage
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                
+
             };
         }
 
@@ -107,9 +113,21 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
+
             user.Nickname = NickName;
-            user.PhotoUrl = PhotoUrl;
+            if (Input.AvatarImg != null && Input.AvatarImg.Length > 0)
+            {
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "avatar");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(Input.AvatarImg.FileName);
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = System.IO.File.Create(filePath))
+                {
+                    await Input.AvatarImg.CopyToAsync(fileStream);
+                }
+                user.PhotoUrl = "/images/avatar/" + uniqueFileName;
+            }
             var nickNameAndPhotoUrl = await _userManager.UpdateAsync(user);
+
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {

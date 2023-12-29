@@ -16,8 +16,6 @@ namespace BTL_DOTNET2.Models
         public ContentComment ContentComment { get; set; } = null!;
         public SelectList Category { get; set; } = null!;
         public IFormFile? ImgUrl { get; set; }
-        
-        
-        
+        public IFormFile? VideoUrl { get; set; }   
     }
 }

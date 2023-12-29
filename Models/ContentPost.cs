@@ -15,6 +15,7 @@ namespace BTL_DOTNET2.Models
         public string Paragram { get; set; } = null!;
 
         public string? Image { get; set; }
+        public string? Video { get; set; }
 
         [InverseProperty("ContentPost")]
         public virtual ICollection<Post> Posts { get; set; } = new List<Post>();        

@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\images\\avatar\\avatar.png"
     },
     {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\avatar\\bd22e2f3-aaf9-49ea-9884-21b9caf5ce93_1200px-Chelsea_crest.svg.png",
+      "PackagePath": "staticwebassets\\images\\avatar\\bd22e2f3-aaf9-49ea-9884-21b9caf5ce93_1200px-Chelsea_crest.svg.png"
+    },
+    {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_055dbaee-0fb0-4c09-9969-d8f710db99ae_292221113_1282128228861787_3462487112372602083_n.jpg",
       "PackagePath": "staticwebassets\\images\\comment\\Comment_055dbaee-0fb0-4c09-9969-d8f710db99ae_292221113_1282128228861787_3462487112372602083_n.jpg"
     },
@@ -81,8 +85,12 @@
       "PackagePath": "staticwebassets\\images\\post\\Post_d250a3d7-2b9e-41e3-bb70-0d3ecd5ec02a_gia huy hoảng hốt.jpg"
     },
     {
-      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\app.js",
-      "PackagePath": "staticwebassets\\js\\app.js"
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_fe12e0f7-85f9-4515-bbb5-9c3a75729932_1200px-Chelsea_crest.svg.png",
+      "PackagePath": "staticwebassets\\images\\post\\Post_fe12e0f7-85f9-4515-bbb5-9c3a75729932_1200px-Chelsea_crest.svg.png"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\myapp.js",
+      "PackagePath": "staticwebassets\\js\\myapp.js"
     },
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\site.js",

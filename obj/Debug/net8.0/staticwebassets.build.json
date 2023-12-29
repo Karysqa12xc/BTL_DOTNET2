@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "g/EhZ/pRBv0CvG3VRTrk9TgG+EPIigtsyNCGTR96JN4=",
+  "Hash": "rKPxGHlt0hbrRlB4iJkrB5ljvlJ0rPB5fcw41mo+VPU=",
   "Source": "BTL_DOTNET2",
   "BasePath": "_content/BTL_DOTNET2",
   "Mode": "Default",
@@ -1271,6 +1271,25 @@
       "OriginalItemSpec": "wwwroot\\images\\avatar\\avatar.png"
     },
     {
+      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\avatar\\bd22e2f3-aaf9-49ea-9884-21b9caf5ce93_1200px-Chelsea_crest.svg.png",
+      "SourceId": "BTL_DOTNET2",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
+      "BasePath": "_content/BTL_DOTNET2",
+      "RelativePath": "images/avatar/bd22e2f3-aaf9-49ea-9884-21b9caf5ce93_1200px-Chelsea_crest.svg.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatar\\bd22e2f3-aaf9-49ea-9884-21b9caf5ce93_1200px-Chelsea_crest.svg.png"
+    },
+    {
       "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\comment\\Comment_055dbaee-0fb0-4c09-9969-d8f710db99ae_292221113_1282128228861787_3462487112372602083_n.jpg",
       "SourceId": "BTL_DOTNET2",
       "SourceType": "Discovered",
@@ -1556,12 +1575,12 @@
       "OriginalItemSpec": "wwwroot\\images\\post\\Post_d250a3d7-2b9e-41e3-bb70-0d3ecd5ec02a_gia huy hoảng hốt.jpg"
     },
     {
-      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\app.js",
+      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_fe12e0f7-85f9-4515-bbb5-9c3a75729932_1200px-Chelsea_crest.svg.png",
       "SourceId": "BTL_DOTNET2",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
       "BasePath": "_content/BTL_DOTNET2",
-      "RelativePath": "js/app.js",
+      "RelativePath": "images/post/Post_fe12e0f7-85f9-4515-bbb5-9c3a75729932_1200px-Chelsea_crest.svg.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1572,7 +1591,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\app.js"
+      "OriginalItemSpec": "wwwroot\\images\\post\\Post_fe12e0f7-85f9-4515-bbb5-9c3a75729932_1200px-Chelsea_crest.svg.png"
+    },
+    {
+      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\myapp.js",
+      "SourceId": "BTL_DOTNET2",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
+      "BasePath": "_content/BTL_DOTNET2",
+      "RelativePath": "js/myapp.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\myapp.js"
     },
     {
       "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\site.js",

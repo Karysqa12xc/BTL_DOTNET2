@@ -14,7 +14,7 @@ namespace BTL_DOTNET2.Models
         [Required]
         public string Nickname { get; set; } = "@vodanhdaisu";
         [Required]
-        public string PhotoUrl { get; set; } = "images/avatar/avatar.png";
+        public string PhotoUrl { get; set; } = "/images/avatar/avatar.png";
         public User()
         {
             UserId = Guid.NewGuid().ToString();

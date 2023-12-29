@@ -55,7 +55,7 @@
             <div class="card-header h3 bg-success text-light">
                 <div class="d-flex align-items-center">
                     <div>
-                        <img src="/@Model.Post.User!.PhotoUrl" alt="" class="rounded-avatar me-2">
+                        <img src="@Model.Post.User!.PhotoUrl" alt="" class="rounded-avatar me-2">
                     </div>
                     <div>
                         @Html.DisplayFor(model => model.Post.User!.Nickname)
@@ -138,7 +138,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex align-items-center">
                             <div class="me-3">
-                                <img src="\@comment.User!.PhotoUrl" alt="">
+                                <img src="@comment.User!.PhotoUrl" alt="">
                             </div>
                             <div>
                                 @comment.User!.Nickname

@@ -102,7 +102,12 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account
             [Display(Name = "Nickname")]
             public string Nickname { get; set; }
             [Display(Name = "Your picture")]
-            public string PhotoUrl { get; set; } 
+            public string PhotoUrl { get; set; }
+
+            [Display(Name = "File Image")]
+            public IFormFile AvatarUrl { get; set; }
+
+
         }
 
 
@@ -121,8 +126,23 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account
                 var user = CreateUser();
 
                 user.Nickname = string.IsNullOrEmpty(Input.Nickname) ? GetNickNameFromEmail(Input.Email) : Input.Nickname;
-                user.PhotoUrl = string.IsNullOrEmpty(Input.PhotoUrl) ? user.PhotoUrl : Input.PhotoUrl;
-
+                // user.PhotoUrl = string.IsNullOrEmpty(Input.PhotoUrl) ? user.PhotoUrl : Input.PhotoUrl;
+                if (Input.AvatarUrl != null && Input.AvatarUrl.Length > 0)
+                {
+                    string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "avatar");
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(Input.AvatarUrl.FileName);
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = System.IO.File.Create(filePath))
+                    {
+                        await Input.AvatarUrl.CopyToAsync(fileStream);
+                    }
+                    user.PhotoUrl = "/images/avatar/" + uniqueFileName;
+                    
+                }
+                else
+                {
+                    user.PhotoUrl = user.PhotoUrl;
+                }
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -188,12 +208,13 @@ namespace BTL_DOTNET2.Areas.Identity.Pages.Account
         private string GetNickNameFromEmail(string email)
         {
             int atIndex = email.IndexOf("@");
-            if(atIndex != -1){
+            if (atIndex != -1)
+            {
                 return email.Substring(0, atIndex);
             }
             return email;
         }
-        
-        
+
+
     }
 }

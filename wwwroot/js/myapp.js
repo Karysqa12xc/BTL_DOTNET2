@@ -1,9 +1,19 @@
 let password = document.getElementById("password");
 let confirmPass = document.getElementById("confirmpassword");
-let togglePassword = document.getElementById("toggle");
 let toggleConfirmPass = document.getElementById("toggleconfirm");
+let togglePassword = document.getElementById("toggle");
 var icon = togglePassword.getElementsByTagName("i");
 var iconConfirm = toggleConfirmPass.getElementsByTagName("i");
+
+function chooseFile(fileInput) {
+  if (fileInput.files && fileInput.files[0]) {
+    var reader = new FileReader();
+    reader.onload = (e) => {
+      $("#avatar").attr("src", e.target.result);
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+  }
+}
 
 function showHidePass() {
   if (password.type == "password") {

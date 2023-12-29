@@ -16,6 +16,9 @@ namespace BTL_DOTNET2.Models
 
         public string? Image { get; set; }
 
+        public string? Video { get; set; }
+        
+        
         [InverseProperty("ContentComment")]
         public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
