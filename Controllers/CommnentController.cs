@@ -60,7 +60,7 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PostContentViewModel postContentViewModel, IFormFile fileImage, IFormFile fileVideo)
+        public async Task<IActionResult> Create(PostCommentContentViewModel postContentViewModel, IFormFile fileImage, IFormFile fileVideo)
         {
             if (!ModelState.IsValid)
             {

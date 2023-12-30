@@ -77,7 +77,7 @@ namespace BTL_DOTNET2.Controllers
             {
                 return NotFound();
             }
-            PostContentViewModel contentViewModel = new PostContentViewModel
+            PostCommentContentViewModel contentViewModel = new PostCommentContentViewModel
             {
                 ContentComment = contentComment,
             };
@@ -89,7 +89,7 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, PostContentViewModel contentCommentViewModel, IFormFile fileImg, IFormFile fileVideo)
+        public async Task<IActionResult> Edit(int id, PostCommentContentViewModel contentCommentViewModel, IFormFile fileImg, IFormFile fileVideo)
         {
             if (id != contentCommentViewModel.ContentComment.ContentCommentId)
             {

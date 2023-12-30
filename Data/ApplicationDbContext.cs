@@ -11,9 +11,9 @@ public class ApplicationDbContext : IdentityDbContext<User>
     public virtual DbSet<Comment> Comments { get; set; }
     public virtual DbSet<ContentComment> ContentComments { get; set; }
     public virtual DbSet<ContentPost> ContentPosts { get; set; }
-
+    
     public virtual DbSet<Notification> Notifications { get; set; }
-    public virtual DbSet<User> Users {get; set;}
+    public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<Post> Posts { get; set; }
 
     public ApplicationDbContext()
@@ -35,7 +35,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
         .IsRequired(false);
 
         modelBuilder.Entity<ContentPost>()
-        .Property(e=> e.Image)
+        .Property(e => e.Image)
         .IsRequired(false);
 
         modelBuilder.Entity<Post>()
@@ -53,5 +53,17 @@ public class ApplicationDbContext : IdentityDbContext<User>
         modelBuilder.Entity<Notification>()
         .Property(n => n.Time)
         .IsRequired(false);
+
+        modelBuilder.Entity<ContentTotal>()
+        .HasOne(ct => ct.ContentPost)
+        .WithMany(cp => cp.Media)
+        .HasForeignKey(ct => ct.ContentPostId)
+        .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ContentTotal>()
+        .HasOne(ct => ct.ContentComment)
+        .WithMany(cp => cp.Media)
+        .HasForeignKey(ct => ct.ContentCommentId)
+        .OnDelete(DeleteBehavior.Cascade);
     }
 }

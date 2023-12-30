@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BTL_DOTNET2.Models
 {
-    public class PostContentViewModel
+    public class PostCommentContentViewModel
     {
 
         public Post Post { get; set; } = null!;
@@ -16,6 +16,8 @@ namespace BTL_DOTNET2.Models
         public ContentComment ContentComment { get; set; } = null!;
         public SelectList Category { get; set; } = null!;
         public IFormFile? ImgUrl { get; set; }
-        public IFormFile? VideoUrl { get; set; }   
+        public IFormFile? VideoUrl { get; set; }
+        public List<IFormFile>? ImgUrls { get; set; }
+        public List<IFormFile>? VideoUrls { get; set; }
     }
 }

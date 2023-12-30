@@ -1,4 +1,4 @@
-@model BTL_DOTNET2.Models.PostContentViewModel
+@model BTL_DOTNET2.Models.PostCommentContentViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -12,6 +12,7 @@
     </a>
 </div>
 <hr />
+
 <div class="row g-3">
     <div class="col-md-12">
         <form asp-action="Create" enctype="multipart/form-data">
@@ -41,7 +42,7 @@
                         Chọn ảnh trên thiết bị này: 
                     </h4>
                 </label>
-                <input asp-for="ImgUrl" id="fileInput" class="form-control" type="file" accept="image/jpeg, image/png, image/jpg">
+                <input asp-for="ImgUrls" multiple id="fileInput" class="form-control" type="file" accept="image/jpeg, image/png, image/jpg">
             </div>
             <div class="mb-3">
                 <label asp-for="VideoUrl" class="form-label">
@@ -49,7 +50,7 @@
                         Chọn video trên thiết bị này: 
                     </h4>
                 </label>
-                <input asp-for="VideoUrl" id="fileInput" class="form-control" type="file">
+                <input asp-for="VideoUrls" multiple id="fileInput" class="form-control" type="file">
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary form-control mt-5" />
@@ -65,3 +66,4 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+

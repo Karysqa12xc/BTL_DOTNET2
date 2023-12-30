@@ -18,7 +18,7 @@ namespace BTL_DOTNET2.Controllers
     {
         private readonly ApplicationDbContext _context;
         protected UserManager<User> _userManager;
-        
+
         private UploadImgProcess _uploadImgPost = new UploadImgProcess();
         private UploadVideoProcess _uploadVideoPost = new UploadVideoProcess();
         public PostController(ApplicationDbContext context, UserManager<User> userManager)
@@ -86,7 +86,7 @@ namespace BTL_DOTNET2.Controllers
             post.CommentTotal = commentCount;
             _context.SaveChanges();
             ViewBag.ImgPostUrl = post.ContentPost.Image;
-            var postContentViewModel = new PostContentViewModel
+            var postContentViewModel = new PostCommentContentViewModel
             {
                 Post = post,
                 Comments = comments,
@@ -108,7 +108,7 @@ namespace BTL_DOTNET2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // [Bind("PostId,Title,PostTime,CommentTotal,IsSave,CateId,ContentPostId")] Post post
-        public async Task<IActionResult> Create(PostContentViewModel postContentViewModel, IFormFile imgPath, IFormFile videoPath)
+        public async Task<IActionResult> Create(PostCommentContentViewModel postContentViewModel, List<IFormFile> imgPath, List<IFormFile> videoPath)
         {
 
             if (!ModelState.IsValid)
@@ -117,28 +117,48 @@ namespace BTL_DOTNET2.Controllers
                 postContentViewModel.Post.CommentTotal = 0;
                 if (postContentViewModel.Post.Title != null)
                 {
-                    if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
-                    {
-                        imgPath = postContentViewModel.ImgUrl;
-                        var imagePathStr = await _uploadImgPost.UploadImage(imgPath, "/images/post/", "Post");
-                        postContentViewModel.ContentPost.Image = imagePathStr;
-                    }
-                    if(postContentViewModel.VideoUrl != null && postContentViewModel.VideoUrl.Length > 0)
-                    {
-                        videoPath = postContentViewModel.VideoUrl;
-                        var videoPathStr = await _uploadVideoPost.UploadVideo(videoPath, "/videos/post/", "Post");
-                        postContentViewModel.ContentPost.Video = videoPathStr;
-                    }
+                    // if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
+                    // {
+                    //     imgPath = postContentViewModel.ImgUrl;
+                    //     var imagePathStr = await _uploadImgPost.UploadImage(imgPath, "/images/post/", "Post");
+                    //     postContentViewModel.ContentPost.Image = imagePathStr;
+                    // }
+                    // if (postContentViewModel.VideoUrl != null && postContentViewModel.VideoUrl.Length > 0)
+                    // {
+                    //     videoPath = postContentViewModel.VideoUrl;
+                    //     var videoPathStr = await _uploadVideoPost.UploadVideo(videoPath, "/videos/post/", "Post");
+                    //     postContentViewModel.ContentPost.Video = videoPathStr;
+                    // }
                     postContentViewModel.Post.User = await _userManager.GetUserAsync(HttpContext.User);
                     _context.Add(postContentViewModel.ContentPost);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
+                    if (postContentViewModel.ImgUrls != null)
+                    {
+                        foreach (var imgFile in postContentViewModel.ImgUrls)
+                        {
+                            imgPath.Add(imgFile);
+                        }
+                        foreach (var imgs in imgPath)
+                        {
+                            var imagePathStrs = await _uploadImgPost.UploadImage(imgs, "/images/post/", "Post");
+                            _context.Add(new ContentTotal { Path = imagePathStrs, MediaType = MediaType.Image, ContentPostId = postContentViewModel.ContentPost.ContentPostId });
+                        }
+                    }
+                    if(postContentViewModel.VideoUrls != null){
+                        foreach(var videoFile in postContentViewModel.VideoUrls){
+                            videoPath.Add(videoFile);
+                        }
+                        foreach(var vids in videoPath){
+                            var videoPathStrs = await _uploadVideoPost.UploadVideo(vids, "/videos/post/", "Post");
+                            _context.Add(new ContentTotal { Path = videoPathStrs, MediaType = MediaType.Video, ContentPostId = postContentViewModel.ContentPost.ContentPostId });
+                        }
+                    }
                     postContentViewModel.Post.ContentPostId = postContentViewModel.ContentPost!.ContentPostId;
                     _context.Add(postContentViewModel.Post);
                     await _context.SaveChangesAsync();
 
                     return RedirectToAction(nameof(Index));
                 }
-
             }
             return View();
         }

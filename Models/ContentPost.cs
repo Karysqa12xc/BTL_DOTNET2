@@ -16,6 +16,8 @@ namespace BTL_DOTNET2.Models
 
         public string? Image { get; set; }
         public string? Video { get; set; }
+        
+        public virtual ICollection<ContentTotal> Media {get; set;} = new List<ContentTotal>();
         [InverseProperty("ContentPost")]
         public virtual ICollection<Post> Posts { get; set; } = new List<Post>();        
         

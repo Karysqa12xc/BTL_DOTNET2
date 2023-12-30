@@ -1,4 +1,4 @@
-@model BTL_DOTNET2.Models.PostContentViewModel
+@model BTL_DOTNET2.Models.PostCommentContentViewModel
 
 @{
     ViewData["Title"] = "Thông tin bài đăng".ToUpper();
@@ -126,7 +126,7 @@
 
 </div>
 <div id="commentPopup" style="display: none;">
-    @await Html.PartialAsync("_CreateComment", new BTL_DOTNET2.Models.PostContentViewModel { Post = Model!.Post })
+    @await Html.PartialAsync("_CreateComment", new BTL_DOTNET2.Models.PostCommentContentViewModel { Post = Model!.Post })
 </div>
 <hr/>
 @if (@Model.Comments.Count() > 0)

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pEtPPrrVeJrA+JUbcbthhdV7J7v+pkLmJw/5b7OyzzI=",
+  "Hash": "6+v4Nsj7y6v03DWTeDxpHpUPUejf/wPL0SlKW9bGdjA=",
   "Source": "BTL_DOTNET2",
   "BasePath": "_content/BTL_DOTNET2",
   "Mode": "Default",
@@ -1480,25 +1480,6 @@
       "OriginalItemSpec": "wwwroot\\images\\networkimg\\Illustration.png"
     },
     {
-      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_0dd1ecbf-5d13-4e9c-ab7c-ff7f85594194_Ông Tố Hữu.jpg",
-      "SourceId": "BTL_DOTNET2",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
-      "BasePath": "_content/BTL_DOTNET2",
-      "RelativePath": "images/post/Post_0dd1ecbf-5d13-4e9c-ab7c-ff7f85594194_Ông Tố Hữu.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\post\\Post_0dd1ecbf-5d13-4e9c-ab7c-ff7f85594194_Ông Tố Hữu.jpg"
-    },
-    {
       "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_67235b0d-699b-48d0-93fd-eb431b0c79c7_Screenshot (2).png",
       "SourceId": "BTL_DOTNET2",
       "SourceType": "Discovered",
@@ -1613,25 +1594,6 @@
       "OriginalItemSpec": "wwwroot\\images\\post\\Post_bcbef042-2bc5-4902-91ea-29d2ac8b1b52_Screenshot (1).png"
     },
     {
-      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_be30a9f3-cdd9-4e98-aaf8-517fc3e3b526_BigO of Search Algorthim.png",
-      "SourceId": "BTL_DOTNET2",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
-      "BasePath": "_content/BTL_DOTNET2",
-      "RelativePath": "images/post/Post_be30a9f3-cdd9-4e98-aaf8-517fc3e3b526_BigO of Search Algorthim.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\post\\Post_be30a9f3-cdd9-4e98-aaf8-517fc3e3b526_BigO of Search Algorthim.png"
-    },
-    {
       "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_d250a3d7-2b9e-41e3-bb70-0d3ecd5ec02a_gia huy hoảng hốt.jpg",
       "SourceId": "BTL_DOTNET2",
       "SourceType": "Discovered",
@@ -1668,6 +1630,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\post\\Post_fe12e0f7-85f9-4515-bbb5-9c3a75729932_1200px-Chelsea_crest.svg.png"
+    },
+    {
+      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_fea89b58-6c83-4969-b8a0-2388bf36ca31_BigO of Search Algorthim.png",
+      "SourceId": "BTL_DOTNET2",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
+      "BasePath": "_content/BTL_DOTNET2",
+      "RelativePath": "images/post/Post_fea89b58-6c83-4969-b8a0-2388bf36ca31_BigO of Search Algorthim.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\post\\Post_fea89b58-6c83-4969-b8a0-2388bf36ca31_BigO of Search Algorthim.png"
     },
     {
       "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\myapp.js",
@@ -2791,12 +2772,12 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\videos\\post\\Post_7b97b670-8092-4c7d-bd92-5326b9603a46_NGƯỜI EM CỐ DIO - Dio Brando.mp4",
+      "Identity": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\videos\\post\\Post_1f8d2327-0670-4b0e-a37c-e109bfb4366a_received_748578195885631.mp4",
       "SourceId": "BTL_DOTNET2",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\",
       "BasePath": "_content/BTL_DOTNET2",
-      "RelativePath": "videos/post/Post_7b97b670-8092-4c7d-bd92-5326b9603a46_NGƯỜI EM CỐ DIO - Dio Brando.mp4",
+      "RelativePath": "videos/post/Post_1f8d2327-0670-4b0e-a37c-e109bfb4366a_received_748578195885631.mp4",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -2807,7 +2788,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\videos\\post\\Post_7b97b670-8092-4c7d-bd92-5326b9603a46_NGƯỜI EM CỐ DIO - Dio Brando.mp4"
+      "OriginalItemSpec": "wwwroot\\videos\\post\\Post_1f8d2327-0670-4b0e-a37c-e109bfb4366a_received_748578195885631.mp4"
     }
   ]
 }

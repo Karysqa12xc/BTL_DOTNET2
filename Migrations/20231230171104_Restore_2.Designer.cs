@@ -4,6 +4,7 @@ using BTL_DOTNET2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BTL_DOTNET2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231230171104_Restore_2")]
+    partial class Restore_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,9 +135,6 @@ namespace BTL_DOTNET2.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("ContentPostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MediaType")
                         .HasColumnType("int");
 
                     b.Property<string>("Path")
@@ -465,13 +465,11 @@ namespace BTL_DOTNET2.Migrations
                 {
                     b.HasOne("BTL_DOTNET2.Models.ContentComment", "ContentComment")
                         .WithMany("Media")
-                        .HasForeignKey("ContentCommentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ContentCommentId");
 
                     b.HasOne("BTL_DOTNET2.Models.ContentPost", "ContentPost")
                         .WithMany("Media")
-                        .HasForeignKey("ContentPostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ContentPostId");
 
                     b.Navigation("ContentComment");
 
