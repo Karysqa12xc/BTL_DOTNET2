@@ -17,6 +17,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\avatar\\09999e97-dff7-4255-8da1-656e8820da16_gia huy hoảng hốt.jpg",
+      "PackagePath": "staticwebassets\\images\\avatar\\09999e97-dff7-4255-8da1-656e8820da16_gia huy hoảng hốt.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\avatar\\62efeda9-2a67-41c3-acd2-11369fe94d00_cs_BackGround.png",
+      "PackagePath": "staticwebassets\\images\\avatar\\62efeda9-2a67-41c3-acd2-11369fe94d00_cs_BackGround.png"
+    },
+    {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\avatar\\avatar.png",
       "PackagePath": "staticwebassets\\images\\avatar\\avatar.png"
     },
@@ -55,6 +63,14 @@
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\networkimg\\Illustration.png",
       "PackagePath": "staticwebassets\\images\\networkimg\\Illustration.png"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_0dd1ecbf-5d13-4e9c-ab7c-ff7f85594194_Ông Tố Hữu.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_0dd1ecbf-5d13-4e9c-ab7c-ff7f85594194_Ông Tố Hữu.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_67235b0d-699b-48d0-93fd-eb431b0c79c7_Screenshot (2).png",
+      "PackagePath": "staticwebassets\\images\\post\\Post_67235b0d-699b-48d0-93fd-eb431b0c79c7_Screenshot (2).png"
     },
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_674f8ad1-282c-4661-9cbc-b9907a3cf683_Screenshot (1).png",
@@ -323,6 +339,10 @@
     {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\videos\\post\\Post_7b97b670-8092-4c7d-bd92-5326b9603a46_NGƯỜI EM CỐ DIO - Dio Brando.mp4",
+      "PackagePath": "staticwebassets\\videos\\post\\Post_7b97b670-8092-4c7d-bd92-5326b9603a46_NGƯỜI EM CỐ DIO - Dio Brando.mp4"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BTL_DOTNET2.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -73,7 +73,12 @@
                 </div>
                 <hr/>
                 @* @ViewBag.ImgPostUrl *@
-                <img class="rounded card-img-top" src="@Model.Post.ContentPost.Image" style="max-width: 70%; max-height: 70%; object-fit: cover;">
+                @if(!string.IsNullOrEmpty(@Model.Post.ContentPost.Image)){
+                    <img class="rounded card-img-top" src="@Model.Post.ContentPost.Image" style="max-width: 70%; max-height: 70%; object-fit: cover;">
+                }
+                @if(!string.IsNullOrEmpty(@Model.Post.ContentPost.Video)){
+                    <iframe src="@Model.Post.ContentPost.Video" frameborder="0"></iframe>
+                }
                 <div class="card-footer bg-success text-light">@Model.Post.PostTime</div>
             </div>
         @* <dt class="col-sm-2">
@@ -138,7 +143,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex align-items-center">
                             <div class="me-3">
-                                <img src="@comment.User!.PhotoUrl" alt="">
+                                <img class="rounded-avatar" src="@comment.User!.PhotoUrl" alt="">
                             </div>
                             <div>
                                 @comment.User!.Nickname
@@ -176,6 +181,9 @@
                             <div>
                                 <img class="img-fluid rounded" src="@comment.ContentComment.Image" alt="" height="450" width="450">
                             </div>
+                        }
+                        @if(!string.IsNullOrEmpty(@comment.ContentComment.Video)){
+                            <iframe src="@comment.ContentComment.Video" frameborder="0"></iframe>
                         }
                     </div>
                 </p>

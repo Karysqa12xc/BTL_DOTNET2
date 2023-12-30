@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BTL_DOTNET2.Data;
 using BTL_DOTNET2.Models;
 using Microsoft.AspNetCore.Authorization;
+using BTL_DOTNET2.Models.Process;
 
 namespace BTL_DOTNET2.Controllers
 {
@@ -15,7 +11,8 @@ namespace BTL_DOTNET2.Controllers
     public class ContentPostController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        private UploadImgProcess _editImgPost = new UploadImgProcess();
+        private UploadVideoProcess _editVideoPost = new UploadVideoProcess();
         public ContentPostController(ApplicationDbContext context)
         {
             _context = context;
@@ -95,7 +92,7 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, PostContentViewModel contentViewModel, IFormFile file)
+        public async Task<IActionResult> Edit(int id, PostContentViewModel contentViewModel, IFormFile fileImg, IFormFile fileVideo)
         {
             if (id != contentViewModel.ContentPost.ContentPostId)
             {
@@ -106,26 +103,41 @@ namespace BTL_DOTNET2.Controllers
             {
                 try
                 {
-                    
-                    
-                    string? oldImage = contentViewModel.ContentPost.Image;
-                    
 
+
+                    string? oldImage = contentViewModel.ContentPost.Image;
+                    string? oldVideo = contentViewModel.ContentPost.Video;
+                    
                     if (contentViewModel.ImgUrl != null && contentViewModel.ImgUrl.Length > 0)
                     {
-                        file = contentViewModel.ImgUrl;
-                        string? strImgReplace = await UploadImage(file);
+                        fileImg = contentViewModel.ImgUrl;
+                        string? strImgReplace = await _editImgPost.UploadImage(fileImg, "/images/post/", "Post");
                         contentViewModel.ContentPost.Image = strImgReplace;
+                        if (!string.IsNullOrEmpty(oldImage))
+                        {
+                            string oldImageUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImage.TrimStart('/'));
+                            if (System.IO.File.Exists(oldImageUrl))
+                            {
+                                System.IO.File.Delete(oldImageUrl);
+                            }
+                        }
+                    }
+                    if (contentViewModel.VideoUrl != null && contentViewModel.VideoUrl.Length > 0)
+                    {
+                        fileVideo = contentViewModel.VideoUrl;
+                        string? strVideoReplace = await _editVideoPost.UploadVideo(fileVideo, "/videos/post/", "Post");
+                        contentViewModel.ContentPost.Video = strVideoReplace;
+                        if (!string.IsNullOrEmpty(oldVideo))
+                        {
+                            string oldVideoUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideo.TrimStart('/'));
+                            if (System.IO.File.Exists(oldVideoUrl))
+                            {
+                                System.IO.File.Delete(oldVideoUrl);
+                            }
+                        }
                     }
                     _context.Update(contentViewModel.ContentPost);
                     await _context.SaveChangesAsync();
-
-                    if(!string.IsNullOrEmpty(oldImage)){
-                        string oldImageUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImage.TrimStart('/'));
-                        if(System.IO.File.Exists(oldImageUrl)){
-                            System.IO.File.Delete(oldImageUrl);
-                        }
-                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -142,24 +154,6 @@ namespace BTL_DOTNET2.Controllers
                 return RedirectToAction("Details", "Post", new { id = postId });
             }
             return View(contentViewModel);
-        }
-        private async Task<string?> UploadImage(IFormFile file)
-        {
-            // Tạo folder nếu chưa tồn tại
-            string PathImgPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "post");
-            string strKey = Guid.NewGuid().ToString();
-            // Tạo tên file duy nhất
-            string uniqueFileName = "Post" + $"_{strKey}" + "_" + file.FileName;
-
-            // Lưu hình ảnh vào folder
-            string filePath = Path.Combine(PathImgPost, uniqueFileName);
-            using (var fileStream = System.IO.File.Create(filePath))
-            {
-                await file.CopyToAsync(fileStream);
-            }
-
-            // Trả về đường dẫn của hình ảnh để lưu vào cơ sở dữ liệu
-            return "/images/post/" + uniqueFileName;
         }
         // GET: ContentPost/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -186,16 +180,27 @@ namespace BTL_DOTNET2.Controllers
         {
             var contentPost = await _context.ContentPosts.FindAsync(id);
             string? oldImageContentPost = contentPost!.Image;
+            string? oldVideoContentPost = contentPost!.Video;
             if (contentPost != null)
             {
                 _context.ContentPosts.Remove(contentPost);
             }
 
             await _context.SaveChangesAsync();
-            if(!string.IsNullOrEmpty(oldImageContentPost)){
+            if (!string.IsNullOrEmpty(oldImageContentPost))
+            {
                 string imagePathContentPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImageContentPost.TrimStart('/'));
-                if(System.IO.File.Exists(imagePathContentPost)){
+                if (System.IO.File.Exists(imagePathContentPost))
+                {
                     System.IO.File.Delete(imagePathContentPost);
+                }
+            }
+            if (!string.IsNullOrEmpty(oldVideoContentPost))
+            {
+                string videoPathContentPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideoContentPost.TrimStart('/'));
+                if (System.IO.File.Exists(videoPathContentPost))
+                {
+                    System.IO.File.Delete(videoPathContentPost);
                 }
             }
             return RedirectToAction("Index", "Post");

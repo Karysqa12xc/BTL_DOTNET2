@@ -30,6 +30,12 @@
                 </label>
                 <input asp-for="ImgUrl" id="fileInput" class="form-control" type="file" accept="image/jpeg, image/png, image/jpg">
             </div>
+            <div class="form-group mb-3">
+                <label asp-for="VideoUrl" class="form-label">
+                    <h2>Chọn video trong thư mục:</h2>
+                </label>
+                <input asp-for="VideoUrl" id="fileInput" class="form-control" type="file">
+            </div>
             <div class="form-group mt-4">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

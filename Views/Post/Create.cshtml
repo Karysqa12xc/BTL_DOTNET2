@@ -17,21 +17,39 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-5">
-                <label asp-for="Post.Title" class="control-label"></label>
+                <label asp-for="Post.Title" class="control-label">
+                    <h4> Tiêu đề: </h4>
+                </label>
                 <input asp-for="Post.Title" class="form-control" />
                 <span asp-validation-for="Post.Title" class="text-danger"></span>
             </div>
             <div class="form-group mb-5">
-                <label asp-for="Post.CateId" class="control-label"></label>
+                <label asp-for="Post.CateId" class="control-label">
+                    <h4>Thể loại: </h4>
+                </label>
                 <select asp-for="Post.CateId" class="form-control" asp-items="ViewBag.CateId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="ContentPost.Paragram" class="control-label"></label>
+                <label asp-for="ContentPost.Paragram" class="control-label">
+                    <h4>Nội dung: </h4>
+                </label>
                 <textarea id="tiny" asp-for="ContentPost.Paragram" class="form-control" cols="30" rows="10"></textarea>
             </div>
             <div class="mb-3">
-                <label asp-for="ImgUrl" class="form-label">Chọn ảnh trên thiết bị này: </label>
+                <label asp-for="ImgUrl" class="form-label">
+                    <h4>
+                        Chọn ảnh trên thiết bị này: 
+                    </h4>
+                </label>
                 <input asp-for="ImgUrl" id="fileInput" class="form-control" type="file" accept="image/jpeg, image/png, image/jpg">
+            </div>
+            <div class="mb-3">
+                <label asp-for="VideoUrl" class="form-label">
+                    <h4>
+                        Chọn video trên thiết bị này: 
+                    </h4>
+                </label>
+                <input asp-for="VideoUrl" id="fileInput" class="form-control" type="file">
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary form-control mt-5" />

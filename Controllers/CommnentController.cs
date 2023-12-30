@@ -9,6 +9,7 @@ using BTL_DOTNET2.Data;
 using BTL_DOTNET2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using BTL_DOTNET2.Models.Process;
 
 namespace BTL_DOTNET2.Controllers
 {
@@ -16,8 +17,9 @@ namespace BTL_DOTNET2.Controllers
     public class CommnentController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private UploadImgProcess _uploadImgComment = new UploadImgProcess();
+        private UploadVideoProcess _uploadVideoComment = new UploadVideoProcess();
         protected UserManager<User> _userManager;
-
         public CommnentController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
@@ -34,7 +36,7 @@ namespace BTL_DOTNET2.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Commnent/Details/5
+        // GET: /Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,18 +60,8 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PostContentViewModel postContentViewModel, IFormFile fileImage)
+        public async Task<IActionResult> Create(PostContentViewModel postContentViewModel, IFormFile fileImage, IFormFile fileVideo)
         {
-            // if (!ModelState.IsValid)
-            // {
-            //     comment.CommentTime = DateTime.Now;
-            //     _context.Add(comment);
-            //     await _context.SaveChangesAsync();
-            //     return RedirectToAction(nameof(Index));
-            // }
-            // ViewData["ContentCommentId"] = new SelectList(_context.ContentComments, "ContentCommentId", "ContentCommentId", comment.ContentCommentId);
-            // ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", comment.PostId);
-            // return View(comment);
             if (!ModelState.IsValid)
             {
                 if (!string.IsNullOrEmpty(postContentViewModel.ContentComment.Paragraph))
@@ -79,12 +71,14 @@ namespace BTL_DOTNET2.Controllers
                     if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
                     {
                         fileImage = postContentViewModel.ImgUrl;
-                        var imageCommentPath = await UploadImage(fileImage);
+                        var imageCommentPath = await _uploadImgComment.UploadImage(fileImage, "/images/comment/", "Comment");
                         postContentViewModel.ContentComment.Image = imageCommentPath;
-                        ViewBag.ImgCommentUrl = imageCommentPath;
-
                     }
-
+                    if(postContentViewModel.VideoUrl != null && postContentViewModel.VideoUrl.Length > 0){
+                        fileVideo = postContentViewModel.VideoUrl;
+                        var videoCommentPath = await _uploadVideoComment.UploadVideo(fileVideo, "/videos/comment/", "Comment");
+                        postContentViewModel.ContentComment.Video = videoCommentPath;
+                    }
                     _context.Add(postContentViewModel.ContentComment);
                     _context.SaveChanges();
 
@@ -97,19 +91,6 @@ namespace BTL_DOTNET2.Controllers
                 }
             }
             return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
-        }
-        public async Task<string> UploadImage(IFormFile imgFile)
-        {
-            string pathImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "comment");
-
-            string keyStr = Guid.NewGuid().ToString();
-            string uniqueFileName = "Comment_" + keyStr + imgFile.FileName;
-            string filePath = Path.Combine(pathImage, uniqueFileName);
-            using (var stream = System.IO.File.Create(filePath))
-            {
-                await imgFile.CopyToAsync(stream);
-            }
-            return "/images/comment/" + uniqueFileName;
         }
         // GET: Commnent/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -1,21 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BTL_DOTNET2.Data;
 using BTL_DOTNET2.Models;
 using Microsoft.AspNetCore.Authorization;
-
+using BTL_DOTNET2.Models.Process;
+using System.IO;
 namespace BTL_DOTNET2.Controllers
 {
     [Authorize]
     public class ContentCommentController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        private UploadImgProcess _editImgComment = new UploadImgProcess();
+        private UploadVideoProcess _editVideoComment = new UploadVideoProcess();
         public ContentCommentController(ApplicationDbContext context)
         {
             _context = context;
@@ -92,7 +89,7 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, PostContentViewModel contentCommentViewModel, IFormFile file)
+        public async Task<IActionResult> Edit(int id, PostContentViewModel contentCommentViewModel, IFormFile fileImg, IFormFile fileVideo)
         {
             if (id != contentCommentViewModel.ContentComment.ContentCommentId)
             {
@@ -105,10 +102,12 @@ namespace BTL_DOTNET2.Controllers
                 {
                     string? oldImage = contentCommentViewModel.ContentComment.Image;
                     string? strImgReplace;
+                    string? oldVideo = contentCommentViewModel.ContentComment.Video;
+                    string? strVideoReplace;
                     if (contentCommentViewModel.ImgUrl != null && contentCommentViewModel.ImgUrl.Length > 0)
                     {
-                        file = contentCommentViewModel.ImgUrl;
-                        strImgReplace = await UploadImage(file);
+                        fileImg = contentCommentViewModel.ImgUrl;
+                        strImgReplace = await _editImgComment.UploadImage(fileImg, "/images/comment/", "Comment");
                         contentCommentViewModel.ContentComment.Image = strImgReplace;
                         if (!string.IsNullOrEmpty(oldImage))
                         {
@@ -119,9 +118,17 @@ namespace BTL_DOTNET2.Controllers
                             }
                         }
                     }
-
-
-
+                    if(contentCommentViewModel.VideoUrl != null && contentCommentViewModel.VideoUrl.Length > 0){
+                        fileVideo = contentCommentViewModel.VideoUrl;
+                        strVideoReplace = await _editVideoComment.UploadVideo(fileVideo, "/videos/comment/", "Comment");
+                        contentCommentViewModel.ContentComment.Video = strVideoReplace;
+                        if(!string.IsNullOrEmpty(oldVideo)){
+                            string oldVideoUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideo.TrimStart('/'));
+                            if(System.IO.File.Exists(oldVideoUrl)){
+                                System.IO.File.Delete(oldVideoUrl);                                
+                            }
+                        }
+                    }
                     _context.Update(contentCommentViewModel.ContentComment);
                     await _context.SaveChangesAsync();
                 }
@@ -142,24 +149,6 @@ namespace BTL_DOTNET2.Controllers
                 return RedirectToAction("Details", "Post", new { id = postId });
             }
             return View(contentCommentViewModel);
-        }
-        private async Task<string?> UploadImage(IFormFile file)
-        {
-            // Tạo folder nếu chưa tồn tại
-            string PathImgPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "comment");
-            string strKey = Guid.NewGuid().ToString();
-            // Tạo tên file duy nhất
-            string uniqueFileName = "Comment" + $"_{strKey}" + "_" + file.FileName;
-
-            // Lưu hình ảnh vào folder
-            string filePath = Path.Combine(PathImgPost, uniqueFileName);
-            using (var fileStream = System.IO.File.Create(filePath))
-            {
-                await file.CopyToAsync(fileStream);
-            }
-
-            // Trả về đường dẫn của hình ảnh để lưu vào cơ sở dữ liệu
-            return "/images/comment/" + uniqueFileName;
         }
         // GET: ContentComment/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -186,6 +175,7 @@ namespace BTL_DOTNET2.Controllers
         {
             var contentComment = await _context.ContentComments.FindAsync(id);
             string? oldImageComment = contentComment!.Image;
+            string? oldVideoComment = contentComment!.Video;
             int postId = _context.Comments.Where(cc => cc.ContentCommentId == id).Select(cc => cc.PostId).FirstOrDefault();
             if (contentComment != null)
             {
@@ -201,7 +191,12 @@ namespace BTL_DOTNET2.Controllers
                     System.IO.File.Delete(imagePathComment);
                 }
             }
-
+            if(!string.IsNullOrEmpty(oldVideoComment)){
+                string videoCommentPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideoComment.TrimStart('/'));
+                if(System.IO.File.Exists(videoCommentPath)){
+                    System.IO.File.Delete(videoCommentPath);
+                }
+            }
             return RedirectToAction("Details", "Post", new { id = postId });
         }
 

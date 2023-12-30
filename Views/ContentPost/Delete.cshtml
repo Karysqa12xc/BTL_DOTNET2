@@ -6,34 +6,43 @@
 
 <h1 class="text-center">@ViewData["Title"]</h1>
 
-<h3 class="text-center">Bạn có chắc chắn muốn xoá comment này?</h3>
+<h3 class="text-center">Bạn có chắc chắn muốn xoá post này?</h3>
 <div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Paragram)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.Raw(Model.Paragram)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Image)
         </dt>
-        <dd class = "col-sm-10">
-            <img class="rounded card-img-top" src="@Model.Image" style="max-width: 70%; max-height: 70%; object-fit: cover;">
+        <dd class="col-sm-10">
+            <img class="rounded-avater card-img-top" src="@Model.Image" style="object-fit: cover;">
             @* @Html.DisplayFor(model => model.Image) *@
-            
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Video)
+        </dt>
+        <dd class="col-sm-10">
+            <iframe src="@Model.Video" frameborder="0"></iframe>
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="ContentPostId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a href="javascript:void(0)" onclick="goBack()">Quay lại</a>
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a href="javascript:void(0)" onclick="goBack()">
+            <button class="btn btn-outline-primary">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+        </a>
     </form>
 </div>
 <script>
-    function goBack(){
+    function goBack() {
         window.history.back();
     }
 </script>

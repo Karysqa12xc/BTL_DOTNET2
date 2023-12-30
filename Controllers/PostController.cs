@@ -9,6 +9,7 @@ using X.PagedList;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Authorization;
 using Humanizer;
+using BTL_DOTNET2.Models.Process;
 
 namespace BTL_DOTNET2.Controllers
 {
@@ -17,7 +18,9 @@ namespace BTL_DOTNET2.Controllers
     {
         private readonly ApplicationDbContext _context;
         protected UserManager<User> _userManager;
-
+        
+        private UploadImgProcess _uploadImgPost = new UploadImgProcess();
+        private UploadVideoProcess _uploadVideoPost = new UploadVideoProcess();
         public PostController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
@@ -105,7 +108,7 @@ namespace BTL_DOTNET2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // [Bind("PostId,Title,PostTime,CommentTotal,IsSave,CateId,ContentPostId")] Post post
-        public async Task<IActionResult> Create(PostContentViewModel postContentViewModel, IFormFile imagePath)
+        public async Task<IActionResult> Create(PostContentViewModel postContentViewModel, IFormFile imgPath, IFormFile videoPath)
         {
 
             if (!ModelState.IsValid)
@@ -116,12 +119,16 @@ namespace BTL_DOTNET2.Controllers
                 {
                     if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
                     {
-                        imagePath = postContentViewModel.ImgUrl;
-                        var imagePathStr = await UploadImage(imagePath);
+                        imgPath = postContentViewModel.ImgUrl;
+                        var imagePathStr = await _uploadImgPost.UploadImage(imgPath, "/images/post/", "Post");
                         postContentViewModel.ContentPost.Image = imagePathStr;
                     }
-
-
+                    if(postContentViewModel.VideoUrl != null && postContentViewModel.VideoUrl.Length > 0)
+                    {
+                        videoPath = postContentViewModel.VideoUrl;
+                        var videoPathStr = await _uploadVideoPost.UploadVideo(videoPath, "/videos/post/", "Post");
+                        postContentViewModel.ContentPost.Video = videoPathStr;
+                    }
                     postContentViewModel.Post.User = await _userManager.GetUserAsync(HttpContext.User);
                     _context.Add(postContentViewModel.ContentPost);
                     _context.SaveChanges();
@@ -134,25 +141,6 @@ namespace BTL_DOTNET2.Controllers
 
             }
             return View();
-        }
-
-        private async Task<string?> UploadImage(IFormFile file)
-        {
-            // Tạo folder nếu chưa tồn tại
-            string PathImgPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "post");
-            string strKey = Guid.NewGuid().ToString();
-            // Tạo tên file duy nhất
-            string uniqueFileName = "Post" + $"_{strKey}" + "_" + file.FileName;
-
-            // Lưu hình ảnh vào folder
-            string filePath = Path.Combine(PathImgPost, uniqueFileName);
-            using (var fileStream = System.IO.File.Create(filePath))
-            {
-                await file.CopyToAsync(fileStream);
-            }
-
-            // Trả về đường dẫn của hình ảnh để lưu vào cơ sở dữ liệu
-            return "/images/post/" + uniqueFileName;
         }
         public async Task<IActionResult> PostOfUser(int? page, int? PageSize, string searching, int? cateId)
         {
@@ -215,7 +203,7 @@ namespace BTL_DOTNET2.Controllers
             var posts = _context.Posts
             .Include(p => p.Cate)
             .Include(p => p.ContentPost)
-            .Include(p => p.User).Where(p => (p.IsChecked != true) 
+            .Include(p => p.User).Where(p => (p.IsChecked != true)
             && (cateId == null || p.CateId == cateId)
             && (p.Title.Contains(searching) || searching == null))
             .OrderByDescending(p => p.PostTime)

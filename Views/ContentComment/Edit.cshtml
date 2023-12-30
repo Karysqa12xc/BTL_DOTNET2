@@ -25,6 +25,15 @@
                 <label asp-for="ImgUrl" class="control-label">Chọn hình ảnh mà bạn muốn thay đổi: </label>
                 <input asp-for="ImgUrl" class="form-control" />
             </div>
+            <div hidden class="form-group">
+                <label asp-for="ContentComment.Video" class="control-label"></label>
+                <input asp-for="ContentComment.Video" class="form-control" />
+                <span asp-validation-for="ContentComment.Video" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VideoUrl" class="control-label">Chọn Video mà bạn muốn thay đổi: </label>
+                <input asp-for="VideoUrl" class="form-control" />
+            </div>
             <div class="form-group mt-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
