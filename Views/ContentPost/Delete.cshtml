@@ -30,16 +30,18 @@
             <iframe src="@Model.Video" frameborder="0"></iframe>
         </dd>
     </dl>
-
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="ContentPostId" />
-        <input type="submit" value="Delete" class="btn btn-danger" />
+    <div class="d-flex">
+        <form asp-action="Delete" class="me-3">
+            <input type="hidden" asp-for="ContentPostId" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
         <a href="javascript:void(0)" onclick="goBack()">
             <button class="btn btn-outline-primary">
                 <i class="fa-solid fa-arrow-left"></i>
             </button>
         </a>
-    </form>
+    </div>
+
 </div>
 <script>
     function goBack() {

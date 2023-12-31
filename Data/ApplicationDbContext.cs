@@ -11,7 +11,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
     public virtual DbSet<Comment> Comments { get; set; }
     public virtual DbSet<ContentComment> ContentComments { get; set; }
     public virtual DbSet<ContentPost> ContentPosts { get; set; }
-    
+    public virtual DbSet<ContentTotal> ContentTotals { get; set; }
     public virtual DbSet<Notification> Notifications { get; set; }
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<Post> Posts { get; set; }

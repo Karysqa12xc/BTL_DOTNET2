@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,14 @@ namespace BTL_DOTNET2.Models
         public IFormFile? VideoUrl { get; set; }
         public List<IFormFile>? ImgUrls { get; set; }
         public List<IFormFile>? VideoUrls { get; set; }
+        public List<ContentTotal> MediaContentPost { get; set; } = new List<ContentTotal>();
+        public List<ContentTotal> MediaContentComment { get; set; } = new List<ContentTotal>();
+        public class CommentWithMedia
+        {
+            public Comment Comment { get; set; } = null!;
+            public List<ContentTotal> Media { get; set; } = null!;
+        }
+        public List<CommentWithMedia> CommentWithMedias { get; set; } = null!;
+        
     }
 }

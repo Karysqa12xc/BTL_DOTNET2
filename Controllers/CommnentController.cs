@@ -60,37 +60,54 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PostCommentContentViewModel postContentViewModel, IFormFile fileImage, IFormFile fileVideo)
+        public async Task<IActionResult> Create(PostCommentContentViewModel commentContentViewModel, List<IFormFile> fileImages, List<IFormFile> fileVideos)
         {
             if (!ModelState.IsValid)
             {
-                if (!string.IsNullOrEmpty(postContentViewModel.ContentComment.Paragraph))
+                if (!string.IsNullOrEmpty(commentContentViewModel.ContentComment.Paragraph))
                 {
-                    postContentViewModel.Comment.CommentTime = DateTime.Now;
-                    postContentViewModel.Comment.User = await _userManager.GetUserAsync(HttpContext.User);
-                    if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
-                    {
-                        fileImage = postContentViewModel.ImgUrl;
-                        var imageCommentPath = await _uploadImgComment.UploadImage(fileImage, "/images/comment/", "Comment");
-                        postContentViewModel.ContentComment.Image = imageCommentPath;
+                    commentContentViewModel.Comment.CommentTime = DateTime.Now;
+                    commentContentViewModel.Comment.User = await _userManager.GetUserAsync(HttpContext.User);
+                    // if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
+                    // {
+                    //     fileImage = postContentViewModel.ImgUrl;
+                    //     var imageCommentPath = await _uploadImgComment.UploadImage(fileImage, "/images/comment/", "Comment");
+                    //     postContentViewModel.ContentComment.Image = imageCommentPath;
+                    // }
+                    // if(postContentViewModel.VideoUrl != null && postContentViewModel.VideoUrl.Length > 0){
+                    //     fileVideo = postContentViewModel.VideoUrl;
+                    //     var videoCommentPath = await _uploadVideoComment.UploadVideo(fileVideo, "/videos/comment/", "Comment");
+                    //     postContentViewModel.ContentComment.Video = videoCommentPath;
+                    // }
+                    _context.Add(commentContentViewModel.ContentComment);
+                    await _context.SaveChangesAsync();
+                    if(commentContentViewModel.ImgUrls != null){
+                        foreach(var imgFile in commentContentViewModel.ImgUrls){
+                            fileImages.Add(imgFile);
+                        }
+                        foreach(var img in fileImages){
+                            var imagePathStrs = await _uploadImgComment.UploadImage(img, "/images/comment/", "Comment");
+                            _context.Add(new ContentTotal { Path = imagePathStrs, MediaType = MediaType.Image, ContentCommentId = commentContentViewModel.ContentComment.ContentCommentId });
+                        }
                     }
-                    if(postContentViewModel.VideoUrl != null && postContentViewModel.VideoUrl.Length > 0){
-                        fileVideo = postContentViewModel.VideoUrl;
-                        var videoCommentPath = await _uploadVideoComment.UploadVideo(fileVideo, "/videos/comment/", "Comment");
-                        postContentViewModel.ContentComment.Video = videoCommentPath;
+                    if(commentContentViewModel.VideoUrls != null){
+                        foreach(var videoFile in commentContentViewModel.VideoUrls){
+                            fileVideos.Add(videoFile);
+                        }
+                        foreach(var video in fileVideos){
+                            var videoPathStrs = await _uploadVideoComment.UploadVideo(video, "/videos/comment/", "Comment");
+                            _context.Add(new ContentTotal { Path = videoPathStrs, MediaType = MediaType.Video, ContentCommentId = commentContentViewModel.ContentComment.ContentCommentId });
+                        }
                     }
-                    _context.Add(postContentViewModel.ContentComment);
-                    _context.SaveChanges();
-
-                    postContentViewModel.Comment.ContentCommentId = postContentViewModel.ContentComment.ContentCommentId;
-                    _context.Add(postContentViewModel.Comment);
+                    commentContentViewModel.Comment.ContentCommentId = commentContentViewModel.ContentComment.ContentCommentId;
+                    _context.Add(commentContentViewModel.Comment);
                     await _context.SaveChangesAsync();
 
                     // return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
-                    return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
+                    return RedirectToAction("Details", "Post", new { id = commentContentViewModel.Comment.PostId });
                 }
             }
-            return RedirectToAction("Details", "Post", new { id = postContentViewModel.Comment.PostId });
+            return RedirectToAction("Details", "Post", new { id = commentContentViewModel.Comment.PostId });
         }
         // GET: Commnent/Edit/5
         public async Task<IActionResult> Edit(int? id)

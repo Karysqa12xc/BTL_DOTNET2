@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Authorization;
 using Humanizer;
 using BTL_DOTNET2.Models.Process;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 namespace BTL_DOTNET2.Controllers
 {
@@ -86,10 +87,30 @@ namespace BTL_DOTNET2.Controllers
             post.CommentTotal = commentCount;
             _context.SaveChanges();
             ViewBag.ImgPostUrl = post.ContentPost.Image;
+
+            var commentsWithMedia = new List<PostCommentContentViewModel.CommentWithMedia>();
+            var MediaContentPost = await _context.ContentTotals
+                                    .Where(m => m.ContentPostId == post.ContentPostId)
+                                    .ToListAsync();
+           
+            foreach (var comment in comments)
+            {
+                var mediaContentComment = await _context.ContentTotals
+                        .Where(m => m.ContentCommentId != null && m.ContentCommentId == comment.ContentCommentId)
+                        .ToListAsync();
+
+                commentsWithMedia.Add(new PostCommentContentViewModel.CommentWithMedia
+                {
+                    Comment = comment,
+                    Media = mediaContentComment
+                });
+            }
             var postContentViewModel = new PostCommentContentViewModel
             {
                 Post = post,
                 Comments = comments,
+                MediaContentPost = MediaContentPost,
+                CommentWithMedias = commentsWithMedia,
             };
             return View(postContentViewModel);
         }
@@ -108,7 +129,7 @@ namespace BTL_DOTNET2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // [Bind("PostId,Title,PostTime,CommentTotal,IsSave,CateId,ContentPostId")] Post post
-        public async Task<IActionResult> Create(PostCommentContentViewModel postContentViewModel, List<IFormFile> imgPath, List<IFormFile> videoPath)
+        public async Task<IActionResult> Create(PostCommentContentViewModel postContentViewModel, List<IFormFile> imgPaths, List<IFormFile> videoPaths)
         {
 
             if (!ModelState.IsValid)
@@ -136,19 +157,22 @@ namespace BTL_DOTNET2.Controllers
                     {
                         foreach (var imgFile in postContentViewModel.ImgUrls)
                         {
-                            imgPath.Add(imgFile);
+                            imgPaths.Add(imgFile);
                         }
-                        foreach (var imgs in imgPath)
+                        foreach (var imgs in imgPaths)
                         {
                             var imagePathStrs = await _uploadImgPost.UploadImage(imgs, "/images/post/", "Post");
                             _context.Add(new ContentTotal { Path = imagePathStrs, MediaType = MediaType.Image, ContentPostId = postContentViewModel.ContentPost.ContentPostId });
                         }
                     }
-                    if(postContentViewModel.VideoUrls != null){
-                        foreach(var videoFile in postContentViewModel.VideoUrls){
-                            videoPath.Add(videoFile);
+                    if (postContentViewModel.VideoUrls != null)
+                    {
+                        foreach (var videoFile in postContentViewModel.VideoUrls)
+                        {
+                            videoPaths.Add(videoFile);
                         }
-                        foreach(var vids in videoPath){
+                        foreach (var vids in videoPaths)
+                        {
                             var videoPathStrs = await _uploadVideoPost.UploadVideo(vids, "/videos/post/", "Post");
                             _context.Add(new ContentTotal { Path = videoPathStrs, MediaType = MediaType.Video, ContentPostId = postContentViewModel.ContentPost.ContentPostId });
                         }

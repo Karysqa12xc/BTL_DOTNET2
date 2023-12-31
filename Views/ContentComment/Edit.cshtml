@@ -5,14 +5,23 @@
 }
 
 <h1 class="text-center mb-5">@ViewData["Title"]</h1>
+<div>
+    <a href="javascript:void(0)" onclick="goBack()">
+        <button class="btn btn-outline-danger">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+    </a>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="Edit" enctype="multipart/form-data">
+        <form id="editForm" asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ContentComment.ContentCommentId" />
             <div class="form-group">
-                <label asp-for="ContentComment.Paragraph" class="control-label"></label>
+                <label asp-for="ContentComment.Paragraph" class="control-label">
+                    <h3>Nội dung:</h3>
+                </label>
                 <textarea id="tiny" asp-for="ContentComment.Paragraph" class="form-control"></textarea>
                 <span asp-validation-for="ContentComment.Paragraph" class="text-danger"></span>
             </div>
@@ -21,9 +30,36 @@
                 <input asp-for="ContentComment.Image" class="form-control" />
                 <span asp-validation-for="ContentComment.Image" class="text-danger"></span>
             </div>
+            <div class="form-control">
+                @for (int i = 0; i < Model.MediaContentComment.Count; i++)
+                {
+                    var media = Model.MediaContentComment[i];
+
+                    if (!string.IsNullOrEmpty(media.Path))
+                    {
+                        <div>
+                            <input asp-for="@media.MediaId">
+                            <input asp-for="@media.IsSelected"/>
+                        @if (media.MediaType == MediaType.Image)
+                        {
+                            <p>@media.Path</p>
+                            <img src="@media.Path" alt="Current Image" class="img-thumbnail" />
+                        }
+                        @if (media.MediaType == MediaType.Video)
+                        {
+                            <p>@media.Path</p>
+                            <iframe src="@media.Path" alt="Current Video" class="img-thumbnail"></iframe>
+                        }
+                        </div>
+                        
+                    }
+                }
+            </div>
             <div class="form-group">
-                <label asp-for="ImgUrl" class="control-label">Chọn hình ảnh mà bạn muốn thay đổi: </label>
-                <input asp-for="ImgUrl" class="form-control" />
+                <label asp-for="ImgUrls" class="control-label">
+                    <h2>Chọn hình ảnh mà bạn muốn thay đổi: </h2>
+                </label>
+                <input asp-for="ImgUrls" multiple class="form-control" />
             </div>
             <div hidden class="form-group">
                 <label asp-for="ContentComment.Video" class="control-label"></label>
@@ -31,8 +67,10 @@
                 <span asp-validation-for="ContentComment.Video" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VideoUrl" class="control-label">Chọn Video mà bạn muốn thay đổi: </label>
-                <input asp-for="VideoUrl" class="form-control" />
+                <label asp-for="VideoUrls" class="control-label">
+                    <h3>Chọn Video mà bạn muốn thay đổi: </h3>
+                </label>
+                <input asp-for="VideoUrls" multiple class="form-control" />
             </div>
             <div class="form-group mt-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -41,13 +79,16 @@
     </div>
 </div>
 
-<div>
-    <a href="javascript:void(0)" onclick="goBack()">Quay lại</a>
-</div>
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+
+
 <script>
     function goBack() {
         window.history.back();

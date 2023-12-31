@@ -92,7 +92,7 @@
                                 @if (item.User == null)
                                 {
                                     <a asp-controller="ContentPost" asp-action="Delete"
-                                        asp-route-id="@item.ContentPost.ContentPostId">
+                                        asp-route-id="@item.ContentPost.ContentPostId" asp-route-isDeleteFromPost="false">
                                         <button type="button" class="btn btn-outline-danger">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>

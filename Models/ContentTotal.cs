@@ -17,7 +17,10 @@ namespace BTL_DOTNET2.Models
         public int? ContentCommentId { get; set; }
         [ForeignKey("ContentCommentId")]
         [InverseProperty("Media")]
-        public virtual ContentComment ContentComment { get; set; } = null!;
+        public virtual ContentComment ContentComment { get; set; } = null!;        
+        public bool IsSelected { get; set; }
+        
+        
     }
     public enum MediaType
     {

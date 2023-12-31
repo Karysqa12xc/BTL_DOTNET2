@@ -107,7 +107,7 @@ namespace BTL_DOTNET2.Controllers
 
                     string? oldImage = contentViewModel.ContentPost.Image;
                     string? oldVideo = contentViewModel.ContentPost.Video;
-                    
+
                     if (contentViewModel.ImgUrl != null && contentViewModel.ImgUrl.Length > 0)
                     {
                         fileImg = contentViewModel.ImgUrl;
@@ -156,7 +156,7 @@ namespace BTL_DOTNET2.Controllers
             return View(contentViewModel);
         }
         // GET: ContentPost/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, bool isDeleteFromPost = false)
         {
             if (id == null)
             {
@@ -169,40 +169,56 @@ namespace BTL_DOTNET2.Controllers
             {
                 return NotFound();
             }
-
+            if (isDeleteFromPost)
+            {
+                return View("DeleteConfirmed", contentPost);
+            }
             return View(contentPost);
         }
 
         // POST: ContentPost/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var contentPost = await _context.ContentPosts.FindAsync(id);
-            string? oldImageContentPost = contentPost!.Image;
-            string? oldVideoContentPost = contentPost!.Video;
+            // string? oldImageContentPost = contentPost!.Image;
+            // string? oldVideoContentPost = contentPost!.Video;
+            var mediaPaths = _context.ContentTotals
+                           .Where(ct => ct.ContentPostId == id)
+                           .Select(ct => new { ct.MediaType, ct.Path })
+                           .ToList();
+            foreach (var mediaPath in mediaPaths)
+            {
+                string fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", mediaPath.Path!.TrimStart('/'));
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                }
+            }
             if (contentPost != null)
             {
                 _context.ContentPosts.Remove(contentPost);
             }
 
             await _context.SaveChangesAsync();
-            if (!string.IsNullOrEmpty(oldImageContentPost))
-            {
-                string imagePathContentPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImageContentPost.TrimStart('/'));
-                if (System.IO.File.Exists(imagePathContentPost))
-                {
-                    System.IO.File.Delete(imagePathContentPost);
-                }
-            }
-            if (!string.IsNullOrEmpty(oldVideoContentPost))
-            {
-                string videoPathContentPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideoContentPost.TrimStart('/'));
-                if (System.IO.File.Exists(videoPathContentPost))
-                {
-                    System.IO.File.Delete(videoPathContentPost);
-                }
-            }
+            // if (!string.IsNullOrEmpty(oldImageContentPost))
+            // {
+            //     string imagePathContentPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImageContentPost.TrimStart('/'));
+            //     if (System.IO.File.Exists(imagePathContentPost))
+            //     {
+            //         System.IO.File.Delete(imagePathContentPost);
+            //     }
+            // }
+            // if (!string.IsNullOrEmpty(oldVideoContentPost))
+            // {
+            //     string videoPathContentPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideoContentPost.TrimStart('/'));
+            //     if (System.IO.File.Exists(videoPathContentPost))
+            //     {
+            //         System.IO.File.Delete(videoPathContentPost);
+            //     }
+            // }
             return RedirectToAction("Index", "Post");
         }
 
