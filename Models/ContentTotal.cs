@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing.Printing;
 
 namespace BTL_DOTNET2.Models
 {
@@ -19,12 +18,18 @@ namespace BTL_DOTNET2.Models
         [InverseProperty("Media")]
         public virtual ContentComment ContentComment { get; set; } = null!;        
         public bool IsSelected { get; set; }
-        
-        
     }
     public enum MediaType
     {
         Image,
         Video,
     }
+    public class ContentCommentViewModel(){
+        public bool SelectAll { get; set; }
+        public List<ContentTotal> contentTotals {get; set;}
+        
+        
+    }
+    
+    
 }

@@ -1,7 +1,7 @@
 @model BTL_DOTNET2.Models.PostCommentContentViewModel
 
 @{
-    ViewData["Title"] = "Chỉnh sửa bài viết";
+    ViewData["Title"] = "Chỉnh sửa bài viết".ToUpper();
 }
 
 <h1 class="text-center">@ViewData["Title"]</h1>
@@ -26,36 +26,49 @@
                 <textarea id="tiny" asp-for="ContentPost.Paragram" class="form-control"></textarea>
                 <span asp-validation-for="ContentPost.Paragram" class="text-danger"></span>
             </div>
-            <div>
-                <label hidden asp-for="ContentPost.Image" class="control-label"></label>
-                <input hidden asp-for="ContentPost.Image" class="form-control" />
-                <span asp-validation-for="ContentPost.Image" class="text-danger"></span>
-            </div>
             <div class="form-group mt-3">
-                <label asp-for="ImgUrl" class="control-label">
+                <label asp-for="ImgUrls" class="control-label">
                     <h2>Chọn hình ảnh bạn muốn sửa đổi:</h2>
                 </label>
-                <input asp-for="ImgUrl" type="file" class="form-control" />
+                <input asp-for="ImgUrls" multiple type="file" class="form-control" accept="image/*"/>
                 <span asp-validation-for="ContentPost.Image" class="text-danger"></span>
             </div>
-            <div class="container">
-                <img class="rounded" src="@Model?.ContentPost.Image" alt=""
-                    style="max-height: 100%; max-width: 100%;object-fit: cover;">
+
+            <div class="form-control">
+                @for (int i = 0; i < Model.MediaContentPost.Count; i++)
+                {
+                    var media = Model.MediaContentPost[i];
+                    if (!string.IsNullOrEmpty(media.Path))
+                    {
+                        <div class="mb-2 card d-flex align-items-center justify-content-between">
+                            <div class="card-body">
+                                @if (media.MediaType == MediaType.Image)
+                                {
+                                    <img src="@media.Path" alt="Current Image" class="img-fluid rounded card-img-top" height="450"
+                                        width="450" />
+                                }
+                                @if (media.MediaType == MediaType.Video)
+                                {
+                                    <video controls src="@media.Path" alt="Current Video"></video>
+                                }
+                            </div>
+                            <input hidden asp-for="@Model.MediaContentPost[i].MediaId">
+                            <input hidden asp-for="@Model.MediaContentPost[i].Path">
+                            <input class="btn-check" type="checkbox" asp-for="@Model.MediaContentPost[i].IsSelected" />
+                            <label asp-for="@Model.MediaContentPost[i].IsSelected"
+                                class="btn btn-primary toggle-btn">Check</label>
+                        </div>
+
+                    }
+                }
             </div>
-             <div>
-                <label hidden asp-for="ContentPost.Video" class="control-label"></label>
-                <input hidden asp-for="ContentPost.Video" class="form-control" />
-                <span asp-validation-for="ContentPost.Video" class="text-danger"></span>
-            </div>
+
             <div class="form-group mt-3">
-                <label asp-for="VideoUrl" class="control-label">
+                <label asp-for="VideoUrls" class="control-label">
                     <h2>Chọn video bạn muốn sửa đổi:</h2>
                 </label>
-                <input asp-for="VideoUrl" type="file" class="form-control" />
+                <input asp-for="VideoUrls" multiple type="file" class="form-control" accept="video/*" />
                 <span asp-validation-for="ContentPost.Video" class="text-danger"></span>
-            </div>
-            <div class="container">
-                <iframe src="@Model!.ContentPost.Video" frameborder="0"></iframe>
             </div>
             <div class="form-group mt-3">
                 <button type="submit" class="w-100 btn btn-primary">
@@ -69,6 +82,15 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+         $(document).ready(function () {
+            $('.toggle-btn').click(function () {
+                $(this).toggleClass('btn-primary btn-success'); // Thay đổi kiểu nút
+                var isChecked = $(this).hasClass('btn-success'); // Kiểm tra kiểu nút
+                $(this).text(isChecked ? 'Checked' : 'Check'); // Thay đổi nội dung nút
+            });
+        });
+    </script>
 }
 <script>
     function goBack() {

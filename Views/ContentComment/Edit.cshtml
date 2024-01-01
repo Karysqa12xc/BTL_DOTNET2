@@ -15,43 +15,44 @@
 <hr />
 <div class="row">
     <div class="col-md-12">
-        <form id="editForm" asp-action="Edit" enctype="multipart/form-data">
+
+        <form id="editForm" asp-action="Edit" enctype="multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ContentComment.ContentCommentId" />
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="ContentComment.Paragraph" class="control-label">
                     <h3>Nội dung:</h3>
                 </label>
                 <textarea id="tiny" asp-for="ContentComment.Paragraph" class="form-control"></textarea>
                 <span asp-validation-for="ContentComment.Paragraph" class="text-danger"></span>
             </div>
-            <div hidden class="form-group">
-                <label asp-for="ContentComment.Image" class="control-label"></label>
-                <input asp-for="ContentComment.Image" class="form-control" />
-                <span asp-validation-for="ContentComment.Image" class="text-danger"></span>
-            </div>
             <div class="form-control">
                 @for (int i = 0; i < Model.MediaContentComment.Count; i++)
                 {
                     var media = Model.MediaContentComment[i];
-
                     if (!string.IsNullOrEmpty(media.Path))
                     {
-                        <div>
-                            <input asp-for="@media.MediaId">
-                            <input asp-for="@media.IsSelected"/>
-                        @if (media.MediaType == MediaType.Image)
-                        {
-                            <p>@media.Path</p>
-                            <img src="@media.Path" alt="Current Image" class="img-thumbnail" />
-                        }
-                        @if (media.MediaType == MediaType.Video)
-                        {
-                            <p>@media.Path</p>
-                            <iframe src="@media.Path" alt="Current Video" class="img-thumbnail"></iframe>
-                        }
+                        <div class="mb-2 card d-flex align-items-center justify-content-between">
+                            <div class="card-body">
+                                @if (media.MediaType == MediaType.Image)
+                                {
+                                    <img src="@media.Path" alt="Current Image" class="img-fluid rounded card-img-top" height="450"
+                                        width="450" />
+                                }
+                                @if (media.MediaType == MediaType.Video)
+                                {
+                                    <div>
+                                        <video controls src="@media.Path" alt="Current Video" class="img-thumbnail"></video>
+                                    </div>
+                                }
+                            </div>
+                            <input hidden asp-for="@Model.MediaContentComment[i].MediaId">
+                            <input hidden asp-for="@Model.MediaContentComment[i].Path">
+                            <input class="btn-check" type="checkbox" asp-for="@Model.MediaContentComment[i].IsSelected" />
+                            <label asp-for="@Model.MediaContentComment[i].IsSelected"
+                                class="btn btn-primary m-2 toggle-btn">Chọn</label>
                         </div>
-                        
+
                     }
                 }
             </div>
@@ -59,18 +60,13 @@
                 <label asp-for="ImgUrls" class="control-label">
                     <h2>Chọn hình ảnh mà bạn muốn thay đổi: </h2>
                 </label>
-                <input asp-for="ImgUrls" multiple class="form-control" />
-            </div>
-            <div hidden class="form-group">
-                <label asp-for="ContentComment.Video" class="control-label"></label>
-                <input asp-for="ContentComment.Video" class="form-control" />
-                <span asp-validation-for="ContentComment.Video" class="text-danger"></span>
+                <input asp-for="ImgUrls" multiple class="form-control" accept="image/*" />
             </div>
             <div class="form-group">
                 <label asp-for="VideoUrls" class="control-label">
                     <h3>Chọn Video mà bạn muốn thay đổi: </h3>
                 </label>
-                <input asp-for="VideoUrls" multiple class="form-control" />
+                <input asp-for="VideoUrls" multiple class="form-control" accesskey="video/*" />
             </div>
             <div class="form-group mt-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -85,6 +81,15 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        $(document).ready(function () {
+            $('.toggle-btn').click(function () {
+                $(this).toggleClass('btn-primary btn-success'); // Thay đổi kiểu nút
+                var isChecked = $(this).hasClass('btn-success'); // Kiểm tra kiểu nút
+                $(this).text(isChecked ? 'Đã thêm vào danh sách xoá' : 'Chọn'); // Thay đổi nội dung nút
+            });
+        });
+    </script>
 }
 
 

@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 .options-menu {
     display: none;
     position: absolute;
@@ -52,6 +55,37 @@
     height: 30px;
     cursor: pointer;
 }
+.mycontainer{
+    position: relative;
+    min-height: 4vh;
+    background-color: #fff;
+}
+.mycontainer .myimg-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: space-between;
+    padding: 4px;
+}
+.mycontainer .myimg-container .image-zoom{
+    height: 350px;
+    width: 420px;
+    border: 10px solid #ddd;
+    border-radius: 10%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+    cursor: pointer;
+}
+.mycontainer .myimg-container .image-zoom:hover{
+    transform: scale(1.1);
+}
+.mycontainer .myimg-container .image-zoom img{
+    height:100%;
+    width:100%;
+    object-fit: cover;
+    transition: .1s linear;
+}
+
 @media only screen and (max-width: 768px){
     .box-area{
        margin: 0 10px;

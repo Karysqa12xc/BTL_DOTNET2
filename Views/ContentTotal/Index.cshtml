@@ -1,0 +1,57 @@
+@model BTL_DOTNET2.Models.ContentCommentViewModel
+@{
+    ViewData["Title"] = "Trang các content total";
+}
+<h1>@ViewData["Title"]</h1>
+@using (Html.BeginForm("Delete", "ContentTotal", FormMethod.Post))
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <input id="select-all" asp-for="@Model.SelectAll" type="checkbox">Select</th>
+                <th>MediaId</th>
+                <th>Path</th>
+                <th>Id Comment</th>
+                <th>Id Post</th>
+                <th>IsSelected</th>
+                <th>MediaType</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.contentTotals.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" asp-for="@Model.contentTotals[i].IsSelected">
+                        <input hidden type="text" asp-for="@Model.contentTotals[i].MediaId">
+                    </td>
+                    <td>@Model.contentTotals[i].MediaId</td>
+                    <td>@Model.contentTotals[i].Path</td>
+                    <td>@Model.contentTotals[i].ContentCommentId</td>
+                    <td>@Model.contentTotals[i].ContentPostId</td>
+                    <td>@Model.contentTotals[i].IsSelected</td>
+                    <td>@Model.contentTotals[i].MediaType</td>
+                </tr>
+
+            }
+        </tbody>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </table>
+}
+@section Scripts{
+    <script>
+        $(function(){
+            var selectAll = $('#select-all');
+            var checkbox = $("input:checkbox[name^= 'C_']");
+            selectAll.change(function(){
+                checkbox.prop('checked', $(this).prop("checked"));
+            });
+
+            checkbox.change(function(){
+                var allChecked = checkbox.length === checkbox.filter(":checked").length;
+                selectAll.prop("checked", allChecked);
+            });
+        });
+    </script>
+}

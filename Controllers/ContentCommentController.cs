@@ -93,7 +93,7 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, PostCommentContentViewModel contentCommentViewModel, List<ContentTotal> contentTotals ,List<IFormFile> fileImgs, List<IFormFile> fileVideos, List<bool> isDelete)
+        public async Task<IActionResult> Edit(int id, PostCommentContentViewModel contentCommentViewModel, List<IFormFile> fileImgs, List<IFormFile> fileVideos)
         {
             if (id != contentCommentViewModel.ContentComment.ContentCommentId)
             {
@@ -108,32 +108,35 @@ namespace BTL_DOTNET2.Controllers
                     // string? strImgReplace;
                     // string? oldVideo = contentCommentViewModel.ContentComment.Video;
                     // string? strVideoReplace;
-                    List<int> mediaIdsToDelete = new List<int>();
-                    contentTotals = contentCommentViewModel.MediaContentComment;
-                    foreach (var media in contentTotals)
+                    List<string> MediaPaths = new List<string>();
+                    var selected = contentCommentViewModel
+                                .MediaContentComment
+                                .Where(s => s != null && s.IsSelected)
+                                .ToList();
+                    if (selected != null)
                     {
-                        if (media.IsSelected)
+                        foreach (var mediaPath in selected)
                         {
-                            if (!string.IsNullOrEmpty(media.Path))
+                            if (mediaPath.IsSelected && !string.IsNullOrEmpty(mediaPath.Path))
                             {
-                                string fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", media.Path.TrimStart('/'));
-                                if (System.IO.File.Exists(fullPath))
-                                {
-                                    System.IO.File.Delete(fullPath);
-                                }
+                                MediaPaths.Add(mediaPath.Path);
+                            }else{
+                                return NotFound();
                             }
-                            mediaIdsToDelete.Add(media.MediaId);
                         }
-                    }
-                    foreach (var mediaId in mediaIdsToDelete)
-                    {
-                        var mediaToDelete = await _context.ContentTotals.FindAsync(mediaId);
-                        if (mediaToDelete != null)
+                        foreach (var path in MediaPaths)
                         {
-                            _context.Remove(mediaToDelete);
+                            string fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", path.TrimStart('/'));
+                            if (System.IO.File.Exists(fullPath))
+                            {
+                                System.IO.File.Delete(fullPath);
+                            }
                         }
+                        _context.ContentTotals.RemoveRange(selected);
+                        _context.SaveChanges();
                     }
-                    await _context.SaveChangesAsync();
+
+
                     if (contentCommentViewModel.ImgUrls != null)
                     {
                         foreach (var img in contentCommentViewModel.ImgUrls)

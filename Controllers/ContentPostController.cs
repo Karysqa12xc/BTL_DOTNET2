@@ -80,9 +80,13 @@ namespace BTL_DOTNET2.Controllers
             {
                 return NotFound();
             }
+            var MediaPosts = await _context.ContentTotals
+                            .Where(m => m.ContentPostId == contentPost.ContentPostId)
+                            .ToListAsync();
             PostCommentContentViewModel contentViewModel = new PostCommentContentViewModel
             {
                 ContentPost = contentPost,
+                MediaContentPost = MediaPosts,
             };
             return View(contentViewModel);
         }
@@ -92,9 +96,9 @@ namespace BTL_DOTNET2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, PostCommentContentViewModel contentViewModel, IFormFile fileImg, IFormFile fileVideo)
+        public async Task<IActionResult> Edit(int id, PostCommentContentViewModel postContentViewModel, List<IFormFile> fileImgs, List<IFormFile> fileVideos)
         {
-            if (id != contentViewModel.ContentPost.ContentPostId)
+            if (id != postContentViewModel.ContentPost.ContentPostId)
             {
                 return NotFound();
             }
@@ -103,45 +107,94 @@ namespace BTL_DOTNET2.Controllers
             {
                 try
                 {
-
-
-                    string? oldImage = contentViewModel.ContentPost.Image;
-                    string? oldVideo = contentViewModel.ContentPost.Video;
-
-                    if (contentViewModel.ImgUrl != null && contentViewModel.ImgUrl.Length > 0)
+                    List<string> MediaPaths = new List<string>();
+                    var selectedItems = postContentViewModel
+                                .MediaContentPost
+                                .Where(s => s != null && s.IsSelected)
+                                .ToList();
+                    if (selectedItems != null)
                     {
-                        fileImg = contentViewModel.ImgUrl;
-                        string? strImgReplace = await _editImgPost.UploadImage(fileImg, "/images/post/", "Post");
-                        contentViewModel.ContentPost.Image = strImgReplace;
-                        if (!string.IsNullOrEmpty(oldImage))
+                        foreach (var mediaPath in selectedItems)
                         {
-                            string oldImageUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImage.TrimStart('/'));
-                            if (System.IO.File.Exists(oldImageUrl))
+                            if (mediaPath.IsSelected && !string.IsNullOrEmpty(mediaPath.Path))
                             {
-                                System.IO.File.Delete(oldImageUrl);
+                                MediaPaths.Add(mediaPath.Path);
+                            }else{
+                                return NotFound();
                             }
                         }
-                    }
-                    if (contentViewModel.VideoUrl != null && contentViewModel.VideoUrl.Length > 0)
-                    {
-                        fileVideo = contentViewModel.VideoUrl;
-                        string? strVideoReplace = await _editVideoPost.UploadVideo(fileVideo, "/videos/post/", "Post");
-                        contentViewModel.ContentPost.Video = strVideoReplace;
-                        if (!string.IsNullOrEmpty(oldVideo))
+                        foreach (var path in MediaPaths)
                         {
-                            string oldVideoUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideo.TrimStart('/'));
-                            if (System.IO.File.Exists(oldVideoUrl))
+                            string fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", path.TrimStart('/'));
+                            if (System.IO.File.Exists(fullPath))
                             {
-                                System.IO.File.Delete(oldVideoUrl);
+                                System.IO.File.Delete(fullPath);
                             }
                         }
+                        _context.ContentTotals.RemoveRange(selectedItems);
+                        _context.SaveChanges();
                     }
-                    _context.Update(contentViewModel.ContentPost);
+                    if (postContentViewModel.ImgUrls != null)
+                    {
+                        foreach (var img in postContentViewModel.ImgUrls)
+                        {
+                            fileImgs.Add(img);
+                        }
+                        foreach (var imgFile in fileImgs)
+                        {
+                            var imgPathStrs = await _editImgPost.UploadImage(imgFile, "/images/post/", "Post");
+                            _context.Add(new ContentTotal { Path = imgPathStrs, MediaType = MediaType.Image, ContentPostId = id });
+                        }
+                    }
+                    if (postContentViewModel.VideoUrls != null)
+                    {
+                        foreach (var vid in postContentViewModel.VideoUrls)
+                        {
+                            fileVideos.Add(vid);
+                        }
+                        foreach (var vidFile in fileVideos)
+                        {
+                            var vidPathStrs = await _editVideoPost.UploadVideo(vidFile, "/videos/Post/", "Post");
+                            _context.Add(new ContentTotal { Path = vidPathStrs, MediaType = MediaType.Video, ContentPostId = id });
+                        }
+                    }
+                    // string? oldImage = contentViewModel.ContentPost.Image;
+                    // string? oldVideo = contentViewModel.ContentPost.Video;
+
+                    // if (contentViewModel.ImgUrl != null && contentViewModel.ImgUrl.Length > 0)
+                    // {
+                    //     fileImg = contentViewModel.ImgUrl;
+                    //     string? strImgReplace = await _editImgPost.UploadImage(fileImg, "/images/post/", "Post");
+                    //     contentViewModel.ContentPost.Image = strImgReplace;
+                    //     if (!string.IsNullOrEmpty(oldImage))
+                    //     {
+                    //         string oldImageUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImage.TrimStart('/'));
+                    //         if (System.IO.File.Exists(oldImageUrl))
+                    //         {
+                    //             System.IO.File.Delete(oldImageUrl);
+                    //         }
+                    //     }
+                    // }
+                    // if (contentViewModel.VideoUrl != null && contentViewModel.VideoUrl.Length > 0)
+                    // {
+                    //     fileVideo = contentViewModel.VideoUrl;
+                    //     string? strVideoReplace = await _editVideoPost.UploadVideo(fileVideo, "/videos/post/", "Post");
+                    //     contentViewModel.ContentPost.Video = strVideoReplace;
+                    //     if (!string.IsNullOrEmpty(oldVideo))
+                    //     {
+                    //         string oldVideoUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideo.TrimStart('/'));
+                    //         if (System.IO.File.Exists(oldVideoUrl))
+                    //         {
+                    //             System.IO.File.Delete(oldVideoUrl);
+                    //         }
+                    //     }
+                    // }
+                    _context.Update(postContentViewModel.ContentPost);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContentPostExists(contentViewModel.ContentPost.ContentPostId))
+                    if (!ContentPostExists(postContentViewModel.ContentPost.ContentPostId))
                     {
                         return NotFound();
                     }
@@ -153,7 +206,7 @@ namespace BTL_DOTNET2.Controllers
                 var postId = _context.Posts.Where(cp => cp.ContentPostId == id).Select(p => p.PostId).FirstOrDefault();
                 return RedirectToAction("Details", "Post", new { id = postId });
             }
-            return View(contentViewModel);
+            return View(postContentViewModel);
         }
         // GET: ContentPost/Delete/5
         public async Task<IActionResult> Delete(int? id, bool isDeleteFromPost = false)

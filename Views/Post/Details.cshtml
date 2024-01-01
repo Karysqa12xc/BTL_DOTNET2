@@ -51,7 +51,7 @@
     
     <hr />
     <div class="container box-area">
-        <div class="card rounded-4">
+        <div class="card">
             <div class="card-header h3 bg-success text-light">
                 <div class="d-flex align-items-center">
                     <div>
@@ -72,26 +72,28 @@
                     @Html.Raw(Model.Post.ContentPost.Paragram)
                 </div>
                 <hr/>
-                @* @ViewBag.ImgPostUrl *@
+                <p class="card-text">
+   @* @ViewBag.ImgPostUrl *@
                 @if(Model.MediaContentPost != null){
                     foreach(var media in Model.MediaContentPost){
                         if(!string.IsNullOrEmpty(media.Path)){
                             if(media.MediaType == MediaType.Image) {
-                                <img class="rounded card-img-top" src="@media.Path" style="max-width: 70%; max-height: 70%; object-fit: cover;">
+                                <img class="img-fluid rounded" src="@media.Path" height="450px" width="450px">
                             }else if(media.MediaType == MediaType.Video){
-                                <iframe src="@media.Path" frameborder="0"></iframe>
+                                <video controls src="@media.Path" frameborder="0" class="img-thumbnail"></video>
                             }
                         }
                     }
                 }
+                </p>
                 <div class="card-footer bg-success text-light">@Model.Post.PostTime</div>
             </div>
     </div>
-    </div>
+    
     
     @if (@Model.Post.IsChecked != false)
     {
-        <button class="btn btn-primary" onclick="showCommentPopup()" id="valueButton">
+        <button class="btn btn-primary mt-3" onclick="showCommentPopup()" id="valueButton">
             <i id="commentIcon" class="fa-solid fa-comment"></i>
         </button>
     }
@@ -149,25 +151,29 @@
                     </div>
                 </h3>
                 <p class="card-text">
-                    <div>
                         <div class="" id="commentContent" style="display: block;">                            
                             @Html.Raw(@comment.ContentComment.Paragraph)
                         </div>
-                    </div>
-                    @if(mediaContentComment != null) {
+                    
+                </p>
+                <hr/>
+                @if(mediaContentComment != null && 
+                mediaContentComment.Any(c => !string.IsNullOrEmpty(c.Path))){
+                <div class="mycontainer">
+                    <div class="myimg-container">
                             @foreach(var media in mediaContentComment){
                                 @if(!string.IsNullOrEmpty(media.Path)){
-                                    <div>
                                         @if(media.MediaType == MediaType.Image){
-                                            <img class="img-fluid rounded" src="@media.Path" alt="" height="450" width="450">
+                                            <img class="image-zoom" src="@media.Path" alt="">
                                         }else if(media.MediaType == MediaType.Video){
-                                            <iframe src="@media.Path" frameborder="0"></iframe>
+                                            <video controls src="@media.Path" frameborder="0" class="image-zoom"></video>
                                         }
-                                </div>
+                                              
                             }
-                        }  
-                      }
-                </p>
+                        }    
+                       </div> 
+                    </div>
+                }
                 <p class="card-footer"><small class="text-muted">@comment.CommentTime</small></p>
             </div>
         </div>

@@ -28,6 +28,6 @@ namespace BTL_DOTNET2.Models
             public List<ContentTotal> Media { get; set; } = null!;
         }
         public List<CommentWithMedia> CommentWithMedias { get; set; } = null!;
-        
+  
     }
 }
