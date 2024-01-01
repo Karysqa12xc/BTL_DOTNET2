@@ -68,17 +68,6 @@ namespace BTL_DOTNET2.Controllers
                 {
                     commentContentViewModel.Comment.CommentTime = DateTime.Now;
                     commentContentViewModel.Comment.User = await _userManager.GetUserAsync(HttpContext.User);
-                    // if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
-                    // {
-                    //     fileImage = postContentViewModel.ImgUrl;
-                    //     var imageCommentPath = await _uploadImgComment.UploadImage(fileImage, "/images/comment/", "Comment");
-                    //     postContentViewModel.ContentComment.Image = imageCommentPath;
-                    // }
-                    // if(postContentViewModel.VideoUrl != null && postContentViewModel.VideoUrl.Length > 0){
-                    //     fileVideo = postContentViewModel.VideoUrl;
-                    //     var videoCommentPath = await _uploadVideoComment.UploadVideo(fileVideo, "/videos/comment/", "Comment");
-                    //     postContentViewModel.ContentComment.Video = videoCommentPath;
-                    // }
                     _context.Add(commentContentViewModel.ContentComment);
                     await _context.SaveChangesAsync();
                     if(commentContentViewModel.ImgUrls != null){

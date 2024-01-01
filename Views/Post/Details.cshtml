@@ -2,18 +2,33 @@
 
 @{
     ViewData["Title"] = "Thông tin bài đăng".ToUpper();
+    
 }
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var previousUrl = "http://localhost:5117/Post/PostOfUser"; // Thay thế bằng document.referrer trong thực tế.
 
+        // Phân tích URL để lấy thông tin controller và action
+        var urlSegments = previousUrl.split('/');
+        var action = urlSegments[urlSegments.length - 1];
+
+        // Gán giá trị action vào thuộc tính asp-action
+        var backButton = document.getElementById("backButton"); // Đặt ID cho nút quay lại để dễ truy cập
+        backButton.href = `/Post/${action}`;
+    });
+</script>
 <h1 class="text-center">@ViewData["Title"]</h1>
 
 <div>
     <div class="d-flex"> 
         <div class="btn-group">
-        <a asp-asp-controller="Post" asp-action="Index">
-            <button type="button" class="btn btn-outline-danger me-3">
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
-        </a>
+            <a id="backButton" asp-controller="Post" asp-action="Index>
+                    <button type="button" class="btn btn-outline-danger me-3">
+                        <i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </a>
+
+        
         @if (@ViewBag.CurrentUser == @Model.Post.User)
         {
             <a asp-controller="ContentPost" asp-action="Edit" asp-route-id="@Model?.Post.ContentPostId">
@@ -37,8 +52,6 @@
                         <i class="fa-solid fa-check"></i>
                     </button>
                 </form>
-               
-            
         }
         <div class="ms-2 mt-1">
             <h4 >Chưa được duyệt</h4>
@@ -72,20 +85,34 @@
                     @Html.Raw(Model.Post.ContentPost.Paragram)
                 </div>
                 <hr/>
-                <p class="card-text">
-   @* @ViewBag.ImgPostUrl *@
-                @if(Model.MediaContentPost != null){
-                    foreach(var media in Model.MediaContentPost){
-                        if(!string.IsNullOrEmpty(media.Path)){
-                            if(media.MediaType == MediaType.Image) {
-                                <img class="img-fluid rounded" src="@media.Path" height="450px" width="450px">
-                            }else if(media.MediaType == MediaType.Video){
-                                <video controls src="@media.Path" frameborder="0" class="img-thumbnail"></video>
-                            }
-                        }
-                    }
+                
+                 @if(Model.MediaContentPost != null && 
+                Model.MediaContentPost.Any(c => !string.IsNullOrEmpty(c.Path))){
+                <div class="mycontainer">
+                    <div class="myimg-container">
+                        <p class="card-text">
+                            @foreach(var media in Model.MediaContentPost){
+                                @if(!string.IsNullOrEmpty(media.Path)){
+                                        @if(media.MediaType == MediaType.Image){
+                                            <div class="image-zoom">
+                                                <img class="" src="@media.Path" alt="">
+                                            </div>
+                                        }else if(media.MediaType == MediaType.Video){
+                                            <div class="image-zoom">
+                                                <video controls src="@media.Path" frameborder="0" width="100%" height="100%"></video>
+                                            </div>
+                                        }          
+                                }
+                            }  
+                        </p>  
+                       </div>
+                       <div class="popup-img">
+                            <span>&times;</span>
+                            <img src="/images/post/Post_6cb003e2-df46-4298-8257-ded9c8dd3e01_gia huy hoảng hốt.jpg" alt="">
+                        </div> 
+                </div>
                 }
-                </p>
+              
                 <div class="card-footer bg-success text-light">@Model.Post.PostTime</div>
             </div>
     </div>
@@ -161,18 +188,28 @@
                 mediaContentComment.Any(c => !string.IsNullOrEmpty(c.Path))){
                 <div class="mycontainer">
                     <div class="myimg-container">
+                        <p class="card-text">
                             @foreach(var media in mediaContentComment){
                                 @if(!string.IsNullOrEmpty(media.Path)){
-                                        @if(media.MediaType == MediaType.Image){
-                                            <img class="image-zoom" src="@media.Path" alt="">
-                                        }else if(media.MediaType == MediaType.Video){
-                                            <video controls src="@media.Path" frameborder="0" class="image-zoom"></video>
-                                        }
-                                              
+                                    @if(media.MediaType == MediaType.Image){
+                                            <div class="image-zoom">
+                                                <img class="" src="@media.Path" alt="">
+                                            </div>
+                                    }else if(media.MediaType == MediaType.Video){
+                                            <div class="image-zoom">
+                                                <video controls src="@media.Path" frameborder="0" width="100%" height="100%"></video>
+                                            </div>
+                                    }          
                             }
-                        }    
-                       </div> 
-                    </div>
+                           
+                        }  
+                         </p>  
+                       </div>
+                       <div class="popup-img">
+                            <span>&times;</span>
+                            <img src="/images/post/Post_6cb003e2-df46-4298-8257-ded9c8dd3e01_gia huy hoảng hốt.jpg" alt="">
+                        </div> 
+                </div>
                 }
                 <p class="card-footer"><small class="text-muted">@comment.CommentTime</small></p>
             </div>
@@ -190,14 +227,12 @@
         var commentIcon = document.getElementById("commentIcon");
         if (doubleTap % 2 == 0) {
             popup.style.display = "block";
-    @* button.innerText = "Hide Comment"; *@
-                commentIcon.classList.remove("fa-comment")
+            commentIcon.classList.remove("fa-comment")
             commentIcon.classList.add("fa-comment-alt")
         }
         else {
             popup.style.display = "none";
-    @* button.innerText = "Add Comment"; *@
-                commentIcon.classList.remove('fa-comment-alt');
+            commentIcon.classList.remove('fa-comment-alt');
             commentIcon.classList.add('fa-comment');
         }
         doubleTap++;
@@ -206,23 +241,14 @@
         var menu = document.getElementById(menuId);
         menu.classList.toggle("show");
     }
-    document.addEventListener("DOMContentLoaded", function () {
-        var commentContentElement = document.getElementById("commentContent");
-        var commentImageElement = document.getElementById("commentImage");
-
-        // Kiểm tra xem nội dung HTML có tồn tại không và ẩn nó nếu có
-        if (commentContentElement) {
-            var commentContent = commentContentElement.innerHTML;
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(commentContent, 'text/html');
-            var images = doc.getElementsByTagName('img');
-
-            // Kiểm tra xem có hình ảnh trong nội dung HTML không và hiển thị nếu có
-            if (images.length > 0) {
-                var imageUrl = images[0].src;
-                commentImageElement.src = imageUrl;
-                commentImageElement.style.display = "block";
-            }
-        }
-    });
+    document.querySelectorAll('.myimg-container img')
+        .forEach(image => {
+                image.onclick = () => {
+    document.querySelector('.popup-img').style.display = 'block';
+    document.querySelector('.popup-img img').src = image.getAttribute('src');
+  }
+});
+    document.querySelector(".popup-img span").onclick = () =>{
+        document.querySelector('.popup-img').style.display = 'none';
+}
 </script>

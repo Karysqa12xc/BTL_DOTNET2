@@ -104,10 +104,6 @@ namespace BTL_DOTNET2.Controllers
             {
                 try
                 {
-                    // string? oldImage = contentCommentViewModel.ContentComment.Image;
-                    // string? strImgReplace;
-                    // string? oldVideo = contentCommentViewModel.ContentComment.Video;
-                    // string? strVideoReplace;
                     List<string> MediaPaths = new List<string>();
                     var selected = contentCommentViewModel
                                 .MediaContentComment
@@ -161,31 +157,6 @@ namespace BTL_DOTNET2.Controllers
                             _context.Add(new ContentTotal { Path = vidPathStrs, MediaType = MediaType.Video, ContentCommentId = id });
                         }
                     }
-                    // if (contentCommentViewModel.ImgUrl != null && contentCommentViewModel.ImgUrl.Length > 0)
-                    // {
-                    //     fileImg = contentCommentViewModel.ImgUrl;
-                    //     strImgReplace = await _editImgComment.UploadImage(fileImg, "/images/comment/", "Comment");
-                    //     contentCommentViewModel.ContentComment.Image = strImgReplace;
-                    //     if (!string.IsNullOrEmpty(oldImage))
-                    //     {
-                    //         string oldImageUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImage.TrimStart('/'));
-                    //         if (System.IO.File.Exists(oldImageUrl))
-                    //         {
-                    //             System.IO.File.Delete(oldImageUrl);
-                    //         }
-                    //     }
-                    // }
-                    // if(contentCommentViewModel.VideoUrl != null && contentCommentViewModel.VideoUrl.Length > 0){
-                    //     fileVideo = contentCommentViewModel.VideoUrl;
-                    //     strVideoReplace = await _editVideoComment.UploadVideo(fileVideo, "/videos/comment/", "Comment");
-                    //     contentCommentViewModel.ContentComment.Video = strVideoReplace;
-                    //     if(!string.IsNullOrEmpty(oldVideo)){
-                    //         string oldVideoUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideo.TrimStart('/'));
-                    //         if(System.IO.File.Exists(oldVideoUrl)){
-                    //             System.IO.File.Delete(oldVideoUrl);                                
-                    //         }
-                    //     }
-                    // }
                     _context.Update(contentCommentViewModel.ContentComment);
                     await _context.SaveChangesAsync();
                 }
@@ -231,8 +202,6 @@ namespace BTL_DOTNET2.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var contentComment = await _context.ContentComments.FindAsync(id);
-            // string? oldImageComment = contentComment!.Image;
-            // string? oldVideoComment = contentComment!.Video;
             int postId = _context.Comments.Where(cc => cc.ContentCommentId == id).Select(cc => cc.PostId).FirstOrDefault();
             var mediaPaths = _context.ContentTotals
                             .Where(ct => ct.ContentCommentId == id)
@@ -251,22 +220,6 @@ namespace BTL_DOTNET2.Controllers
                 _context.ContentComments.Remove(contentComment);
             }
             await _context.SaveChangesAsync();
-
-
-            // if (!string.IsNullOrEmpty(oldImageComment))
-            // {
-            //     string imagePathComment = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImageComment.TrimStart('/'));
-            //     if (System.IO.File.Exists(imagePathComment))
-            //     {
-            //         System.IO.File.Delete(imagePathComment);
-            //     }
-            // }
-            // if(!string.IsNullOrEmpty(oldVideoComment)){
-            //     string videoCommentPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideoComment.TrimStart('/'));
-            //     if(System.IO.File.Exists(videoCommentPath)){
-            //         System.IO.File.Delete(videoCommentPath);
-            //     }
-            // }
             return RedirectToAction("Details", "Post", new { id = postId });
         }
 

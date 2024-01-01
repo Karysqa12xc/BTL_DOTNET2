@@ -82,14 +82,8 @@ namespace BTL_DOTNET2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContentCommentId"));
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Paragraph")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Video")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ContentCommentId");
@@ -105,14 +99,8 @@ namespace BTL_DOTNET2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContentPostId"));
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Paragram")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Video")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ContentPostId");

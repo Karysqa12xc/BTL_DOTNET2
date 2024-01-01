@@ -61,6 +61,7 @@ namespace BTL_DOTNET2.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
+           
             if (id == null)
             {
                 return NotFound();
@@ -86,7 +87,7 @@ namespace BTL_DOTNET2.Controllers
             int commentCount = comments.Count();
             post.CommentTotal = commentCount;
             _context.SaveChanges();
-            ViewBag.ImgPostUrl = post.ContentPost.Image;
+            
 
             var commentsWithMedia = new List<PostCommentContentViewModel.CommentWithMedia>();
             var MediaContentPost = await _context.ContentTotals
@@ -102,7 +103,7 @@ namespace BTL_DOTNET2.Controllers
                 commentsWithMedia.Add(new PostCommentContentViewModel.CommentWithMedia
                 {
                     Comment = comment,
-                    Media = mediaContentComment
+                    Media = mediaContentComment,
                 });
             }
             var postContentViewModel = new PostCommentContentViewModel
@@ -119,7 +120,6 @@ namespace BTL_DOTNET2.Controllers
         public IActionResult Create()
         {
             ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateName");
-            // ViewData["ContentPostId"] = new SelectList(_context.ContentPosts, "ContentPostId", "Paragram");
             return View();
         }
 
@@ -138,18 +138,6 @@ namespace BTL_DOTNET2.Controllers
                 postContentViewModel.Post.CommentTotal = 0;
                 if (postContentViewModel.Post.Title != null)
                 {
-                    // if (postContentViewModel.ImgUrl != null && postContentViewModel.ImgUrl.Length > 0)
-                    // {
-                    //     imgPath = postContentViewModel.ImgUrl;
-                    //     var imagePathStr = await _uploadImgPost.UploadImage(imgPath, "/images/post/", "Post");
-                    //     postContentViewModel.ContentPost.Image = imagePathStr;
-                    // }
-                    // if (postContentViewModel.VideoUrl != null && postContentViewModel.VideoUrl.Length > 0)
-                    // {
-                    //     videoPath = postContentViewModel.VideoUrl;
-                    //     var videoPathStr = await _uploadVideoPost.UploadVideo(videoPath, "/videos/post/", "Post");
-                    //     postContentViewModel.ContentPost.Video = videoPathStr;
-                    // }
                     postContentViewModel.Post.User = await _userManager.GetUserAsync(HttpContext.User);
                     _context.Add(postContentViewModel.ContentPost);
                     await _context.SaveChangesAsync();
@@ -190,6 +178,8 @@ namespace BTL_DOTNET2.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             ViewBag.CurrentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            
 
             ViewBag.PageSize = new List<SelectListItem>(){
                 new SelectListItem(){Value = "5", Text = "5"},

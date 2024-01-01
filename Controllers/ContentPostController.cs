@@ -158,37 +158,6 @@ namespace BTL_DOTNET2.Controllers
                             _context.Add(new ContentTotal { Path = vidPathStrs, MediaType = MediaType.Video, ContentPostId = id });
                         }
                     }
-                    // string? oldImage = contentViewModel.ContentPost.Image;
-                    // string? oldVideo = contentViewModel.ContentPost.Video;
-
-                    // if (contentViewModel.ImgUrl != null && contentViewModel.ImgUrl.Length > 0)
-                    // {
-                    //     fileImg = contentViewModel.ImgUrl;
-                    //     string? strImgReplace = await _editImgPost.UploadImage(fileImg, "/images/post/", "Post");
-                    //     contentViewModel.ContentPost.Image = strImgReplace;
-                    //     if (!string.IsNullOrEmpty(oldImage))
-                    //     {
-                    //         string oldImageUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImage.TrimStart('/'));
-                    //         if (System.IO.File.Exists(oldImageUrl))
-                    //         {
-                    //             System.IO.File.Delete(oldImageUrl);
-                    //         }
-                    //     }
-                    // }
-                    // if (contentViewModel.VideoUrl != null && contentViewModel.VideoUrl.Length > 0)
-                    // {
-                    //     fileVideo = contentViewModel.VideoUrl;
-                    //     string? strVideoReplace = await _editVideoPost.UploadVideo(fileVideo, "/videos/post/", "Post");
-                    //     contentViewModel.ContentPost.Video = strVideoReplace;
-                    //     if (!string.IsNullOrEmpty(oldVideo))
-                    //     {
-                    //         string oldVideoUrl = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideo.TrimStart('/'));
-                    //         if (System.IO.File.Exists(oldVideoUrl))
-                    //         {
-                    //             System.IO.File.Delete(oldVideoUrl);
-                    //         }
-                    //     }
-                    // }
                     _context.Update(postContentViewModel.ContentPost);
                     await _context.SaveChangesAsync();
                 }
@@ -256,22 +225,6 @@ namespace BTL_DOTNET2.Controllers
             }
 
             await _context.SaveChangesAsync();
-            // if (!string.IsNullOrEmpty(oldImageContentPost))
-            // {
-            //     string imagePathContentPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldImageContentPost.TrimStart('/'));
-            //     if (System.IO.File.Exists(imagePathContentPost))
-            //     {
-            //         System.IO.File.Delete(imagePathContentPost);
-            //     }
-            // }
-            // if (!string.IsNullOrEmpty(oldVideoContentPost))
-            // {
-            //     string videoPathContentPost = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", oldVideoContentPost.TrimStart('/'));
-            //     if (System.IO.File.Exists(videoPathContentPost))
-            //     {
-            //         System.IO.File.Delete(videoPathContentPost);
-            //     }
-            // }
             return RedirectToAction("Index", "Post");
         }
 

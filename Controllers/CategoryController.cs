@@ -93,6 +93,7 @@ namespace BTL_DOTNET2.Controllers
                             {
                                 var Cate = new Category();
                                 Cate.CateName = dt.Rows[i][0].ToString()!;
+                                Cate.BgColor = dt.Rows[i][1].ToString()!;
                                 _context.Categories.Add(Cate);
                             }
                             await _context.SaveChangesAsync();

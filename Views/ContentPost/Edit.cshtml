@@ -19,21 +19,13 @@
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ContentPost.ContentPostId" />
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="ContentPost.Paragram" class="control-label">
                     <h2>Nội dung:</h2>
                 </label>
                 <textarea id="tiny" asp-for="ContentPost.Paragram" class="form-control"></textarea>
                 <span asp-validation-for="ContentPost.Paragram" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <label asp-for="ImgUrls" class="control-label">
-                    <h2>Chọn hình ảnh bạn muốn sửa đổi:</h2>
-                </label>
-                <input asp-for="ImgUrls" multiple type="file" class="form-control" accept="image/*"/>
-                <span asp-validation-for="ContentPost.Image" class="text-danger"></span>
-            </div>
-
             <div class="form-control">
                 @for (int i = 0; i < Model.MediaContentPost.Count; i++)
                 {
@@ -56,19 +48,25 @@
                             <input hidden asp-for="@Model.MediaContentPost[i].Path">
                             <input class="btn-check" type="checkbox" asp-for="@Model.MediaContentPost[i].IsSelected" />
                             <label asp-for="@Model.MediaContentPost[i].IsSelected"
-                                class="btn btn-primary toggle-btn">Check</label>
+                                class="btn btn-primary m-3 toggle-btn">Chọn</label>
                         </div>
 
                     }
                 }
             </div>
-
+            <div class="form-group mt-3">
+                <label asp-for="ImgUrls" class="control-label">
+                    <h2>Chọn hình ảnh bạn muốn sửa đổi:</h2>
+                </label>
+                <input asp-for="ImgUrls" multiple type="file" class="form-control" accept="image/*"/>
+                <span asp-validation-for="ImgUrls" class="text-danger"></span>
+            </div>
             <div class="form-group mt-3">
                 <label asp-for="VideoUrls" class="control-label">
                     <h2>Chọn video bạn muốn sửa đổi:</h2>
                 </label>
                 <input asp-for="VideoUrls" multiple type="file" class="form-control" accept="video/*" />
-                <span asp-validation-for="ContentPost.Video" class="text-danger"></span>
+                <span asp-validation-for="VideoUrls" class="text-danger"></span>
             </div>
             <div class="form-group mt-3">
                 <button type="submit" class="w-100 btn btn-primary">
@@ -87,7 +85,7 @@
             $('.toggle-btn').click(function () {
                 $(this).toggleClass('btn-primary btn-success'); // Thay đổi kiểu nút
                 var isChecked = $(this).hasClass('btn-success'); // Kiểm tra kiểu nút
-                $(this).text(isChecked ? 'Checked' : 'Check'); // Thay đổi nội dung nút
+                $(this).text(isChecked ? 'Đã thêm vào danh sách xoá' : 'Chọn'); // Thay đổi nội dung nút
             });
         });
     </script>

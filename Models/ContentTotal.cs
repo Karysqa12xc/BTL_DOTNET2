@@ -24,12 +24,7 @@ namespace BTL_DOTNET2.Models
         Image,
         Video,
     }
-    public class ContentCommentViewModel(){
-        public bool SelectAll { get; set; }
-        public List<ContentTotal> contentTotals {get; set;}
-        
-        
-    }
+
     
     
 }

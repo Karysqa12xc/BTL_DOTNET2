@@ -29,15 +29,6 @@ public class ApplicationDbContext : IdentityDbContext<User>
         modelBuilder.Entity<User>()
             .HasIndex(b => b.UserId).IsUnique();
 
-        modelBuilder.
-        Entity<ContentComment>()
-        .Property(e => e.Image)
-        .IsRequired(false);
-
-        modelBuilder.Entity<ContentPost>()
-        .Property(e => e.Image)
-        .IsRequired(false);
-
         modelBuilder.Entity<Post>()
         .Property(e => e.PostTime)
         .IsRequired(false);

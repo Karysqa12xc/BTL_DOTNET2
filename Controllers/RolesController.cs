@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BTL_DOTNET2.Controllers
 {
-    [Authorize(Roles = "SuperAdmin, Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class RolesController : Controller
     {
         private CustomUserManager _userManager;
@@ -45,12 +45,12 @@ namespace BTL_DOTNET2.Controllers
         }
         public IActionResult AddRole()
         {
-            var roles = _role.Roles.ToList();
+            var roles = _role.Roles.Where(r => r.Name != "SuperAdmin").ToList();
             var _users = _userManager.Users.ToList();
 
             if (roles != null && _users != null)
             {
-                ViewData["Users"] = new SelectList(_users, "Id", "UserName");
+                ViewData["Users"] = new SelectList(_users, "Id", "Nickname");
                 ViewData["Roles"] = new SelectList(roles, "Name", "Name");
                 var roleOfUser = new UserAndRoles
                 {

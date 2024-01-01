@@ -15,7 +15,7 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    
+
 </head>
 
 <body>
@@ -48,6 +48,10 @@
                         {
                             <ul class="navbar-nav flex-grow-1">
                                 <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index">Trang
+                                        chủ</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="AddRole">Phân
                                         role</a>
                                 </li>
@@ -55,10 +59,7 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Post"
                                         asp-action="CheckedPost">Kiểm duyệt</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index">Trang
-                                        chủ</a>
-                                </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="PostOfUser">Bài
                                         viết của bạn</a>
@@ -148,10 +149,10 @@
                 'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'table', 'help', 'wordcount'
             ],
             toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify |' +
-                'bullist numlist checklist outdent indent | removeformat | table help',  
+                'bullist numlist checklist outdent indent | removeformat | table help',
         });
     </script>
-    
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
