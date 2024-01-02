@@ -7,7 +7,6 @@ using BTL_DOTNET2.Models.Process;
 using System.IO;
 namespace BTL_DOTNET2.Controllers
 {
-    [Authorize]
     public class ContentCommentController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,11 +18,12 @@ namespace BTL_DOTNET2.Controllers
         }
 
         // GET: ContentComment
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.ContentComments.ToListAsync());
         }
-
+        [Authorize(Roles = "SuperAdmin")]
         // GET: ContentComment/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -41,7 +41,7 @@ namespace BTL_DOTNET2.Controllers
 
             return View(contentComment);
         }
-
+        [Authorize(Roles = "SuperAdmin")]
         // GET: ContentComment/Create
         public IActionResult Create()
         {
@@ -51,6 +51,7 @@ namespace BTL_DOTNET2.Controllers
         // POST: ContentComment/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ContentCommentId,Paragraph,Image")] ContentComment contentComment)
@@ -63,8 +64,8 @@ namespace BTL_DOTNET2.Controllers
             }
             return View(contentComment);
         }
-
-        // GET: ContentComment/Edit/5
+        [Authorize]
+        // GET: ContentComment/Edit/5        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,6 +92,7 @@ namespace BTL_DOTNET2.Controllers
         // POST: ContentComment/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, PostCommentContentViewModel contentCommentViewModel, List<IFormFile> fileImgs, List<IFormFile> fileVideos)
@@ -178,6 +180,7 @@ namespace BTL_DOTNET2.Controllers
             }
             return View(contentCommentViewModel);
         }
+        [Authorize]
         // GET: ContentComment/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -197,6 +200,7 @@ namespace BTL_DOTNET2.Controllers
         }
 
         // POST: ContentComment/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -41,6 +41,46 @@
       "PackagePath": "staticwebassets\\images\\networkimg\\Illustration.png"
     },
     {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_00aeae09-a09a-48e1-8845-01d5d2983af0_UC_ManagermenetPersonalAccount_ForumWeb.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_00aeae09-a09a-48e1-8845-01d5d2983af0_UC_ManagermenetPersonalAccount_ForumWeb.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_23648818-f164-424b-972a-0054b7667de6_UC_ManagmentPersonalThreads_ForumWeb.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_23648818-f164-424b-972a-0054b7667de6_UC_ManagmentPersonalThreads_ForumWeb.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_41afce70-dc08-4c1f-ac49-e2cc2d34002b_ERD_ForumWeb.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_41afce70-dc08-4c1f-ac49-e2cc2d34002b_ERD_ForumWeb.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_46771e1d-e4f4-452f-a121-22725662dc09_UC_ManagementAccounts_ForumWeb.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_46771e1d-e4f4-452f-a121-22725662dc09_UC_ManagementAccounts_ForumWeb.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_4b5f3530-0f4c-4180-b1de-82b9f3226585_Se_DangPost.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_4b5f3530-0f4c-4180-b1de-82b9f3226585_Se_DangPost.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_50760b6d-01b5-4213-931a-b3e9947d6ae3_Class_ForumWeb.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_50760b6d-01b5-4213-931a-b3e9947d6ae3_Class_ForumWeb.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_5d720e61-d44e-4d1b-b271-315556a4df1f_UC_Main_ForumWeb.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_5d720e61-d44e-4d1b-b271-315556a4df1f_UC_Main_ForumWeb.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_6b867cde-375d-4b48-900c-8a51999493bb_UC_QLCategory.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_6b867cde-375d-4b48-900c-8a51999493bb_UC_QLCategory.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_80b3a954-67d8-49b5-b151-29213dae8c47_UC_ManagmentThreads_ForumWeb.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_80b3a954-67d8-49b5-b151-29213dae8c47_UC_ManagmentThreads_ForumWeb.jpg"
+    },
+    {
+      "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\images\\post\\Post_f24672dd-8d8e-4653-86ec-e1f3a4e51287_UC_ManagementAction_ForumWeb.jpg",
+      "PackagePath": "staticwebassets\\images\\post\\Post_f24672dd-8d8e-4653-86ec-e1f3a4e51287_UC_ManagementAction_ForumWeb.jpg"
+    },
+    {
       "Id": "D:\\Workspace\\C#_All-Foder\\C#_ASP_NET\\ASPOnClass\\BTL_DOTNET2\\wwwroot\\js\\myapp.js",
       "PackagePath": "staticwebassets\\js\\myapp.js"
     },

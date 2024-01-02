@@ -7,7 +7,6 @@ using BTL_DOTNET2.Models.Process;
 
 namespace BTL_DOTNET2.Controllers
 {
-    [Authorize]
     public class ContentPostController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,11 +18,12 @@ namespace BTL_DOTNET2.Controllers
         }
 
         // GET: ContentPost
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.ContentPosts.ToListAsync());
         }
-
+        [Authorize(Roles = "SuperAdmin")]
         // GET: ContentPost/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -41,7 +41,7 @@ namespace BTL_DOTNET2.Controllers
 
             return View(contentPost);
         }
-
+        [Authorize(Roles = "SuperAdmin")]
         // GET: ContentPost/Create
         public IActionResult Create()
         {
@@ -51,6 +51,7 @@ namespace BTL_DOTNET2.Controllers
         // POST: ContentPost/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ContentPostId,Paragram,Image")] ContentPost contentPost)
@@ -66,6 +67,7 @@ namespace BTL_DOTNET2.Controllers
         }
 
         // GET: ContentPost/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,6 +96,7 @@ namespace BTL_DOTNET2.Controllers
         // POST: ContentPost/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, PostCommentContentViewModel postContentViewModel, List<IFormFile> fileImgs, List<IFormFile> fileVideos)
@@ -178,6 +181,7 @@ namespace BTL_DOTNET2.Controllers
             return View(postContentViewModel);
         }
         // GET: ContentPost/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id, bool isDeleteFromPost = false)
         {
             if (id == null)
@@ -199,7 +203,7 @@ namespace BTL_DOTNET2.Controllers
         }
 
         // POST: ContentPost/Delete/5
-
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
