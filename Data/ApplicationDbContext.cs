@@ -56,5 +56,23 @@ public class ApplicationDbContext : IdentityDbContext<User>
         .WithMany(cp => cp.Media)
         .HasForeignKey(ct => ct.ContentCommentId)
         .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Post>()
+        .HasMany(p => p.Comments)
+        .WithOne(c => c.Post)
+        .HasForeignKey(c => c.PostId)
+        .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ContentComment>()
+            .HasMany(c => c.Comments)
+            .WithOne(cc => cc.ContentComment)
+            .HasForeignKey(c => c.ContentCommentId)
+            .OnDelete(DeleteBehavior.Cascade);
+            
+        modelBuilder.Entity<ContentComment>()
+            .HasMany(cc => cc.Media)
+            .WithOne(mt => mt.ContentComment)
+            .HasForeignKey(mt => mt.ContentCommentId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

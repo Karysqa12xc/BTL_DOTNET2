@@ -205,8 +205,6 @@ namespace BTL_DOTNET2.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var contentPost = await _context.ContentPosts.FindAsync(id);
-            // string? oldImageContentPost = contentPost!.Image;
-            // string? oldVideoContentPost = contentPost!.Video;
             var mediaPaths = _context.ContentTotals
                            .Where(ct => ct.ContentPostId == id)
                            .Select(ct => new { ct.MediaType, ct.Path })
